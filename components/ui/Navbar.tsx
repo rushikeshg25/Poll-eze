@@ -4,7 +4,7 @@ import ThemeToggleButton from "../ThemeToggleButton";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const Navbar = ({ isloggedIn }: NavbarPropsType) => {
+const Navbar = ({ isloggedIn, newPollPage }: NavbarPropsType) => {
   const router = useRouter();
   const LogoutHandler = () => {
     router.push("/login");
@@ -16,7 +16,17 @@ const Navbar = ({ isloggedIn }: NavbarPropsType) => {
           Poll-eze
         </div>
         <div className="flex items-center gap-2">
-          {isloggedIn && (
+          <ThemeToggleButton />
+          {isloggedIn && newPollPage ? (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              All Polls
+            </Button>
+          ) : (
             <Button
               variant="ghost"
               onClick={() => {
@@ -31,7 +41,6 @@ const Navbar = ({ isloggedIn }: NavbarPropsType) => {
               Logout
             </Button>
           )}
-          <ThemeToggleButton />
         </div>
       </div>
     </div>
