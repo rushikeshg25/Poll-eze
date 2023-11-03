@@ -69,7 +69,7 @@ export default function Login() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(SubmitForm)}>
-              <div className="grid items-center w-full gap-4">
+              <div className="grid items-center w-full gap-4 ">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="name">Username</Label>
 
@@ -110,39 +110,42 @@ export default function Login() {
                   )}
                 </div>
               </div>
-              <CardFooter className="flex justify-center pb-1.5 select-none">
-                <Button
-                  className="w-full "
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  ) : (
-                    <div>Signup</div>
-                  )}
-                </Button>
-              </CardFooter>
+              <div className="pt-8">
+                <div className="flex justify-center w-full select-none">
+                  <Button
+                    className="w-full"
+                    disabled={isSubmitting}
+                    type="submit"
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <div>Signup</div>
+                    )}
+                  </Button>
+                </div>
+                <div className="flex justify-center py-2">
+                  <hr className="w-[90%]" />
+                </div>
+                <div className="flex justify-center pb-5">
+                  <Button
+                    className="flex w-full gap-2"
+                    onClick={SignInWithGoogle}
+                  >
+                    <Image
+                      height="20"
+                      width="20"
+                      src="https://www.svgrepo.com/show/475656/google-color.svg"
+                      loading="lazy"
+                      alt="google logo"
+                    />
+                    <div className="flex items-center">Sign in with Google</div>
+                  </Button>
+                </div>
+              </div>
             </form>
           </CardContent>
 
-          <div className="flex justify-center py-2">
-            <hr className="w-[90%] pb-2" />
-            {/* <span>or</span>
-          <hr className="w-3 pb-2" /> */}
-          </div>
-          <CardFooter className="flex justify-center pb-5">
-            <Button className="flex w-full gap-2" onClick={SignInWithGoogle}>
-              <Image
-                height="20"
-                width="20"
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                loading="lazy"
-                alt="google logo"
-              />
-              <span>Sign in with Google</span>
-            </Button>
-          </CardFooter>
           <CardFooter className="flex justify-center">
             Already have an Account?&nbsp;
             <span

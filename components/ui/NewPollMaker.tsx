@@ -11,10 +11,7 @@ enum STEPS {
 const NewPollMaker = () => {
   return (
     <div className="flex flex-row justify-center">
-      <div className="flex justify-center">
-        hello
-        <Progress value={33} />
-      </div>
+      <div className="flex justify-center">hello</div>
       <div className="flex justify-center"></div>
     </div>
   );

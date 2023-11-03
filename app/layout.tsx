@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeStateProvider from "@/providers/ThemeStateProvider";
+import { Toaster } from "@/components/ui/toaster";
+// import ClientOnly from "@/components/ClientOnly";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeStateProvider>
+        {/* <ClientOnly> */}
+        <Toaster />
+        {/* </ClientOnly> */}
         <body className={inter.className}>{children}</body>
       </ThemeStateProvider>
     </html>
