@@ -7,10 +7,6 @@ generator client {
 
 datasource db {
     provider = "mysql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
 
@@ -23,10 +19,16 @@ model User {
 model Poll {
     id        String   @id @default(uuid())
     pollName  String
-    desc      String
-    // Options   String[]
+    desc      String?
+    Options   Option[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model Option {
+    id     String @id @default(uuid())
+    poll   Poll   @relation(fields: [pollId], references: [id])
+    pollId String
 }
 
 // model Post {
