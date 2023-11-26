@@ -11,7 +11,7 @@ enum STEPS {
 const NewPollMaker = () => {
   return (
     <div className="flex flex-row justify-center">
-      <div className="flex justify-center">hello</div>
+      <div className="flex justify-center">Create your Poll</div>
       <div className="flex justify-center"></div>
     </div>
   );
