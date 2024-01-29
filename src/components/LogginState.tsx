@@ -1,6 +1,7 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
 import { useEffect } from "react";
+import { Button } from "./ui/button";
 
 const LogginState = () => {
   const session = useSession();
@@ -16,7 +17,7 @@ const LogginState = () => {
           <div>Not Logged In</div>
         )}
       </div>
-      <button onClick={() => signOut()}>Sign out</button>
+      <Button onClick={() => signOut()}>Signout</Button>
     </div>
   );
 };
