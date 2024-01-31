@@ -1,13 +1,10 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
-import { useEffect } from "react";
 import { Button } from "./ui/button";
 
 const LogginState = () => {
   const session = useSession();
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
+
   return (
     <div>
       <div>
