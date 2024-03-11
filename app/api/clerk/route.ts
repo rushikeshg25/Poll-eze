@@ -1,6 +1,7 @@
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
+import { prisma } from "@/lib/db";
 
 const webhookSecret = process.env.WEBHOOK_SECRET || ``;
 
@@ -20,5 +21,16 @@ async function validateRequest(request: Request) {
 export async function POST(request: Request) {
   const payload = await validateRequest(request);
   console.log(payload);
+  console.log("email:", payload.data.email_addresses);
+  const UserId = payload.data.id;
+  //   email
+  //   await prisma.user.upsert({
+  //     where: {
+  //       externalId: UserId as String,
+  //     },
+  //     update:{
+  //         firstName:
+  //     }
+  //   });
   return Response.json({ message: "Received" });
 }
