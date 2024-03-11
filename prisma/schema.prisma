@@ -16,7 +16,9 @@ datasource db {
 
 model User{
   id String @id @default(uuid())
-  email String @unique
+  externalId String @unique
+  firstName String?
+  lastName String?
   post Post[]
   created DateTime @default(now())
   updated DateTime @updatedAt
