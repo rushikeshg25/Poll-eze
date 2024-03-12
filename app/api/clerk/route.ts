@@ -3,6 +3,12 @@ import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { prisma } from "@/lib/db";
 
+type PayloadDataT = {
+  first_name: string;
+  last_name: string;
+  id: string;
+};
+
 const webhookSecret = process.env.WEBHOOK_SECRET || ``;
 
 async function validateRequest(request: Request) {
@@ -20,17 +26,28 @@ async function validateRequest(request: Request) {
 
 export async function POST(request: Request) {
   const payload = await validateRequest(request);
-  console.log(payload);
-  console.log("email:", payload.data.email_addresses);
-  const UserId = payload.data.id;
-  //   email
-  //   await prisma.user.upsert({
-  //     where: {
-  //       externalId: UserId as String,
-  //     },
-  //     update:{
-  //         firstName:
-  //     }
-  //   });
+  console.log("hello");
+
+  const UserId = payload.data.id as string;
+
+  const firstName = payload.data.first_name;
+  const lastName = payload.data.last_name;
+
+  console.log(firstName, lastName);
+
+  await prisma.user.upsert({
+    where: {
+      externalId: UserId,
+    },
+    update: {
+      firstName: firstName,
+      lastName: lastName,
+    },
+    create: {
+      externalId: UserId,
+      firstName: firstName,
+      lastName: lastName,
+    },
+  });
   return Response.json({ message: "Received" });
 }
