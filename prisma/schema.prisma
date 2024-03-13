@@ -20,7 +20,7 @@ model User{
   firstName String?
   lastName String?
   // email String? @unique
-  poll Poll[]
+  polls Poll[]
   created DateTime @default(now())
   updated DateTime @updatedAt
 }
@@ -29,15 +29,16 @@ model Poll{
   id String @id @default(uuid())
   title String 
   description String? 
-  user User @relation(fields: [pollId],references: [id])
-  pollId String 
-  option Option[]
+  user User @relation(fields: [UserId],references: [id])
+  UserId String 
+  options Option[]
 }
 
 model Option{
   id String @id @default(uuid())
   title String
   description String? 
-  poll Poll @relation(fields: [optionId],references: [id])
-  optionId String 
+  votes Int
+  poll Poll @relation(fields: [PollId],references: [id])
+  PollId String 
 }
