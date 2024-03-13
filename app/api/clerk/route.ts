@@ -26,14 +26,14 @@ async function validateRequest(request: Request) {
 
 export async function POST(request: Request) {
   const payload = await validateRequest(request);
-  console.log("hello");
+  // console.log("hello");
 
   const UserId = payload.data.id as string;
-
+  // console.log("clerk", UserId);
   const firstName = payload.data.first_name;
   const lastName = payload.data.last_name;
 
-  console.log(firstName, lastName);
+  // console.log(firstName, lastName);
 
   await prisma.user.upsert({
     where: {
