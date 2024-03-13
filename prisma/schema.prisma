@@ -32,6 +32,7 @@ model Poll{
   user User @relation(fields: [UserId],references: [id])
   UserId String 
   options Option[]
+  Link String?
 }
 
 model Option{
