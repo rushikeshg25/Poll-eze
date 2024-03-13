@@ -35,16 +35,17 @@ export async function POST(Request: Request) {
         externalId: userId,
       },
       select: {
-        id: true,
+        externalId: true,
       },
     });
+    console.log("prismaId", prismaId, prismaId?.externalId);
     if (!prismaId) return {};
     const newPoll = await prisma.poll.create({
       data: {
         title: PollTest.title,
         description: PollTest.description,
         user: {
-          connect: { externalId: prismaId.id },
+          connect: { externalId: prismaId.externalId },
         },
       },
     });
