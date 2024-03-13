@@ -55,7 +55,7 @@ export async function POST(Request: Request) {
         await prisma.option.create({
           data: {
             title: option.title,
-            optionId: newPoll.id,
+            PollId: newPoll.id,
             votes: 0, // Assuming initial votes count is 0
           },
         })
