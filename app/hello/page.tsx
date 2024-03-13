@@ -19,7 +19,16 @@ const page = () => {
             alert("Done");
           }}
         >
-          Send Request
+          Create Poll
+        </Button>
+        <Button
+          onClick={() => {
+            const reqbody = {};
+            axios.delete("http://localhost:3000/api/poll/delete-poll");
+            alert("Done");
+          }}
+        >
+          Delete Poll
         </Button>
         <div>
           <UserButton />
