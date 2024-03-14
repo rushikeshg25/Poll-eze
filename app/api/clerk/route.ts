@@ -32,6 +32,7 @@ export async function POST(request: Request) {
   // console.log("clerk", UserId);
   const firstName = payload.data.first_name;
   const lastName = payload.data.last_name;
+  const email = payload.data.email_addresses[0].email_address;
 
   // console.log(firstName, lastName);
 
@@ -44,6 +45,7 @@ export async function POST(request: Request) {
       lastName: lastName,
     },
     create: {
+      email: email,
       externalId: UserId,
       firstName: firstName,
       lastName: lastName,
