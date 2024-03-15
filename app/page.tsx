@@ -1,16 +1,17 @@
 "use client";
-import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
 import { useAuth } from "@clerk/nextjs";
+import UiImprovements from "@/components/ui/UiImprovements";
+import LandingNavbar from "@/components/Navbar/LandingNavbar";
 
 const Home = () => {
   const { userId } = useAuth();
 
   return (
-    <>
-      <Navbar isLanding={true} isAuthenticated={`userId`} />
+    <div className='h-screen '>
+      <LandingNavbar isAuthenticated={`userId`} />
 
-      <section className='relative bg-white py-32 lg:py-36'>
+      <section className='relative bg-white py-32 lg:py-36 dark:bg-black'>
         <div className='mx-auto flex w-full flex-col gap-10 px-5 sm:px-10 md:px-12 lg:max-w-7xl lg:flex-row lg:gap-12 lg:px-5'>
           <div className='absolute inset-y-0 hidden w-full lg:right-0 lg:block lg:w-1/2'>
             <span className='absolute -left-6 top-24 hidden h-24 w-24 rotate-90 skew-x-12 rounded-3xl bg-green-400 opacity-60 blur-xl md:left-4 lg:top-28 lg:block lg:opacity-95'></span>
@@ -18,6 +19,10 @@ const Home = () => {
           </div>
           <span className='absolute -top-5 aspect-square w-4/12 rotate-90 skew-x-12 skew-y-12 rounded-full bg-gradient-to-tr from-blue-600 to-green-400 opacity-40 blur-2xl lg:left-0 lg:w-2/12'></span>
           <div className='relative mx-auto flex max-w-3xl flex-col items-center text-center lg:mx-0 lg:w-1/2 lg:max-w-none lg:flex-1 lg:items-start lg:py-7 lg:text-left xl:py-8'>
+            <div className='w-full flex justify-center'>
+              <UiImprovements />
+            </div>
+
             <h1 className='text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl xl:text-6xl'>
               Voice your opinion, Create your{" "}
               <span className='bg-gradient-to-br from-indigo-600 from-20% via-blue-600 via-30% to-green-600 bg-clip-text text-transparent'>
@@ -96,7 +101,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
