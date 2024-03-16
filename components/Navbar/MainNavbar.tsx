@@ -15,7 +15,6 @@ interface NavbarT {
 
 export default function MainNavbar({ isLanding, isAuthenticated }: NavbarT) {
   // const [MenuVisibility, setMenuVisibility] = useState(false);
-  console.log(isLanding);
 
   return (
     <div>

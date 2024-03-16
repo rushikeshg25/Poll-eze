@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import Polls from "@/components/Data/Polls";
 import type { Poll } from "@prisma/client";
+import NoPolls from "@/components/Data/NoPolls";
 type pollsT = { polls: Poll[] };
 
 async function fetchPolls(userId: string) {
@@ -36,13 +37,22 @@ const page = async () => {
     redirect("/sign-in");
   }
 
-  const polls = (await fetchPolls(userId)) as Poll[];
+  // const polls = (await fetchPolls(userId)) as Poll[];
+  const polls = [] as Poll[];
 
   return (
     <div>
       <MainNavbar isLanding={false} isAuthenticated={`userId`} />
-      <div className='flex justify-center text-2xl pt-4'>Your Polls</div>
-      <Polls polls={polls} />
+      {polls.length === 0 ? (
+        <div className='py-32 w-full flex justify-center items-center'>
+          <NoPolls />
+        </div>
+      ) : (
+        <>
+          <div className='flex justify-center text-2xl pt-4'>Your Polls</div>
+          <Polls polls={polls} />
+        </>
+      )}
     </div>
   );
 };
