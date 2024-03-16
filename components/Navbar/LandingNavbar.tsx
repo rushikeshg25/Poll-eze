@@ -6,13 +6,11 @@ import LangingPageLogo from "./Logos/LangingPageLogo";
 // import { useState } from "react";
 
 interface NavbarT {
-  isLanding: boolean;
   isAuthenticated: string;
 }
 
-export default function LandingNavbar({ isLanding, isAuthenticated }: NavbarT) {
+export default function LandingNavbar({ isAuthenticated }: NavbarT) {
   // const [MenuVisibility, setMenuVisibility] = useState(false);
-  console.log(isLanding);
 
   return (
     <div>
@@ -40,11 +38,9 @@ export default function LandingNavbar({ isLanding, isAuthenticated }: NavbarT) {
               className='invisible absolute top-full flex w-full translate-y-10 flex-col gap-x-4 gap-y-6 overflow-hidden  border-x border-x-gray-100 bg-white opacity-0 duration-300 ease-linear lg:visible lg:relative lg:top-0 lg:-translate-y-0 lg:scale-y-100 lg:flex-row lg:items-center lg:justify-end lg:border-x-0 lg:!bg-transparent lg:opacity-100'
             >
               <div className='flex w-full justify-items-end gap-2 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
-                {!isLanding && (
-                  <div>
-                    <ThemeToggle />
-                  </div>
-                )}
+                <div>
+                  <ThemeToggle />
+                </div>
 
                 {isAuthenticated !== null ? (
                   <div className='p-1'>
