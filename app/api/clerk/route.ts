@@ -34,22 +34,56 @@ export async function POST(request: Request) {
   const lastName = payload.data.last_name;
   const email = payload.data.email_addresses[0].email_address;
 
-  // console.log(firstName, lastName);
+  if (payload.type === "user.created") {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (!user) {
+      await prisma.user.create({
+        data: {
+          externalId: UserId,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        },
+      });
+    }
+  } else if (payload.type === "user.updated") {
+    await prisma.user.upsert({
+      where: {
+        externalId: UserId,
+      },
+      update: {
+        firstName: firstName,
+        lastName: lastName,
+      },
+      create: {
+        email: email,
+        externalId: UserId,
+        firstName: firstName,
+        lastName: lastName,
+      },
+    });
+  }
+  //check if user is already present
+  else if (payload.type === "user.deleted") {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+        externalId: UserId,
+      },
+    });
+    if (user) {
+      await prisma.user.delete({
+        where: {
+          email: email,
+          externalId: UserId,
+        },
+      });
+    }
+  }
 
-  await prisma.user.upsert({
-    where: {
-      externalId: UserId,
-    },
-    update: {
-      firstName: firstName,
-      lastName: lastName,
-    },
-    create: {
-      email: email,
-      externalId: UserId,
-      firstName: firstName,
-      lastName: lastName,
-    },
-  });
   return Response.json({ message: "Received" });
 }
