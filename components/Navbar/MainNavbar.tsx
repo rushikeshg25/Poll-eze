@@ -6,6 +6,7 @@ import LangingPageLogo from "./Logos/LangingPageLogo";
 // import { useState } from "react";
 import { cn } from "@/lib/utils";
 import MainLogo from "./Logos/MainLogo";
+import { Button } from "../ui/button";
 
 interface NavbarT {
   isLanding: boolean;
@@ -18,7 +19,7 @@ export default function MainNavbar({ isLanding, isAuthenticated }: NavbarT) {
 
   return (
     <div>
-      <header className='sticky inset-x-0  py-3  class="sticky top-0 z-50 w-full  supports-[backdrop-filter]:bg-background/60" border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"'>
+      <header className='sticky inset-x-0  py-4  class="sticky top-0 z-50 w-full  supports-[backdrop-filter]:bg-background/60" border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"'>
         <div className='mx-auto w-full px-5 sm:px-10 md:px-12 lg:max-w-7xl lg:px-5'>
           <nav className='relative flex w-full justify-between gap-6'>
             <div className='relative inline-flex min-w-max'>
@@ -42,6 +43,8 @@ export default function MainNavbar({ isLanding, isAuthenticated }: NavbarT) {
               className='invisible absolute top-full flex w-full translate-y-10 flex-col gap-x-4 gap-y-6 overflow-hidden  border-x border-x-gray-100 bg-white opacity-0 duration-300 ease-linear lg:visible lg:relative lg:top-0 lg:-translate-y-0 lg:scale-y-100 lg:flex-row lg:items-center lg:justify-end lg:border-x-0 lg:!bg-transparent lg:opacity-100'
             >
               <div className='flex w-full justify-items-end gap-2 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
+                {isAuthenticated && <Button>New Poll</Button>}
+
                 {!isLanding && (
                   <div>
                     <ThemeToggle />
