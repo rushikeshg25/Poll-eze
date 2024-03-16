@@ -9,7 +9,7 @@ const NoPolls = () => {
   const router = useRouter();
   return (
     <>
-      <Card className='w-1/3 py-4 min-w-min'>
+      <Card className='w-1/4 py-4 min-w-min max-w-sm'>
         <CardHeader className='flex items-center'>
           <CardTitle>No Polls Found!</CardTitle>
         </CardHeader>
@@ -17,10 +17,10 @@ const NoPolls = () => {
           <div className='flex justify-center w-full'>
             <Button
               onClick={() => {
-                router.push("/create");
+                router.push("/new-poll");
               }}
             >
-              Create Poll
+              Create my first Poll
             </Button>
           </div>
         </CardContent>

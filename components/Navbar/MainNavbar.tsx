@@ -4,16 +4,22 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
 // import { useState } from "react";
-import { cn } from "@/lib/utils";
 import MainLogo from "./Logos/MainLogo";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface NavbarT {
   isLanding: boolean;
   isAuthenticated: string;
+  isAllPollsPage: boolean;
 }
 
-export default function MainNavbar({ isLanding, isAuthenticated }: NavbarT) {
+export default function MainNavbar({
+  isLanding,
+  isAuthenticated,
+  isAllPollsPage,
+}: NavbarT) {
+  const router = useRouter();
   // const [MenuVisibility, setMenuVisibility] = useState(false);
 
   return (
@@ -42,7 +48,17 @@ export default function MainNavbar({ isLanding, isAuthenticated }: NavbarT) {
               className='invisible absolute top-full flex w-full translate-y-10 flex-col gap-x-4 gap-y-6 overflow-hidden  border-x border-x-gray-100 bg-white opacity-0 duration-300 ease-linear lg:visible lg:relative lg:top-0 lg:-translate-y-0 lg:scale-y-100 lg:flex-row lg:items-center lg:justify-end lg:border-x-0 lg:!bg-transparent lg:opacity-100'
             >
               <div className='flex w-full justify-items-end gap-2 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
-                {isAuthenticated && <Button>New Poll</Button>}
+                {isAuthenticated && isAllPollsPage && (
+                  <Button onClick={() => router.push("/new-poll")}>
+                    New Poll
+                  </Button>
+                )}
+
+                {isAuthenticated && !isAllPollsPage && (
+                  <Button onClick={() => router.push("/all-polls")}>
+                    My Polls
+                  </Button>
+                )}
 
                 {!isLanding && (
                   <div>
