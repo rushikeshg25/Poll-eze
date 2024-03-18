@@ -26,6 +26,7 @@ const page = () => {
     title: "",
     PollType: "",
     Options: [],
+    Duration: 1,
   });
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
 
@@ -39,13 +40,19 @@ const page = () => {
 
   const descriptionhandler = (newDescription: string) => {
     setPoll({ ...poll, description: newDescription });
-    console.log(poll);
   };
 
   const titlehandler = (newTitle: string) => {
     setPoll({ ...poll, title: newTitle });
-    console.log(poll);
   };
+
+  const durationhandler = (time: number) => {
+    setPoll({ ...poll, Duration: time });
+  };
+
+  // useEffect(() => {
+  //   console.log(poll);
+  // }, [durationhandler]);
 
   const STEPS = [
     {
@@ -59,29 +66,29 @@ const page = () => {
         />
       ),
     },
-    {
-      name: "Poll Options",
-      step: 1,
-      progress: 25,
-      component: <PollOptions poll={poll} />,
-    },
+    // {
+    //   name: "Poll Options",
+    //   step: 1,
+    //   progress: 25,
+    //   component: <PollOptions poll={poll} />,
+    // },
     {
       name: "Poll Duration",
-      step: 2,
-      progress: 50,
-      component: <PollDuration poll={poll} />,
+      step: 1,
+      progress: 33,
+      component: <PollDuration durationhandler={durationhandler} />,
     },
     {
       name: "Finalize",
-      step: 3,
-      progress: 75,
+      step: 2,
+      progress: 66,
       component: <Finalize poll={poll} />,
     },
     {
       name: "Finish",
-      step: 4,
+      step: 3,
       progress: 100,
-      component: <Finish poll={poll} />,
+      component: <Finish />,
     },
   ];
 
