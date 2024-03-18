@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 type PollDataT = {
   titlehandler: (a: string) => void;
@@ -26,7 +27,7 @@ const PollData = ({ titlehandler, descriptionhandler }: PollDataT) => {
             </div>
             <div className='flex flex-col space-y-1.5'>
               <Label>Description</Label>
-              <Input
+              <Textarea
                 placeholder='Description of your Poll'
                 onChange={(e) => descriptionhandler(e.target.value)}
               />
