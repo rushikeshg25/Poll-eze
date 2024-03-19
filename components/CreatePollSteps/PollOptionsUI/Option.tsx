@@ -8,9 +8,10 @@ const Option = ({ title }: { title: string }) => {
   return (
     <Card>
       {
-        <div className='flex flex-row'>
+        <div className='flex flex-row   '>
           <div>{title}</div>
           <Button
+            className='   rounded-l-none'
             onClick={() => {
               removeOption(title);
             }}

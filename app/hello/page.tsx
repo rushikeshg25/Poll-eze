@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { useAuth } from "@clerk/nextjs";
@@ -11,7 +10,6 @@ const page = () => {
   console.log(userId);
   return (
     <div>
-      <div>{/* <Navbar /> */}</div>
       <div className='flex'>
         <Button
           onClick={() => {
@@ -23,12 +21,19 @@ const page = () => {
         </Button>
         <Button
           onClick={() => {
-            const reqbody = {};
             axios.delete("http://localhost:3000/api/poll/delete-poll");
             alert("Done");
           }}
         >
           Delete Poll
+        </Button>
+        <Button
+          onClick={() => {
+            axios.get("http://localhost:3000/api/poll/fetch-poll");
+            alert("Done");
+          }}
+        >
+          Fetch Polls
         </Button>
         <div>
           <UserButton />

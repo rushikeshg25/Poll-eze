@@ -18,14 +18,19 @@ const AddTodoForm = () => {
   return (
     <div className='w-full'>
       <form onSubmit={submitHandler} className='w-full'>
-        <div className='flex flex-row w-full'>
+        <div className='relative flex flex-row w-full'>
           <Input
             placeholder='Enter your Option here'
+            className='absolute inset-0'
             onChange={(e) => {
               setTodo(e.target.value);
             }}
           />
-          <Button type='submit' disabled={todo.length === 0}>
+          <Button
+            className='absolute right-0   rounded-l-none'
+            type='submit'
+            disabled={todo.length === 0}
+          >
             <Plus />
           </Button>
         </div>
