@@ -1,9 +1,11 @@
 import { create } from "zustand";
 
-type option = { title: string; votes: 0 };
+type option = { title: string; votes: number };
 
 interface optionState {
   options: option[];
+  addOption: (title: string) => void;
+  removeOption: (title: string) => void;
 }
 
 export const useStore = create<optionState>((set) => ({

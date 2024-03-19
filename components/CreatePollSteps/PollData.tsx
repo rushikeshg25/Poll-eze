@@ -4,13 +4,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import PollOptions from "./PollOptions";
+type OptionT = {
+  title: string;
+  votes: number;
+};
 
 type PollDataT = {
   titlehandler: (a: string) => void;
   descriptionhandler: (a: string) => void;
+  addOptions: (a: OptionT[]) => void;
 };
 
-const PollData = ({ titlehandler, descriptionhandler }: PollDataT) => {
+const PollData = ({
+  titlehandler,
+  descriptionhandler,
+  addOptions,
+}: PollDataT) => {
   return (
     <Card className='w-1/4 py-4 min-w-min max-w-sm'>
       <CardHeader>
@@ -35,7 +44,7 @@ const PollData = ({ titlehandler, descriptionhandler }: PollDataT) => {
             </div>
           </div>
         </form>
-        <PollOptions />
+        <PollOptions addOptions={addOptions} />
       </CardContent>
     </Card>
   );

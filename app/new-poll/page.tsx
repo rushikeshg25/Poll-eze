@@ -13,6 +13,10 @@ import { Button } from "@/components/ui/button";
 import type { PollT } from "@/types/PollData";
 import { Timer, List, CheckCircle } from "lucide-react";
 import { useStore } from "@/zustand/store";
+type OptionT = {
+  title: string;
+  votes: number;
+};
 
 const page = () => {
   const { userId } = useAuth();
@@ -52,6 +56,10 @@ const page = () => {
     setPoll({ ...poll, Duration: time });
   };
 
+  const addOptions = (options: OptionT[]) => {
+    setPoll({ ...poll, Options: options });
+  };
+
   // useEffect(() => {
   //   console.log(poll);
   // }, [durationhandler]);
@@ -65,6 +73,7 @@ const page = () => {
         <PollData
           titlehandler={titlehandler}
           descriptionhandler={descriptionhandler}
+          addOptions={addOptions}
         />
       ),
       icon: <List />,
@@ -78,7 +87,7 @@ const page = () => {
       icon: <Timer />,
     },
     {
-      name: "Finalize (3/3)",
+      name: "Preview (3/3)",
       step: 2,
       progress: 66,
       component: <Finalize poll={poll} />,
@@ -103,16 +112,16 @@ const page = () => {
   };
 
   return (
-    <div className='h-screen flex  flex-col'>
+    <div className='h-screen flex flex-col gap-2'>
       <MainNavbar
         isAllPollsPage={false}
         isAuthenticated={`${userId}`}
         isLanding={false}
       />
       <div className='flex-1 w-screen '>
-        <div className=' flex justify-center min-w-min px-16 flex-col'>
+        <div className=' flex justify-center min-w-min px-16 flex-col gap-3'>
           <div className='flex flex-col items-center'>
-            <div className='min-w-min flex flex-row gap-2'>
+            <div className='min-w-min flex flex-row gap-2 p-3'>
               <div>{STEPS[currentStep].icon}</div>
               <div>{STEPS[currentStep].name}</div>
             </div>
@@ -125,14 +134,13 @@ const page = () => {
             {STEPS[currentStep].component}
           </div>
           <div className='flex justify-center'>
-            {currentStep === 0 ? null : (
+            {currentStep === 0 || currentStep === 3 ? null : (
               <Button onClick={onPrevious}>Previous</Button>
             )}
-            {currentStep === 3 ? (
-              <Button>Finish</Button>
-            ) : (
+
+            {currentStep === 3 ? null : (
               <Button onClick={onNext} disabled={isNextDisabled}>
-                Next
+                {currentStep === 2 ? <>Finish</> : <>Next</>}
               </Button>
             )}
           </div>
