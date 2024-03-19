@@ -33,7 +33,7 @@ model Poll{
   UserId String 
   options Option[]
   Duration DateTime? 
-  PollType String?
+  PollType String?   //Single Vote or MultiVote
   created DateTime @default(now())
 }
 

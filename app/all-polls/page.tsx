@@ -8,7 +8,7 @@ import NoPolls from "@/components/Data/NoPolls";
 type pollsT = { polls: Poll[] };
 
 async function fetchPolls(userId: string) {
-  console.log(userId);
+  // console.log(userId);
   try {
     const pollsData = await prisma.user.findUnique({
       where: {
@@ -37,14 +37,18 @@ const page = async () => {
     redirect("/sign-in");
   }
 
-  // const polls = (await fetchPolls(userId)) as Poll[];
-  const polls = [] as Poll[];
+  const polls = (await fetchPolls(userId)) as Poll[];
+  // const polls = [] as Poll[];
 
   return (
-    <div>
-      <MainNavbar isLanding={false} isAuthenticated={`userId`} />
+    <div className='h-screen flex flex-col'>
+      <MainNavbar
+        isAllPollsPage={true}
+        isLanding={false}
+        isAuthenticated={`${userId}`}
+      />
       {polls.length === 0 ? (
-        <div className='py-32 w-full flex justify-center items-center'>
+        <div className='flex-1 w-full flex justify-center items-center'>
           <NoPolls />
         </div>
       ) : (
