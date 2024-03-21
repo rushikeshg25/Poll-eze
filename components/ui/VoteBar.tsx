@@ -17,7 +17,7 @@ const Votebar = React.forwardRef<
     )}
     {...props}
   >
-    <div className='flex justify-center pt-1'>{option}</div>
+    <div className='absolute pl-3 pt-1.5 text-white z-40'>{option}</div>
     <ProgressPrimitive.Indicator
       className='h-full w-full flex-1 bg-primary transition-all'
       style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
