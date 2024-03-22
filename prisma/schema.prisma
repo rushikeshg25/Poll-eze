@@ -13,35 +13,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User{
-  id String @id @default(uuid())
-  externalId String @unique
-  firstName String?
-  lastName String?
-  email String? @unique
-  polls Poll[]
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+model User {
+  id         String   @id @default(uuid())
+  externalId String   @unique
+  firstName  String?
+  lastName   String?
+  email      String?  @unique
+  polls      Poll[]
+  created    DateTime @default(now())
+  updated    DateTime @updatedAt
 }
 
-model Poll{
-  id String @id @default(uuid())
-  title String 
-  description String? 
-  user User @relation(fields: [UserId],references: [id])
-  UserId String 
-  options Option[]
-  Duration DateTime? 
-  PollType String?   //Single Vote or MultiVote
-  created DateTime @default(now())
+model Poll {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  user        User      @relation(fields: [UserId], references: [id])
+  UserId      String
+  options     Option[]
+  Duration    DateTime?
+  PollType    String? //Single Vote or MultiVote
+  created     DateTime  @default(now())
+  totalVotes  Int
 }
 
-model Option{
-  id String @id @default(uuid())
-  title String
-  description String? 
-  votes Int
-  poll Poll @relation(fields: [PollId],references: [id])
-  PollId String 
+model Option {
+  id             String  @id @default(uuid())
+  title          String
+  description    String?
+  votes          Int
+  PollTotalVotes Int     @map("totalVotes")
+  poll           Poll    @relation(fields: [PollId], references: [id])
+  PollId         String
 }
