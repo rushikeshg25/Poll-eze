@@ -1,7 +1,8 @@
 import React from "react";
+import { Wrapper } from "./PollDataWrapper";
 
 const PollVotes = ({ totalVotes }: { totalVotes: number }) => {
-  return <div className='min-w-min'>Total Votes:{totalVotes}</div>;
+  return <Wrapper>{totalVotes} Votes</Wrapper>;
 };
 
 export default PollVotes;
