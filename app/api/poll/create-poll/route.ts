@@ -42,6 +42,7 @@ export async function POST(Request: Request) {
     if (!prismaId) return {};
     const newPoll = await prisma.poll.create({
       data: {
+        PolltotalVotes: 0,
         title: PollTest.title,
         description: PollTest.description,
         user: {
@@ -54,6 +55,7 @@ export async function POST(Request: Request) {
       async (option) =>
         await prisma.option.create({
           data: {
+            totalVotes: 0,
             title: option.title,
             PollId: newPoll.id,
             votes: 0, // Assuming initial votes count is 0
