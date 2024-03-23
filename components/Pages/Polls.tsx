@@ -2,17 +2,17 @@
 
 import React from "react";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { projects } from "@/lib/projects";
-import type { Poll } from "@prisma/client";
-type pollsT = { polls: Poll[] };
+import { PollwithOptionT } from "@/types/PollwithOptions";
 
-const Polls = ({ polls }: pollsT) => {
+type PollT = { polls: PollwithOptionT[] };
+
+const Polls = ({ polls }: PollT) => {
   console.log(polls);
   return (
     <div>
       {" "}
       <div className='max-w-5xl mx-auto px-8'>
-        <HoverEffect items={projects} />
+        <HoverEffect polls={polls} />
       </div>
     </div>
   );

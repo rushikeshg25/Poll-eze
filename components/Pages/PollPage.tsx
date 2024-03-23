@@ -20,10 +20,13 @@ const PollPage = ({ poll }: PollT) => {
   useEffect(() => {
     for (let i = 0; i < poll.options.length; i++)
       totalVotes += poll.options[i].votes;
+  }, []);
+
+  useEffect(() => {
     for (let i = 0; i < poll.options.length; i++) {
       setOptionVotes([...optionVotes]);
     }
-  }, []);
+  }, [hasVoted]);
 
   return (
     <Card>
@@ -45,7 +48,7 @@ const PollPage = ({ poll }: PollT) => {
           />
         ))}
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>{hasVoted ? <>Already Voted</> : <>vote</>}</CardFooter>
     </Card>
   );
 };

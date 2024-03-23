@@ -1,19 +1,21 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PollwithOptionT } from "@/types/PollwithOptions";
+import { useRouter } from "next/navigation";
+import { CardFooter } from "./card";
+import { Votebar } from "./VoteBar";
+import PollVotes from "./PollVotes";
+import PollDuration from "./PollDuration";
 
-export const HoverEffect = ({
-  items,
-  className,
-}: {
-  items: {
-    title: string;
-    description: string;
-    link: string;
-  }[];
-  className?: string;
-}) => {
+type PollT = { polls: PollwithOptionT[]; className?: string };
+
+export const HoverEffect = ({ polls, className }: PollT) => {
+  // useEffect(() => {
+  //   console.log(polls);
+  // }, []);
+  const router = useRouter();
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -23,11 +25,13 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
-        <Link
-          href={item?.link}
-          key={item?.link}
+      {polls.map((poll, idx) => (
+        <div
+          key={poll.id}
           className='relative group  block p-2 h-full w-full'
+          onClick={() => {
+            router.push(`/poll/${poll.id}`);
+          }}
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
@@ -49,10 +53,23 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
+            <CardTitle>{poll.title}</CardTitle>
+            <CardDescription>{poll.description}</CardDescription>
+            <CardFooter className='flex flex-col gap-2'>
+              {poll.options.map((option, poll) => (
+                <Votebar
+                  option={option.title}
+                  value={(option.votes / option.totalVotes) * 100}
+                  className='w-full'
+                />
+              ))}
+            </CardFooter>
+            <CardFooter className='flex justify-between'>
+              <PollVotes totalVotes={poll.PolltotalVotes} />
+              <PollDuration />
+            </CardFooter>
           </Card>
-        </Link>
+        </div>
       ))}
     </div>
   );
