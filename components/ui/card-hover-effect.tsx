@@ -66,7 +66,10 @@ export const HoverEffect = ({ polls, className }: PollT) => {
             </CardFooter>
             <CardFooter className='flex justify-between'>
               <PollVotes totalVotes={poll.PolltotalVotes} />
-              <PollDuration />
+              <PollDuration
+                PollDuration={poll.Duration as number}
+                createdAt={poll.created as string}
+              />
             </CardFooter>
           </Card>
         </div>

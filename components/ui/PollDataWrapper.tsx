@@ -7,6 +7,10 @@ interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
 export class Wrapper extends React.Component<WrapperProps> {
   render() {
     const { callback, children, ...rest } = this.props;
-    return <div {...rest}>{children}</div>;
+    return (
+      <div className='border-white border rounded-md p-1' {...rest}>
+        {children}
+      </div>
+    );
   }
 }
