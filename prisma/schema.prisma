@@ -31,10 +31,10 @@ model Poll {
   user        User      @relation(fields: [UserId], references: [id])
   UserId      String
   options     Option[]
-  Duration    DateTime?
+  Duration    Int?
   PollType    String? //Single Vote or MultiVote
   created     DateTime  @default(now())
-  totalVotes  Int
+  PolltotalVotes  Int @map("totalVotes")
 }
 
 model Option {
@@ -42,7 +42,7 @@ model Option {
   title          String
   description    String?
   votes          Int
-  PollTotalVotes Int     @map("totalVotes")
+  totalVotes Int     
   poll           Poll    @relation(fields: [PollId], references: [id])
   PollId         String
 }
