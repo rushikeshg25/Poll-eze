@@ -12,7 +12,7 @@ const Votebar = React.forwardRef<
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(
-      "relative h-9  min-w-full overflow-hidden rounded-full bg-primary/20",
+      "relative h-9  min-w-full overflow-hidden rounded-xl bg-primary/20",
       className
     )}
     {...props}
