@@ -1,24 +1,38 @@
-import { useEffect } from "react";
-
 type returnT = {
-  DifferenceinMinutes: number;
+  Difference: number;
   isOpen: boolean;
+  unit: string;
 };
 
-let DifferenceinMinutes: number;
-let isOpen: boolean;
+function PollTime(PollCreatedAt: Date, PollDuration: number) {
+  const PollCreationTime: Date = PollCreatedAt;
+  const CurrentTime: Date = new Date();
+  var isOpen: boolean = false;
+  var unit: string = "";
+  let Difference: number =
+    (CurrentTime.getTime() - PollCreationTime.getTime()) / (1000 * 60);
 
-export default function useTimeUntil(
-  PollCreatedAt: string,
-  PollDuration: number
-): returnT {
-  useEffect(() => {
-    const PollCreationTime: Date = new Date(PollCreatedAt);
-    const CurrentTime: Date = new Date();
-    let difference = CurrentTime.getTime() - PollCreationTime.getTime();
-    DifferenceinMinutes = Math.floor(difference / (1000 * 60));
-  }, []);
-
-  if (PollDuration > DifferenceinMinutes) isOpen = true;
-  return { DifferenceinMinutes, isOpen };
+  if (PollDuration > Difference) {
+    isOpen = true;
+    console.log(Difference);
+    if (Difference < 60) {
+      if (Difference === 1) unit = "min";
+      else unit = "mins";
+    } else {
+      Difference = Math.floor(Difference / 60);
+      if (Difference === 1) unit = "hr";
+      else unit = "hrs";
+    }
+  } else {
+    isOpen = false;
+  }
+  return { Difference, isOpen, unit };
 }
+
+const useTimeUntil = (PollCreatedAt: Date, PollDuration: number): returnT => {
+  const DataObj = PollTime(PollCreatedAt, PollDuration);
+  console.log(DataObj);
+  return DataObj;
+};
+
+export default useTimeUntil;
