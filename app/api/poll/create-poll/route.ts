@@ -1,30 +1,12 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
 import { prisma } from "@/lib/db";
-
-//What a create Poll request will look like
-type PolltestT = {
-  title: string;
-  description: string;
-  Optionstest: {
-    title: string;
-  }[];
-};
-
-const PollTest: PolltestT = {
-  title: "Who is Rushikesh",
-  description: "",
-  Optionstest: [
-    { title: "a" },
-    { title: "Mb" },
-    { title: "Nac" },
-    { title: "Chennai" },
-  ],
-};
+import type { PollT } from "@/types/PollData";
 
 export async function POST(req: Request) {
+  const body = await req.json();
+  const poll = body.poll as PollT;
   const { userId } = auth();
-  console.log("routeHandler", userId);
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -38,20 +20,21 @@ export async function POST(req: Request) {
         externalId: true,
       },
     });
-    console.log("prismaId", prismaId, prismaId?.externalId);
-    if (!prismaId) return {};
+    if (!prismaId) return NextResponse.redirect(new URL("/sign-in", req.url));
+
     const newPoll = await prisma.poll.create({
       data: {
         PolltotalVotes: 0,
-        title: PollTest.title,
-        description: PollTest.description,
+        title: poll.title,
+        description: poll.description,
+        Duration: Number(poll.Duration),
         user: {
           connect: { externalId: prismaId.externalId },
         },
       },
     });
 
-    PollTest.Optionstest.map(
+    poll.Options.map(
       async (option) =>
         await prisma.option.create({
           data: {
