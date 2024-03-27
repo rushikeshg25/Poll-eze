@@ -4,7 +4,6 @@ import { prisma } from "@/lib/db";
 
 export async function UPDATE(Request: Request) {
   const { userId } = auth();
-  console.log("routeHandler", userId);
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }

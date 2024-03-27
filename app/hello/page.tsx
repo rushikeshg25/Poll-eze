@@ -7,7 +7,6 @@ import axios from "axios";
 
 const page = () => {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  console.log(userId);
   return (
     <div>
       <div className='flex'>

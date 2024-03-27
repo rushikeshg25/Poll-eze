@@ -7,7 +7,6 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import NoPolls from "@/components/Pages/NoPolls";
 
 async function fetchPolls(userId: string) {
-  // console.log(userId);
   try {
     const pollsData = await prisma.user.findUnique({
       where: {
@@ -31,7 +30,6 @@ async function fetchPolls(userId: string) {
 
 const page = async () => {
   const { userId } = auth();
-  console.log(userId);
   if (!userId) {
     redirect("/sign-in");
   }

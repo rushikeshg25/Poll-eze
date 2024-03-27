@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { useRouter } from "next/navigation";
 import { CardFooter } from "./card";
@@ -12,9 +11,6 @@ import PollDuration from "./PollDuration";
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
 export const HoverEffect = ({ polls, className }: PollT) => {
-  // useEffect(() => {
-  //   console.log(polls);
-  // }, []);
   const router = useRouter();
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -56,8 +52,9 @@ export const HoverEffect = ({ polls, className }: PollT) => {
             <CardTitle>{poll.title}</CardTitle>
             <CardDescription>{poll.description}</CardDescription>
             <CardFooter className='flex flex-col gap-2'>
-              {poll.options.map((option, poll) => (
+              {poll.options.map((option) => (
                 <Votebar
+                  key={option.id}
                   option={option.title}
                   value={(option.votes / option.totalVotes) * 100}
                   className='w-full'
@@ -68,7 +65,7 @@ export const HoverEffect = ({ polls, className }: PollT) => {
               <PollVotes totalVotes={poll.PolltotalVotes} />
               <PollDuration
                 PollDuration={poll.Duration as number}
-                createdAt={poll.created as string}
+                createdAt={poll.created}
               />
             </CardFooter>
           </Card>

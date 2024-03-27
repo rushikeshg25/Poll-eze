@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import useTimeUntil from "@/hooks/useTimeUntil";
 import { Wrapper } from "./PollDataWrapper";
 
@@ -8,22 +9,28 @@ type PollDurationT = {
 };
 
 const PollDuration = ({ createdAt, PollDuration }: PollDurationT) => {
-  const [time, setTime] = useState<number>();
-  const { DifferenceinMinutes, isOpen } = useTimeUntil(createdAt, PollDuration);
+  const DateObj = new Date(createdAt);
+  const { Difference, isOpen, unit } = useTimeUntil(DateObj, PollDuration);
 
   if (!isOpen) {
     return (
-      <Wrapper className='flex'>
-        <div>
-          <div className=' aspect-square h-7 bg-red-700'>
-            Rushikesh is the best
-          </div>
+      <Wrapper className='flex gap-1'>
+        <div className='flex items-center'>
+          <div className='rounded-full aspect-square h-2 bg-red-700' />
         </div>
-        <div></div>
+        <div>Closed</div>
       </Wrapper>
     );
   }
-  return <Wrapper></Wrapper>;
+
+  return (
+    <Wrapper className='flex gap-1'>
+      <div className='flex items-center'>
+        <div className='rounded-full aspect-square h-2 bg-green-600' />
+      </div>
+      <div>{`${Difference} ${unit}`}</div>
+    </Wrapper>
+  );
 };
 
 export default PollDuration;

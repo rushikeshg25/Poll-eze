@@ -4,7 +4,6 @@ import { prisma } from "@/lib/db";
 
 export async function GET(Request: Request) {
   const { userId } = auth();
-  console.log("routeHandler", userId);
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -22,8 +21,6 @@ export async function GET(Request: Request) {
         },
       },
     });
-    console.log(posts);
-    console.log(posts?.polls);
   } catch (error) {
     console.log("error while fetching Poll:", error);
   }
