@@ -2,10 +2,9 @@ import { auth } from "@clerk/nextjs";
 import MainNavbar from "@/components/Navbar/MainNavbar";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import Polls from "@/components/Data/Polls";
-import type { Poll } from "@prisma/client";
-import NoPolls from "@/components/Data/NoPolls";
-type pollsT = { polls: Poll[] };
+import Polls from "@/components/Pages/Polls";
+import { PollwithOptionT } from "@/types/PollwithOptions";
+import NoPolls from "@/components/Pages/NoPolls";
 
 async function fetchPolls(userId: string) {
   // console.log(userId);
@@ -37,7 +36,7 @@ const page = async () => {
     redirect("/sign-in");
   }
 
-  const polls = (await fetchPolls(userId)) as Poll[];
+  const polls = (await fetchPolls(userId)) as PollwithOptionT[];
   // const polls = [] as Poll[];
 
   return (
