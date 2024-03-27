@@ -9,6 +9,7 @@ import Option from "./PollOptionsUI/Option";
 type OptionT = {
   title: string;
   votes: number;
+  totalVotes: number;
 };
 
 type PollOptionsT = {
