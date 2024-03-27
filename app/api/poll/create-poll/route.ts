@@ -41,7 +41,7 @@ export async function POST(req: Request) {
             totalVotes: 0,
             title: option.title,
             PollId: newPoll.id,
-            votes: 0, // Assuming initial votes count is 0
+            votes: 0,
           },
         })
     );

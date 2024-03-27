@@ -67,7 +67,6 @@ export default function LandingNavbar({ isAuthenticated }: NavbarT) {
                 className='relative flex h-auto w-7 flex-col outline-none lg:invisible lg:hidden'
                 onClick={() => {
                   setMenuVisibility(true);
-                  console.log("clicked");
                 }}
               >
                 <span

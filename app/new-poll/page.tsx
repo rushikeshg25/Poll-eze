@@ -1,6 +1,7 @@
 "use client";
 
 import MainNavbar from "@/components/Navbar/MainNavbar";
+import { useWindowSize } from "@uidotdev/usehooks";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -23,11 +24,16 @@ type OptionT = {
 
 const page = () => {
   const { userId } = useAuth();
-  const { toast } = useToast();
-
   if (!userId) {
     redirect("/sign-in");
   }
+
+  const { toast } = useToast();
+  const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
+  const { options } = useStore();
+  const size = useWindowSize();
+  const width = size.width as number;
+  const height = size.height as number;
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [poll, setPoll] = useState<PollT>({
     UserId: "",
@@ -37,8 +43,6 @@ const page = () => {
     Options: [],
     Duration: 1,
   });
-  const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
-  const { options } = useStore();
 
   useEffect(() => {
     if (poll.title.length === 0 || options.length < 2) {
@@ -63,10 +67,6 @@ const page = () => {
   const addOptions = (options: OptionT[]) => {
     setPoll({ ...poll, Options: options });
   };
-
-  useEffect(() => {
-    console.log(poll);
-  }, [currentStep]);
 
   const createPollHandler = async () => {
     setPoll({ ...poll, UserId: userId });
