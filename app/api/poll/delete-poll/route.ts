@@ -3,12 +3,12 @@ import { auth } from "@clerk/nextjs";
 import { prisma } from "@/lib/db";
 
 export async function DELETE(Request: Request) {
-  const body = await req.json();
-  const poll = body.poll as PollT;
   const { userId } = auth();
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
+  const body = await Request.json();
+  const PollId = body.pollId as string;
 
   try {
     //Finding the id for User
@@ -22,12 +22,12 @@ export async function DELETE(Request: Request) {
     // });
     const OptionstobeDeleted = await prisma.option.deleteMany({
       where: {
-        PollId: "2f314fa8-2f72-4e02-90b9-db184f309bc0",
+        PollId: PollId,
       },
     });
     const PolltobeDeleted = await prisma.poll.delete({
       where: {
-        id: "2f314fa8-2f72-4e02-90b9-db184f309bc0",
+        id: PollId,
       },
     });
   } catch (error) {
