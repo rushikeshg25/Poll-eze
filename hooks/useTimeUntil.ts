@@ -1,3 +1,5 @@
+import { Diff } from "lucide-react";
+
 type returnT = {
   Difference: number;
   isOpen: boolean;
@@ -14,7 +16,6 @@ function PollTime(PollCreatedAt: Date, PollDuration: number) {
 
   if (PollDuration > Difference) {
     isOpen = true;
-    console.log(Difference);
     if (Difference < 60) {
       if (Difference === 1) unit = "min";
       else unit = "mins";
@@ -26,12 +27,12 @@ function PollTime(PollCreatedAt: Date, PollDuration: number) {
   } else {
     isOpen = false;
   }
+  Difference = Math.floor(Difference);
   return { Difference, isOpen, unit };
 }
 
 const useTimeUntil = (PollCreatedAt: Date, PollDuration: number): returnT => {
   const DataObj = PollTime(PollCreatedAt, PollDuration);
-  console.log(DataObj);
   return DataObj;
 };
 
