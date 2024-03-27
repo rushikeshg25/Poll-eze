@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type option = { title: string; votes: number };
+type option = { title: string; votes: number; totalVotes: number };
 
 interface optionState {
   options: option[];
@@ -14,7 +14,7 @@ export const useStore = create<optionState>((set) => ({
   // methods for manipulating state
   addOption: (title: string) => {
     set((state) => ({
-      options: [...state.options, { title: title, votes: 0 }],
+      options: [...state.options, { title: title, votes: 0, totalVotes: 0 }],
     }));
   },
   removeOption: (title: string) => {
