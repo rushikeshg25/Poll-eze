@@ -13,13 +13,17 @@ import { Button } from "@/components/ui/button";
 import type { PollT } from "@/types/PollData";
 import { Timer, List, CheckCircle } from "lucide-react";
 import { useStore } from "@/zustand/store";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 type OptionT = {
   title: string;
   votes: number;
+  totalVotes: number;
 };
 
 const page = () => {
   const { userId } = useAuth();
+  const { toast } = useToast();
 
   if (!userId) {
     redirect("/sign-in");
@@ -60,9 +64,27 @@ const page = () => {
     setPoll({ ...poll, Options: options });
   };
 
-  // useEffect(() => {
-  //   console.log(poll);
-  // }, [durationhandler]);
+  useEffect(() => {
+    console.log(poll);
+  }, [currentStep]);
+
+  const createPollHandler = async () => {
+    setPoll({ ...poll, UserId: userId });
+    try {
+      await axios.post("http://localhost:3000/api/poll/create-poll", {
+        poll: poll,
+      });
+      toast({
+        title: "Poll Created",
+      });
+      setCurrentStep((value) => value + 1);
+    } catch (error) {
+      toast({
+        title: "We ran into some Issue",
+        description: JSON.stringify(error),
+      });
+    }
+  };
 
   const STEPS = [
     {
@@ -133,17 +155,21 @@ const page = () => {
           <div className='flex justify-center'>
             {STEPS[currentStep].component}
           </div>
-          <div className='flex justify-center'>
-            {currentStep === 0 || currentStep === 3 ? null : (
-              <Button onClick={onPrevious}>Previous</Button>
-            )}
+          {currentStep === 3 ? null : (
+            <div className='flex justify-center'>
+              {currentStep === 0 || currentStep === 3 ? null : (
+                <Button onClick={onPrevious}>Previous</Button>
+              )}
 
-            {currentStep === 3 ? null : (
-              <Button onClick={onNext} disabled={isNextDisabled}>
-                {currentStep === 2 ? <>Finish</> : <>Next</>}
-              </Button>
-            )}
-          </div>
+              {currentStep === 2 ? (
+                <Button onClick={createPollHandler}>Finish</Button>
+              ) : (
+                <Button onClick={onNext} disabled={isNextDisabled}>
+                  Next
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

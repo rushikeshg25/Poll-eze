@@ -12,17 +12,17 @@ type PolltestT = {
 };
 
 const PollTest: PolltestT = {
-  title: "What is the Capital of India?",
+  title: "Who is Rushikesh",
   description: "",
   Optionstest: [
-    { title: "Delhi" },
-    { title: "Mumbai" },
-    { title: "Nashik" },
+    { title: "a" },
+    { title: "Mb" },
+    { title: "Nac" },
     { title: "Chennai" },
   ],
 };
 
-export async function POST(Request: Request) {
+export async function POST(req: Request) {
   const { userId } = auth();
   console.log("routeHandler", userId);
   if (!userId) {
