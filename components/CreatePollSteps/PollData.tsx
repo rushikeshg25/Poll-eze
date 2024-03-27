@@ -7,6 +7,7 @@ import PollOptions from "./PollOptions";
 type OptionT = {
   title: string;
   votes: number;
+  totalVotes: number;
 };
 
 type PollDataT = {

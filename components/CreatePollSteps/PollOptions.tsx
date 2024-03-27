@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useStore } from "@/zustand/store";
 import AddTodoForm from "./PollOptionsUI/AddTodoForm";
