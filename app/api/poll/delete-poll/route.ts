@@ -12,15 +12,6 @@ export async function POST(Request: Request) {
   const PollId = body.pollId;
 
   try {
-    //Finding the id for User
-    // const prismaId = await prisma.user.findUnique({
-    //   where: {
-    //     externalId: userId,
-    //   },
-    //   select: {
-    //     id: true,
-    //   },
-    // });
     const OptionstobeDeleted = await prisma.option.deleteMany({
       where: {
         PollId: PollId,
