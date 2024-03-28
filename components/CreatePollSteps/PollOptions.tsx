@@ -29,7 +29,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
       <Label className='text-lg'>Options:</Label>
       <CardContent>
         {options.map((option) => (
-          <Option title={option.title} />
+          <Option key={option.title} title={option.title} />
         ))}
       </CardContent>
     </CardContent>

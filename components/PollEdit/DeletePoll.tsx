@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import {
@@ -14,25 +15,32 @@ import {
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-declare module "axios" {
-  export interface AxiosRequestConfig {
-    pollId: string;
-  }
-}
+// declare module "axios" {
+//   export interface AxiosRequestConfig {
+//     pollId: string;
+//   }
+// }
 
 const DeletePoll = ({ pollId }: { pollId: string }) => {
+  const router = useRouter();
   const { toast } = useToast();
   const [open, setOpen] = useState<boolean>(false);
   const deletehandler = async () => {
     try {
-      await axios.delete("http://localhost:3000/api/poll/delete-poll", {
+      console.log("client", {
+        pollId: pollId,
+      });
+      await axios.post("http://localhost:3000/api/poll/delete-poll", {
         pollId: pollId,
       });
       toast({
         title: "Poll Deleted",
       });
+      router.push("/all-polls");
     } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.Please try again",
@@ -50,7 +58,7 @@ const DeletePoll = ({ pollId }: { pollId: string }) => {
         <Trash2 />
       </Button>
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger>Open</AlertDialogTrigger>
+        <AlertDialogTrigger></AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

@@ -7,6 +7,7 @@ import { CardFooter } from "./card";
 import { Votebar } from "./VoteBar";
 import PollVotes from "./PollVotes";
 import PollDuration from "./PollDuration";
+import DeletePoll from "../PollEdit/DeletePoll";
 
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
@@ -67,6 +68,7 @@ export const HoverEffect = ({ polls, className }: PollT) => {
                 PollDuration={poll.Duration as number}
                 createdAt={poll.created}
               />
+              <DeletePoll pollId={poll.id} />
             </CardFooter>
           </Card>
         </div>
