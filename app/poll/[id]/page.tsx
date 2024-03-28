@@ -1,7 +1,6 @@
 import PollPage from "@/components/Pages/PollPage";
 import MainNavbar from "@/components/Navbar/MainNavbar";
 import { fetchPoll } from "@/lib/fetchPoll";
-import { auth } from "@clerk/nextjs";
 import DeletePoll from "@/components/PollEdit/DeletePoll";
 import type { PollwithOptionT } from "@/types/PollwithOptions";
 
@@ -16,7 +15,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         isAuthenticated={"null"}
       />
       <div className='flex flex-col justify-center items-center flex-1 w-full'>
-        <DeletePoll pollId={params.id} />
         <div className='w-1/3'>
           <PollPage poll={poll} />
         </div>

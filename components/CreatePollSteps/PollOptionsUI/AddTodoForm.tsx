@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 
 const AddTodoForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { options, addOption, removeOption } = useStore();
+  const { addOption } = useStore();
   const [todo, setTodo] = useState("");
   const submitHandler = (e: any) => {
     e.preventDefault();

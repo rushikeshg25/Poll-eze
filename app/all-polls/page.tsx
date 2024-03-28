@@ -44,7 +44,7 @@ const page = async () => {
         isLanding={false}
         isAuthenticated={`${userId}`}
       />
-      {polls.length === 0 ? (
+      {!polls ? (
         <div className='flex-1 w-full flex justify-center items-center'>
           <NoPolls />
         </div>
