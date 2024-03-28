@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
 import { prisma } from "@/lib/db";
 
-export async function DELETE(Request: Request) {
+export async function POST(Request: Request) {
   const { userId } = auth();
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
   const body = await Request.json();
-  const PollId = body.pollId as string;
+  console.log("body", body);
+  const PollId = body.pollId;
 
   try {
     //Finding the id for User
