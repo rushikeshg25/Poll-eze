@@ -19,7 +19,9 @@ model User {
   firstName  String?
   lastName   String?
   email      String?  @unique
-  polls      Poll[]
+  polls      Poll[]  @relation("Polls created by User")
+  VotedPoll Poll  @relation(name: "Poll Voted",fields: [VotedPollId],references: [id])
+  VotedPollId String
   created    DateTime @default(now())
   updated    DateTime @updatedAt
 }
@@ -28,11 +30,12 @@ model Poll {
   id          String    @id @default(uuid())
   title       String
   description String?
-  user        User      @relation(fields: [UserId], references: [id])
+  user        User      @relation(name: "Polls created by User",fields: [UserId], references: [id])
   UserId      String
   options     Option[]
+  Voter User[] @relation(name: "Poll Voted")
   Duration    Int?
-  PollType    String? //Single Vote or MultiVote
+  // PollType    String? //Single Vote or MultiVote
   created     DateTime  @default(now())
   PolltotalVotes  Int @map("totalVotes")
 }
