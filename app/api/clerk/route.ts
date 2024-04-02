@@ -30,7 +30,8 @@ export async function POST(request: Request) {
   const UserId = payload.data.id as string;
   const firstName = payload.data.first_name;
   const lastName = payload.data.last_name;
-  const email = payload.data.email_addresses[0].email_address;
+  //@ts-ignore
+  const email = payload.data.email_addresses[0].email_address as string;
 
   if (payload.type === "user.created") {
     const user = await prisma.user.findUnique({
