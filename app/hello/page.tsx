@@ -12,7 +12,11 @@ const page = () => {
       <div className='flex'>
         <Button
           onClick={() => {
-            axios.post("http://localhost:3000/api/poll/create-poll");
+            try {
+              axios.post("http://localhost:3000/api/poll/create-poll");
+            } catch (error) {
+              console.log(error);
+            }
             alert("Done");
           }}
         >
