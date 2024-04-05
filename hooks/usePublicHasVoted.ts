@@ -1,4 +1,4 @@
-//pollid
+"use client";
 import { useState } from "react";
 
 type PollT = {
@@ -9,7 +9,7 @@ type PollT = {
 
 type PollsT = PollT[];
 
-const useHasVoted = async ({ pollid }: { pollid: string }) => {
+const usePublicHasVoted = async ({ pollid }: { pollid: string }) => {
   const [voted, setVoted] = useState<boolean>(false);
   const [polls, setPolls] = useState<PollsT>([]);
 
@@ -24,4 +24,4 @@ const useHasVoted = async ({ pollid }: { pollid: string }) => {
   return { voted };
 };
 
-export default useHasVoted;
+export default usePublicHasVoted;

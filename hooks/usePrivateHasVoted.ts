@@ -7,5 +7,7 @@ type TYPET = {
 
 const usePrivateHasVoted = async ({ pollId, userId }: TYPET) => {
   const hasVoted = await hasUserVoted(userId, pollId);
-  return hasVoted;
+  return { hasVoted };
 };
+
+export default usePrivateHasVoted;

@@ -2,12 +2,20 @@
 
 import * as React from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-
 import { cn } from "@/lib/utils";
+
+// type VotebarT = typeof ProgressPrimitive.Root & {
+//   option: string;
+// };
+
+interface VotebarProps
+  extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+  option: string;
+}
 
 const Votebar = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
+  VotebarProps
 >(({ className, value, option, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}
