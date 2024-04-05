@@ -5,18 +5,16 @@ import PollPage from "./PollPage";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 
 const PublicPoll = async ({ poll }: { poll: PollwithOptionT }) => {
-  const [voted, setHasVoted] = useState(false);
+  const [optionvoted, setoptionvoted] = useState<string>("");
   useEffect(() => {
-    async function getVotedvalue() {
-      const { voted } = await usePublicHasVoted({ pollid: poll.id });
-      setHasVoted(voted);
-    }
-    getVotedvalue();
+    const optionId = usePublicHasVoted({ pollid: poll.id });
+    if (!optionId) setoptionvoted("");
+    else setoptionvoted(optionId);
   }, []);
 
   return (
     <div>
-      <PollPage poll={poll} hasVotedParent={voted} />
+      <PollPage poll={poll} optionVoted={optionvoted} />
     </div>
   );
 };

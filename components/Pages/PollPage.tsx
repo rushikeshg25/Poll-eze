@@ -11,10 +11,10 @@ import {
 import { Votebar } from "../ui/VoteBar";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 
-type PollT = { poll: PollwithOptionT; hasVotedParent: boolean };
+type PollT = { poll: PollwithOptionT; optionVoted: string };
 let totalVotes = 0;
 let percent: number;
-const PollPage = ({ poll, hasVotedParent }: PollT) => {
+const PollPage = ({ poll, optionVoted }: PollT) => {
   const [hasVoted, setHasVoted] = useState(false);
   const [optionVotes, setOptionVotes] = useState<number[]>([]);
   useEffect(() => {
