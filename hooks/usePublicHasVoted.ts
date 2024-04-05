@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type PollT = {
   id: string;
@@ -9,12 +8,16 @@ type PollT = {
 
 type PollsT = PollT[];
 
-const usePublicHasVoted = async ({ pollid }: { pollid: string }) => {
+export default function usePublicHasVoted({ pollid }: { pollid: string }) {
   const [voted, setVoted] = useState<boolean>(false);
   const [polls, setPolls] = useState<PollsT>([]);
 
-  let value = await JSON.stringify(localStorage.getItem("polls"));
-  const valueObj = (await JSON.parse(value)) as PollsT;
+  useEffect(() => {
+    async function getLocalStorageData() {
+      let value = await JSON.stringify(localStorage.getItem("polls"));
+      const valueObj = (await JSON.parse(value)) as PollsT;
+    }
+  }, []);
 
   if (value) {
     setPolls([...valueObj]);
@@ -22,6 +25,4 @@ const usePublicHasVoted = async ({ pollid }: { pollid: string }) => {
   }
 
   return { voted };
-};
-
-export default usePublicHasVoted;
+}

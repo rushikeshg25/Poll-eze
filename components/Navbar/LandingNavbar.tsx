@@ -3,14 +3,17 @@ import { UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
-// import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 
-interface NavbarT {
-  isAuthenticated: string;
-}
-
-export default function LandingNavbar({ isAuthenticated }: NavbarT) {
+export default function LandingNavbar() {
   // const [MenuVisibility, setMenuVisibility] = useState(false);
+  const { userId } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (userId) setIsAuthenticated(true);
+  }, []);
 
   return (
     <div>
