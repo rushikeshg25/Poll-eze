@@ -32,7 +32,7 @@ model Poll {
   user           User     @relation(name: "Polls created by User", fields: [UserId], references: [id])
   UserId         String
   options        Option[]
-  Voters         String[] @default([])
+  Voters         Vote[]
   Duration       Int?
   created        DateTime @default(now())
   PolltotalVotes Int      @map("totalVotes")
@@ -46,4 +46,12 @@ model Option {
   totalVotes  Int
   poll        Poll    @relation(fields: [PollId], references: [id])
   PollId      String
+}
+
+model Vote {
+  id     String @id @default(uuid())
+  userId String @unique
+  pollId Poll   @relation(fields: [Pvote], references: [id])
+  Pvote  String
+  option String
 }
