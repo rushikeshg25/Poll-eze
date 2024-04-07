@@ -4,19 +4,18 @@ import { fetchPoll } from "@/lib/fetchPoll";
 import type { PollwithOptionT } from "@/types/PollwithOptions";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import usePrivateHasVoted from "@/hooks/usePrivateHasVoted";
+import hasAuthUservoted from "@/lib/hasAuthUserVoted";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { userId } = auth();
   if (!userId) redirect(`/poll/public/${params.id}`);
   const poll = (await fetchPoll(params.id)) as PollwithOptionT;
 
-  const vote = await usePrivateHasVoted({
+  const optionVoted = await hasAuthUservoted({
+    pollId: params.id,
     userId: userId,
-    pollId: poll.id,
   });
-  const hasVoted = vote.hasVoted as boolean;
-
+  console.log(optionVoted);
   return (
     <div className='flex flex-col w-full h-full'>
       <MainNavbar
@@ -26,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       />
       <div className='flex flex-col justify-center items-center flex-1 w-full'>
         <div className='w-1/3'>
-          <PollPage poll={poll} hasVotedParent={hasVoted} />
+          <PollPage poll={poll} optionVoted={optionVoted} />
         </div>
       </div>
     </div>

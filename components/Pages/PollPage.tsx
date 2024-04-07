@@ -11,7 +11,7 @@ import {
 import { Votebar } from "../ui/VoteBar";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 
-type PollT = { poll: PollwithOptionT; optionVoted: string };
+type PollT = { poll: PollwithOptionT; optionVoted: string | null };
 let totalVotes = 0;
 let percent: number;
 const PollPage = ({ poll, optionVoted }: PollT) => {
