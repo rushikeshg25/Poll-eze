@@ -18,6 +18,8 @@ const PollPage = ({ poll, optionVoted }: PollT) => {
   const [hasVoted, setHasVoted] = useState(false);
   const [optionVotes, setOptionVotes] = useState<number[]>([]);
   useEffect(() => {
+    if (optionVoted) setHasVoted(true);
+
     for (let i = 0; i < poll.options.length; i++)
       totalVotes += poll.options[i].votes;
   }, []);

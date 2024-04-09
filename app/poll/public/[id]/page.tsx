@@ -2,6 +2,7 @@ import MainNavbar from "@/components/Navbar/MainNavbar";
 import { fetchPoll } from "@/lib/fetchPoll";
 import type { PollwithOptionT } from "@/types/PollwithOptions";
 import PublicPoll from "@/components/Pages/PublicPoll";
+import usePublicHasVoted from "@/hooks/usePublicHasVoted";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const poll = (await fetchPoll(params.id)) as PollwithOptionT;
