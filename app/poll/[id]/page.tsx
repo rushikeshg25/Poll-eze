@@ -15,7 +15,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     pollId: params.id,
     userId: userId,
   });
-  console.log(optionVoted);
   return (
     <div className='flex flex-col w-full h-full'>
       <MainNavbar
@@ -25,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       />
       <div className='flex flex-col justify-center items-center flex-1 w-full'>
         <div className='w-1/3'>
-          <AuthPoll poll={poll} optionVoted={optionVoted} />
+          <AuthPoll poll={poll} optionVoted={optionVoted} userId={userId} />
         </div>
       </div>
     </div>
