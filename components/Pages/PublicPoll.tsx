@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import PollPage from "./PollPage";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 
-const PublicPoll = async ({ poll }: { poll: PollwithOptionT }) => {
+const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
   const [optionvoted, setoptionvoted] = useState<string>("");
   useEffect(() => {
     const optionId = usePublicHasVoted({ pollid: poll.id });
+    // console.log(optionId);
     if (!optionId) setoptionvoted("");
     else setoptionvoted(optionId);
+    // console.log("state", optionvoted);
   }, []);
 
   return (
