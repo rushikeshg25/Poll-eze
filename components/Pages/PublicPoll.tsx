@@ -6,13 +6,11 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import axios from "axios";
 
 const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
-  const [optionvoted, setoptionvoted] = useState<string>("");
+  const [optionvoted, setoptionvoted] = useState<string | null>(null);
   useEffect(() => {
     const optionId = usePublicHasVoted({ pollid: poll.id });
-    // console.log(optionId);
-    if (!optionId) setoptionvoted("");
+    if (!optionId) setoptionvoted(null);
     else setoptionvoted(optionId);
-    // console.log("state", optionvoted);
   }, []);
 
   const voteApiHandler = async (optionId: string) => {

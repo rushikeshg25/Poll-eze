@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 interface NavbarT {
   isLanding: boolean;
-  isAuthenticated: string;
+  isAuthenticated: string | null;
   isAllPollsPage: boolean;
 }
 
@@ -71,15 +71,13 @@ export default function MainNavbar({
                     <UserButton />
                   </div>
                 ) : (
-                  <Link
-                    href='/sign-up'
-                    className='relative flex h-12 w-full items-center justify-center overflow-hidden rounded-full border border-transparent bg-blue-600 px-6 outline-none duration-300 ease-linear after:absolute after:inset-x-0 after:left-0 after:top-0 after:aspect-square after:origin-center after:scale-0 after:rounded-full after:bg-white after:opacity-70 after:duration-300 after:ease-linear hover:border-white hover:after:scale-[2.5] hover:after:opacity-100 sm:w-max'
+                  <Button
+                    onClick={() => {
+                      router.push("/sign-in");
+                    }}
                   >
-                    <span className='relative z-10 text-white'>
-                      {" "}
-                      Get Started{" "}
-                    </span>
-                  </Link>
+                    Login
+                  </Button>
                 )}
               </div>
             </div>

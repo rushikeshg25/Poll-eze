@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <MainNavbar
         isAllPollsPage={false}
         isLanding={false}
-        isAuthenticated={"null"}
+        isAuthenticated={null}
       />
       <div className='flex flex-col justify-center items-center flex-1 w-full'>
         <div className='w-1/3'>

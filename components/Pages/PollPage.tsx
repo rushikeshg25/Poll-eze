@@ -73,7 +73,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
         <CardContent className='flex flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'>
           {poll.options.map((option) => (
             <Votebar
-              className='dark:border-gray-300 border-gray-800  border-2'
+              className='dark:border-gray-300 border-gray-800  border-2 cursor-pointer'
               key={option.id}
               option={option.title}
               value={
