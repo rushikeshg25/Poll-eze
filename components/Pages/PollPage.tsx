@@ -12,6 +12,7 @@ import { Votebar } from "../ui/VoteBar";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { Option } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
+import { boolean } from "zod";
 
 // useEffect(() => {
 //   if (optionVoted !== null) setHasVoted(true);
@@ -21,12 +22,6 @@ import { useToast } from "@/components/ui/use-toast";
 //   console.log(hasVoted);
 // }, []);
 
-// useEffect(() => {
-//   for (let i = 0; i < poll.options.length; i++) {
-//     setOptionVotes([...optionVotes]);
-//   }
-// }, [hasVoted]);
-
 type PollT = {
   poll: PollwithOptionT;
   optionVoted: string | null;
@@ -35,14 +30,14 @@ type PollT = {
 
 const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const { toast } = useToast();
-  const [hasVoted, setHasVoted] = useState(false);
-  const [optionVotes, setOptionVotes] = useState<number[]>([]);
+  const [hasVoted, setHasVoted] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (optionVoted !== null) setHasVoted((i) => true);
-  //   console.log(hasVoted);
-  //   console.log(hasVoted === true);
-  // }, []);
+  useEffect(() => {
+    if (optionVoted === null) setHasVoted(false);
+    else {
+      setHasVoted(true);
+    }
+  }, []);
 
   const voteHandler = async (option: Option) => {
     try {
