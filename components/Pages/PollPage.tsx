@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Votebar } from "../ui/VoteBar";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import axios from "axios";
 import { Option } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -28,10 +27,13 @@ import { useToast } from "@/components/ui/use-toast";
 //   }
 // }, [hasVoted]);
 
-type PollT = { poll: PollwithOptionT; optionVoted: string | null };
-let totalVotes = 0;
-let percent: number;
-const PollPage = ({ poll, optionVoted }: PollT) => {
+type PollT = {
+  poll: PollwithOptionT;
+  optionVoted: string | null;
+  voteApiHandler: (optionId: string) => void;
+};
+
+const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const { toast } = useToast();
   const [hasVoted, setHasVoted] = useState(false);
   const [optionVotes, setOptionVotes] = useState<number[]>([]);
@@ -44,14 +46,13 @@ const PollPage = ({ poll, optionVoted }: PollT) => {
 
   const voteHandler = async (option: Option) => {
     try {
-      await axios.post("http://localhost:3000/api/poll/create-poll", {
-        poll: poll,
-      });
+      await voteApiHandler(option.id);
       setHasVoted(true);
       toast({
         title: `Voted for ${option.title}`,
       });
     } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         title: "We ran into some Issue",
