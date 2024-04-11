@@ -12,15 +12,6 @@ import { Votebar } from "../ui/VoteBar";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { Option } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
-import { boolean } from "zod";
-
-// useEffect(() => {
-//   if (optionVoted !== null) setHasVoted(true);
-
-//   for (let i = 0; i < poll.options.length; i++)
-//     totalVotes += poll.options[i].votes;
-//   console.log(hasVoted);
-// }, []);
 
 type PollT = {
   poll: PollwithOptionT;
@@ -33,10 +24,12 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const [hasVoted, setHasVoted] = useState<boolean>(false);
 
   useEffect(() => {
-    if (optionVoted === null) setHasVoted(false);
+    if (optionVoted) setHasVoted(true);
     else {
-      setHasVoted(true);
+      setHasVoted(false);
     }
+    console.log(optionVoted);
+    console.log(hasVoted);
   }, []);
 
   const voteHandler = async (option: Option) => {
@@ -51,7 +44,6 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
       toast({
         variant: "destructive",
         title: "We ran into some Issue",
-        description: JSON.stringify(error),
       });
     }
   };
