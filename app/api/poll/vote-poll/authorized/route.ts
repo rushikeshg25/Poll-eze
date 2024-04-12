@@ -18,13 +18,35 @@ export async function POST(Request: Request) {
         id: optionId,
       },
       data: {
-        totalVotes: {
-          increment: 1,
-        },
         votes: {
           increment: 1,
         },
       },
+    });
+    const poll = await prisma.poll.update({
+      where: {
+        id: pollId,
+      },
+      data: {
+        PolltotalVotes: {
+          increment: 1,
+        },
+      },
+      include: {
+        options: true,
+      },
+    });
+    const options = poll.options.map(async (option) => {
+      await prisma.option.update({
+        where: {
+          id: option.id,
+        },
+        data: {
+          totalVotes: {
+            increment: 1,
+          },
+        },
+      });
     });
 
     const vote = await prisma.vote.create({
