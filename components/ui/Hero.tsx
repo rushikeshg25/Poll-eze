@@ -4,6 +4,8 @@ import UiImprovements from "./UiImprovements";
 import { Button } from "./button";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
+import { Card } from "./card";
+import LandingPagePoll from "./LandingPagePoll";
 
 const Hero = () => {
   const { userId } = useAuth();
@@ -82,13 +84,9 @@ const Hero = () => {
           </div>
         </div>
         <div className='relative mx-auto flex max-w-3xl flex-1 lg:mx-0 lg:h-auto lg:w-1/2 lg:max-w-none'>
-          <img
-            src='https://agencex-astro.vercel.app/images/image1.webp'
-            alt='Hero image'
-            width='2350'
-            height='2359'
-            className='max-h-96 rounded-3xl object-cover lg:absolute lg:h-full lg:max-h-none lg:w-full'
-          />
+          <Card className='w-full h-full'>
+            <LandingPagePoll />
+          </Card>
         </div>
       </div>
     </section>

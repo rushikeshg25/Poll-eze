@@ -1,6 +1,11 @@
+import { redirect } from "next/navigation";
 const UiImprovements = () => {
   return (
-    <div>
+    <div
+      onClick={() => {
+        redirect("/announcements");
+      }}
+    >
       <a
         className='inline-flex items-center gap-x-2 space-x-1 rounded-xl border-2 border-gray-400 px-1 py-1 text-sm font-semibold text-gray-600 hover:border-blue-500'
         href='#'
@@ -23,7 +28,7 @@ const UiImprovements = () => {
           </svg>
           New
         </span>
-        <span>Some important improvements</span>
+        <span>Some important Announcements/Future Goals</span>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'

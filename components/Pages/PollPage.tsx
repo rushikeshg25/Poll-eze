@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ type PollT = {
 };
 
 const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
+  const ref = useRef();
   const { toast } = useToast();
   const [hasVoted, setHasVoted] = useState<boolean>(false);
 
@@ -28,8 +29,6 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
     else {
       setHasVoted(false);
     }
-    console.log(optionVoted);
-    console.log(hasVoted);
   }, []);
 
   const voteHandler = async (option: Option) => {
@@ -59,19 +58,23 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
         </CardHeader>
         <CardContent className='flex flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'>
           {poll.options.map((option) => (
-            <Votebar
-              className='dark:border-gray-300 border-gray-800  border-2 cursor-pointer'
-              key={option.id}
-              option={option.title}
-              value={
-                hasVoted == true
-                  ? ((option.votes + 1) / (option.totalVotes + 1)) * 100
-                  : 0
-              }
-              onClick={() => {
-                voteHandler(option);
-              }}
-            />
+            <button disabled={hasVoted}>
+              <Votebar
+                className={`dark:border-gray-300 border-gray-800 border-2 cursor-pointer ${
+                  hasVoted && option.id === optionVoted ? "bg-green-500" : ""
+                }`}
+                key={option.id}
+                option={option.title}
+                value={
+                  hasVoted == true
+                    ? ((option.votes + 1) / (option.totalVotes + 1)) * 100
+                    : 0
+                }
+                onClick={() => {
+                  voteHandler(option);
+                }}
+              />
+            </button>
           ))}
         </CardContent>
         <CardFooter>

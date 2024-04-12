@@ -51,15 +51,21 @@ export const HoverEffect = ({ polls, className }: PollT) => {
           </AnimatePresence>
           <Card>
             <CardTitle>{poll.title}</CardTitle>
+
             <CardDescription>{poll.description}</CardDescription>
             <CardFooter className='flex flex-col gap-2'>
               {poll.options.map((option) => (
-                <Votebar
-                  key={option.id}
-                  option={option.title}
-                  value={(option.votes / option.totalVotes) * 100}
-                  className='w-full'
-                />
+                <div className='flex w-full gap-2'>
+                  <Votebar
+                    key={option.id}
+                    option={option.title}
+                    value={(option.votes / option.totalVotes) * 100}
+                    className='w-full'
+                  />
+                  {/* <div className='flex justify-center items-center'>
+                    <div>{option.votes} Votes</div>
+                  </div> */}
+                </div>
               ))}
             </CardFooter>
             <CardFooter className='flex justify-between'>
