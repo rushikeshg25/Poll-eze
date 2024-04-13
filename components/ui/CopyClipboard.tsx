@@ -8,6 +8,7 @@ const CopyClipboard = ({ pollId }: { pollId: string }) => {
   const [copy, setCopy] = useState(false);
   return (
     <Button
+      variant={"ghost"}
       onClick={() => {
         setCopy(true);
         navigator.clipboard.writeText(`http://localhost:3000/poll/${pollId}`);

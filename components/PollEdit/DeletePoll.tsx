@@ -51,6 +51,7 @@ const DeletePoll = ({ pollId }: { pollId: string }) => {
   return (
     <>
       <Button
+        variant={"destructive"}
         onClick={() => {
           setOpen(true);
         }}

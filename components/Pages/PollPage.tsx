@@ -48,12 +48,16 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   };
 
   return (
-    <div className='border-2 rounded-lg border-gray-900 dark:border-none'>
-      <Card>
+    <div className=' rounded-lg  dark:border-none  w-full'>
+      <Card className=''>
         <CardHeader>
-          <CardTitle className='flex justify-center'>{poll.title}</CardTitle>
+          <CardTitle className='flex justify-center text-2xl'>
+            {poll.title}
+          </CardTitle>
           {poll.description && (
-            <CardDescription>{poll.description}</CardDescription>
+            <CardDescription className='justify-center flex'>
+              <>{poll.description}</>
+            </CardDescription>
           )}
         </CardHeader>
         <CardContent className='flex flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'>
@@ -77,8 +81,14 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
             </button>
           ))}
         </CardContent>
-        <CardFooter>
-          {hasVoted === true ? <>Already Voted</> : <>vote</>}
+        <CardFooter className='flex justify-center'>
+          <>
+            {hasVoted === true ? (
+              <>You have Already Voted!</>
+            ) : (
+              <>Vote an Option </>
+            )}
+          </>
         </CardFooter>
       </Card>
     </div>

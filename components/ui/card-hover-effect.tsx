@@ -5,10 +5,17 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import { useRouter } from "next/navigation";
 import { CardFooter } from "./card";
 import { Votebar } from "./VoteBar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import PollVotes from "./PollVotes";
 import PollDuration from "./PollDuration";
 import DeletePoll from "../PollEdit/DeletePoll";
 import CopyClipboard from "./CopyClipboard";
+import OpenPoll from "./OpenPoll";
 
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
@@ -53,30 +60,40 @@ export const HoverEffect = ({ polls, className }: PollT) => {
           <Card>
             <CardTitle>{poll.title}</CardTitle>
 
-            <CardDescription>{poll.description}</CardDescription>
             <CardFooter className='flex flex-col gap-2'>
               {poll.options.map((option) => (
-                <div className='flex w-full gap-2'>
-                  <Votebar
-                    key={option.id}
-                    option={option.title}
-                    value={(option.votes / option.totalVotes) * 100}
-                    className='w-full'
-                  />
-                  {/* <div className='flex justify-center items-center'>
-                    <div>{option.votes} Votes</div>
-                  </div> */}
+                <div key={option.id} className='grid grid-rows-1  w-full gap-2'>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Votebar
+                          key={option.id}
+                          option={option.title}
+                          value={(option.votes / option.totalVotes) * 100}
+                          className='w-full'
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{`${option.votes} votes`} </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               ))}
             </CardFooter>
-            <CardFooter className='flex justify-between'>
-              <PollVotes totalVotes={poll.PolltotalVotes} />
-              <PollDuration
-                PollDuration={poll.Duration as number}
-                createdAt={poll.created}
-              />
-              <CopyClipboard pollId={poll.id} />
-              <DeletePoll pollId={poll.id} />
+            <CardFooter className='flex flex-col justify-center items-center'>
+              <div className='flex items-center'>
+                <PollVotes totalVotes={poll.PolltotalVotes} />
+                <PollDuration
+                  PollDuration={poll.Duration as number}
+                  createdAt={poll.created}
+                />
+              </div>
+              <div className='flex justify-between'>
+                <OpenPoll pollId={poll.id} />
+                <CopyClipboard pollId={poll.id} />
+                <DeletePoll pollId={poll.id} />
+              </div>
             </CardFooter>
           </Card>
         </div>
@@ -95,7 +112,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative ",
         className
       )}
     >

@@ -35,7 +35,6 @@ const page = async () => {
   }
 
   const polls = (await fetchPolls(userId)) as PollwithOptionT[];
-  // const polls = [] as Poll[];
 
   return (
     <div className='h-screen flex flex-col'>
@@ -50,7 +49,9 @@ const page = async () => {
         </div>
       ) : (
         <>
-          <div className='flex justify-center text-2xl pt-4'>Your Polls</div>
+          <div className='flex justify-center text-3xl pt-4 font-semibold'>
+            Your Polls
+          </div>
           <Polls polls={polls} />
         </>
       )}
