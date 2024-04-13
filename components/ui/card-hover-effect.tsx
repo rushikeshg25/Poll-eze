@@ -8,6 +8,7 @@ import { Votebar } from "./VoteBar";
 import PollVotes from "./PollVotes";
 import PollDuration from "./PollDuration";
 import DeletePoll from "../PollEdit/DeletePoll";
+import CopyClipboard from "./CopyClipboard";
 
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
@@ -74,6 +75,7 @@ export const HoverEffect = ({ polls, className }: PollT) => {
                 PollDuration={poll.Duration as number}
                 createdAt={poll.created}
               />
+              <CopyClipboard pollId={poll.id} />
               <DeletePoll pollId={poll.id} />
             </CardFooter>
           </Card>

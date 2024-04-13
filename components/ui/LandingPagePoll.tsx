@@ -15,7 +15,7 @@ const LandingPagePoll = () => {
       </CardHeader>
       <CardContent className='flex items-center flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'>
         {options.map((option) => (
-          <button disabled={hasVoted}>
+          <button key={option} disabled={hasVoted}>
             <Votebar
               className={`dark:border-gray-300 border-gray-800 border-2 cursor-pointer ${
                 hasVoted && option === optionVoted ? "bg-green-500" : ""
