@@ -16,14 +16,14 @@ export default async function Page({ params }: { params: { id: string } }) {
     userId: userId,
   });
   return (
-    <div className='flex flex-col w-full h-full'>
+    <div className='flex flex-col w-full h-screen'>
       <MainNavbar
         isAllPollsPage={false}
         isLanding={false}
         isAuthenticated={`${userId}`}
       />
-      <div className='flex flex-col justify-center items-center flex-1 w-full'>
-        <div className='w-1/3'>
+      <div className='flex flex-col  items-center flex-1   h-full '>
+        <div className='w-1/3 h-full flex mt-36  '>
           <AuthPoll poll={poll} optionVoted={optionVoted} userId={userId} />
         </div>
       </div>

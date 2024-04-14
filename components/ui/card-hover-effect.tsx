@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import { useRouter } from "next/navigation";
 import { CardFooter } from "./card";
 import { Votebar } from "./VoteBar";
 import {
@@ -20,7 +19,6 @@ import OpenPoll from "./OpenPoll";
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
 export const HoverEffect = ({ polls, className }: PollT) => {
-  const router = useRouter();
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -34,9 +32,6 @@ export const HoverEffect = ({ polls, className }: PollT) => {
         <div
           key={poll.id}
           className='relative group  block p-2 h-full w-full'
-          onClick={() => {
-            router.push(`/poll/${poll.id}`);
-          }}
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
