@@ -1,5 +1,3 @@
-import { Diff } from "lucide-react";
-
 type returnT = {
   Difference: number;
   isOpen: boolean;
