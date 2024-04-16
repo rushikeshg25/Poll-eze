@@ -22,7 +22,7 @@ type OptionT = {
   totalVotes: number;
 };
 
-const page = () => {
+const Page = () => {
   const { userId } = useAuth();
   if (!userId) {
     redirect("/sign-in");
@@ -176,4 +176,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

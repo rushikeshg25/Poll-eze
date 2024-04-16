@@ -28,7 +28,7 @@ async function fetchPolls(userId: string) {
   }
 }
 
-const page = async () => {
+const Page = async () => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -59,4 +59,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;

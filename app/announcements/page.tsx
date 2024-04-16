@@ -2,7 +2,7 @@ import MainNavbar from "@/components/Navbar/MainNavbar";
 import React from "react";
 import { auth } from "@clerk/nextjs";
 
-const page = () => {
+const Page = () => {
   const { userId } = auth();
   return (
     <div className='h-screen flex flex-col'>
@@ -18,4 +18,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
