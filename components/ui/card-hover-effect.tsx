@@ -69,7 +69,11 @@ export const HoverEffect = ({ polls, className }: PollT) => {
                         />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>{`${option.votes} votes`} </p>
+                        {option.votes === 1 ? (
+                          <p>{`${option.votes} vote`} </p>
+                        ) : (
+                          <p>{`${option.votes} votes`} </p>
+                        )}
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
