@@ -29,13 +29,13 @@ export const HoverEffect = ({ polls, className }: PollT) => {
       )}
     >
       {polls.map((poll, idx) => (
-        <div
-          key={poll.id}
-          className='relative group  block p-2 h-full w-full'
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <AnimatePresence>
+        <AnimatePresence>
+          <div
+            key={poll.id}
+            className='relative group  block p-2 h-full w-full'
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
             {hoveredIndex === idx && (
               <motion.span
                 className='absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl'
@@ -51,51 +51,54 @@ export const HoverEffect = ({ polls, className }: PollT) => {
                 }}
               />
             )}
-          </AnimatePresence>
-          <Card>
-            <CardTitle>{poll.title}</CardTitle>
+            <Card>
+              <CardTitle>{poll.title}</CardTitle>
 
-            <CardFooter className='flex flex-col gap-2'>
-              {poll.options.map((option) => (
-                <div key={option.id} className='grid grid-rows-1  w-full gap-2'>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Votebar
-                          key={option.id}
-                          option={option.title}
-                          value={(option.votes / option.totalVotes) * 100}
-                          className='w-full'
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        {option.votes === 1 ? (
-                          <p>{`${option.votes} vote`} </p>
-                        ) : (
-                          <p>{`${option.votes} votes`} </p>
-                        )}
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+              <CardFooter className='flex flex-col gap-2'>
+                {poll.options.map((option) => (
+                  <div
+                    key={option.id}
+                    className='grid grid-rows-1  w-full gap-2'
+                  >
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Votebar
+                            key={option.id}
+                            option={option.title}
+                            value={(option.votes / option.totalVotes) * 100}
+                            className='w-full'
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {option.votes === 1 ? (
+                            <p>{`${option.votes} vote`} </p>
+                          ) : (
+                            <p>{`${option.votes} votes`} </p>
+                          )}
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                ))}
+              </CardFooter>
+              <CardFooter className='flex flex-col justify-center items-center'>
+                <div className='flex items-center'>
+                  <PollVotes totalVotes={poll.PolltotalVotes} />
+                  <PollDuration
+                    PollDuration={poll.Duration as number}
+                    createdAt={poll.created}
+                  />
                 </div>
-              ))}
-            </CardFooter>
-            <CardFooter className='flex flex-col justify-center items-center'>
-              <div className='flex items-center'>
-                <PollVotes totalVotes={poll.PolltotalVotes} />
-                <PollDuration
-                  PollDuration={poll.Duration as number}
-                  createdAt={poll.created}
-                />
-              </div>
-              <div className='flex justify-between'>
-                <OpenPoll pollId={poll.id} />
-                <CopyClipboard pollId={poll.id} />
-                <DeletePoll pollId={poll.id} />
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
+                <div className='flex justify-between'>
+                  <OpenPoll pollId={poll.id} />
+                  <CopyClipboard pollId={poll.id} />
+                  <DeletePoll pollId={poll.id} />
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+        </AnimatePresence>
       ))}
     </div>
   );
