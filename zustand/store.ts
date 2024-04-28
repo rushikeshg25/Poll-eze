@@ -9,9 +9,7 @@ interface optionState {
 }
 
 export const useStore = create<optionState>((set) => ({
-  // initial state
   options: [],
-  // methods for manipulating state
   addOption: (title: string) => {
     set((state) => ({
       options: [...state.options, { title: title, votes: 0, totalVotes: 0 }],
@@ -22,4 +20,5 @@ export const useStore = create<optionState>((set) => ({
       options: state.options.filter((option) => option.title !== title),
     }));
   },
+  getOption: (title: string) => {},
 }));
