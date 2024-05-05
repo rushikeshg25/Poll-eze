@@ -12,6 +12,9 @@ const CopyClipboard = ({ pollId }: { pollId: string }) => {
       onClick={() => {
         setCopy(true);
         navigator.clipboard.writeText(`http://localhost:3000/poll/${pollId}`);
+        setTimeout(() => {
+          setCopy(false);
+        }, 2000);
       }}
     >
       {!copy ? <Copy /> : <Check />}
