@@ -12,6 +12,8 @@ function PollTime(PollCreatedAt: Date, PollDuration: number) {
   let Difference: number =
     (CurrentTime.getTime() - PollCreationTime.getTime()) / (1000 * 60);
 
+  //Get the difference in minutes
+  Difference = Math.floor(Difference);
   if (PollDuration > Difference) {
     isOpen = true;
     if (Difference < 60) {
