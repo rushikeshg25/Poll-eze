@@ -1,3 +1,4 @@
+import date from "date-and-time";
 type returnT = {
   Difference: number;
   isOpen: boolean;
@@ -9,11 +10,10 @@ function PollTime(PollCreatedAt: Date, PollDuration: number) {
   const CurrentTime: Date = new Date();
   var isOpen: boolean = false;
   var unit: string = "";
-  let Difference: number =
-    (CurrentTime.getTime() - PollCreationTime.getTime()) / (1000 * 60);
+  let Difference: number = date
+    .subtract(CurrentTime, PollCreationTime)
+    .toMinutes();
 
-  //Get the difference in minutes
-  Difference = Math.floor(Difference);
   if (PollDuration > Difference) {
     isOpen = true;
     if (Difference < 60) {
