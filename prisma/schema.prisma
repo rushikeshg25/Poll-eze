@@ -33,7 +33,7 @@ model Poll {
   UserId         String
   options        Option[]
   Voters         Vote[]
-  Duration       Int?
+  Duration       Int? // in minutes
   created        DateTime @default(now())
   PolltotalVotes Int      @map("totalVotes")
 }
