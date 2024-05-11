@@ -52,7 +52,7 @@ const PollDuration = ({ durationhandler }: PollDurationT) => {
                 <Label>Custom Duration</Label>
                 <Input
                   disabled={!custom}
-                  placeholder='Enter your Duration in Minutes'
+                  placeholder='Enter your Duration in hrs'
                   onChange={(e) => durationhandler(Number(e.target.value))}
                 />
               </div>

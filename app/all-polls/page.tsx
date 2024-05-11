@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import Polls from "@/components/Pages/Polls";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import NoPolls from "@/components/Pages/NoPolls";
+import { revalidatePath } from "next/cache";
 
 async function fetchPolls(userId: string) {
   try {
@@ -60,3 +61,5 @@ const Page = async () => {
 };
 
 export default Page;
+
+revalidatePath("/all-polls");

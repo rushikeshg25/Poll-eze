@@ -10,7 +10,7 @@ type PollDurationT = {
 
 const PollDuration = ({ createdAt, PollDuration }: PollDurationT) => {
   const DateObj = new Date(createdAt);
-  const { Difference, isOpen } = useTimeUntil(DateObj, PollDuration);
+  const { timeLeft, isOpen, closingSoon } = useTimeUntil(DateObj, PollDuration);
 
   if (!isOpen) {
     return (
@@ -28,10 +28,11 @@ const PollDuration = ({ createdAt, PollDuration }: PollDurationT) => {
       <div className='flex items-center'>
         <div className='rounded-full aspect-square h-2 bg-green-600' />
       </div>
-      {Difference != 0 ? (
-        <div>{`${Difference} hrs`}</div>
-      ) : (
-        <div>Closes soon</div>
+      {timeLeft != 0 ? <div>{`${timeLeft} hrs`}</div> : <div>Closes soon</div>}
+      {closingSoon && (
+        <div className='flex items-center'>
+          <div className='rounded-full aspect-square h-2 bg-red-700' />
+        </div>
       )}
     </Wrapper>
   );

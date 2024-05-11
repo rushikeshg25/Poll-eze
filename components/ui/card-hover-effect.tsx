@@ -29,7 +29,7 @@ export const HoverEffect = ({ polls, className }: PollT) => {
       )}
     >
       {polls.map((poll, idx) => (
-        <AnimatePresence>
+        <AnimatePresence key={poll.id}>
           <div
             key={poll.id}
             className='relative group  block p-2 h-full w-full'
