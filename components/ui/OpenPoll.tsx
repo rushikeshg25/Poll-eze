@@ -8,7 +8,8 @@ const OpenPoll = ({ pollId }: { pollId: string }) => {
   return (
     <Button
       variant={"ghost"}
-      onClick={() => {
+      onClick={(event) => {
+        event?.stopPropagation();
         router.push(`http://localhost:3000/poll/${pollId}`);
       }}
     >

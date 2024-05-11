@@ -9,7 +9,8 @@ const CopyClipboard = ({ pollId }: { pollId: string }) => {
   return (
     <Button
       variant={"ghost"}
-      onClick={() => {
+      onClick={(event) => {
+        event?.stopPropagation();
         setCopy(true);
         navigator.clipboard.writeText(`http://localhost:3000/poll/${pollId}`);
         setTimeout(() => {

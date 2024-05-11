@@ -52,7 +52,8 @@ const DeletePoll = ({ pollId }: { pollId: string }) => {
     <>
       <Button
         variant={"destructive"}
-        onClick={() => {
+        onClick={(event) => {
+          event?.stopPropagation();
           setOpen(true);
         }}
       >

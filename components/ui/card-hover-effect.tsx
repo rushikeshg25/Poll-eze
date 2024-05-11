@@ -15,10 +15,12 @@ import PollDuration from "./PollDuration";
 import DeletePoll from "../PollEdit/DeletePoll";
 import CopyClipboard from "./CopyClipboard";
 import OpenPoll from "./OpenPoll";
+import { useRouter } from "next/navigation";
 
 type PollT = { polls: PollwithOptionT[]; className?: string };
 
 export const HoverEffect = ({ polls, className }: PollT) => {
+  const router = useRouter();
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
@@ -31,6 +33,9 @@ export const HoverEffect = ({ polls, className }: PollT) => {
       {polls.map((poll, idx) => (
         <AnimatePresence key={poll.id}>
           <div
+            onClick={() => {
+              router.push(`http://localhost:3000/poll/${poll.id}`);
+            }}
             key={poll.id}
             className='relative group  block p-2 h-full w-full'
             onMouseEnter={() => setHoveredIndex(idx)}
@@ -92,8 +97,30 @@ export const HoverEffect = ({ polls, className }: PollT) => {
                 </div>
                 <div className='flex justify-between'>
                   <OpenPoll pollId={poll.id} />
-                  <CopyClipboard pollId={poll.id} />
-                  <DeletePoll pollId={poll.id} />
+                  <>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <CopyClipboard pollId={poll.id} />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Copy Poll Link to Clipboard</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </>
+                  <>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <DeletePoll pollId={poll.id} />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Delete Poll</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </>
                 </div>
               </CardFooter>
             </Card>
