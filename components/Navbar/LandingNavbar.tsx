@@ -25,7 +25,9 @@ export default function LandingNavbar() {
   const router = useRouter();
   console.log(userId);
   useEffect(() => {
+    console.log(userId);
     if (userId) setIsAuthenticated(true);
+    console.log(isAuthenticated);
   }, []);
 
   return (
@@ -98,7 +100,7 @@ export default function LandingNavbar() {
                         <Button variant={"ghost"}>My Polls</Button>
                       )}
 
-                      {isAuthenticated !== null ? (
+                      {isAuthenticated === true ? (
                         <Button variant={"ghost"}>
                           <SignOutButton />
                         </Button>

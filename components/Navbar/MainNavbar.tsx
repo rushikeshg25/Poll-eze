@@ -1,5 +1,5 @@
 "use client";
-import { UserButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
@@ -7,6 +7,17 @@ import LangingPageLogo from "./Logos/LangingPageLogo";
 import MainLogo from "./Logos/MainLogo";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+
+import { Menu } from "lucide-react";
 
 interface NavbarT {
   isLanding: boolean;
@@ -82,30 +93,50 @@ export default function MainNavbar({
               </div>
             </div>
 
-            {/* <div className='flex min-w-max items-center gap-x-3'>
-              <button
-                data-toggle-navbar
-                data-is-open='false'
-                className='relative flex h-auto w-7 flex-col outline-none lg:invisible lg:hidden'
-                onClick={() => {
-                  setMenuVisibility(true);
-                }}
-              >
-                <span
-                  id='line-1'
-                  className='h-0.5 w-6 rounded-full bg-gray-700 transition-all duration-300 ease-linear'
-                ></span>
-                <span
-                  id='line-2'
-                  className='rounded-ful mt-1 h-0.5 w-6 origin-center bg-gray-700 transition-all duration-300 ease-linear'
-                ></span>
-                <span
-                  id='line-3'
-                  className='rounded-ful mt-1 h-0.5 w-6 bg-gray-700 transition-all duration-300 ease-linear'
-                ></span>
-                <span className='sr-only'>togglenav</span>
-              </button>
-            </div> */}
+            {/*Mobile Menu*/}
+            <div className='flex lg:hidden'>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant='outline' className=' w-full h-full'>
+                    <Menu />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Poll-eze</SheetTitle>
+                  </SheetHeader>
+
+                  <SheetClose asChild className='pt-10 h-full'>
+                    <div className='flex flex-col items-center justify-center gap-y-2'>
+                      {isAuthenticated !== null && (
+                        <Button variant={"ghost"}>Create New Poll</Button>
+                      )}
+                      {isAuthenticated !== null && (
+                        <Button variant={"ghost"}>My Polls</Button>
+                      )}
+
+                      {isAuthenticated !== null ? (
+                        <Button variant={"ghost"}>
+                          <SignOutButton />
+                        </Button>
+                      ) : (
+                        <Button variant={"ghost"}>
+                          <SignInButton />
+                        </Button>
+                      )}
+                      <div className='flex-grow'></div>
+                      <div className='flex items-center gap-2 mb-9'>
+                        <Button variant='outline'>
+                          <GitHubLogoIcon className='mr-2 w-5 h-5' />
+                          Github
+                        </Button>
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  </SheetClose>
+                </SheetContent>
+              </Sheet>
+            </div>
           </nav>
         </div>
       </header>
