@@ -28,7 +28,7 @@ const UiImprovements = () => {
           </svg>
           New
         </span>
-        <span>Some important Announcements/Future Goals</span>
+        <span>Announcements/Future Goals</span>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
