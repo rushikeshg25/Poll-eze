@@ -1,6 +1,6 @@
 "use client";
 import { SignInButton, UserButton } from "@clerk/nextjs";
-
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
 import { useAuth } from "@clerk/nextjs";
@@ -22,7 +22,8 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 export default function LandingNavbar() {
   const { userId } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const router = useRouter();
+  console.log(userId);
   useEffect(() => {
     if (userId) setIsAuthenticated(true);
   }, []);
@@ -52,7 +53,7 @@ export default function LandingNavbar() {
               data-navbar
               className='invisible absolute top-full flex w-full translate-y-10 flex-col gap-x-4 gap-y-6 overflow-hidden  border-x border-x-gray-100 bg-white opacity-0 duration-300 ease-linear lg:visible lg:relative lg:top-0 lg:-translate-y-0 lg:scale-y-100 lg:flex-row lg:items-center lg:justify-end lg:border-x-0 lg:!bg-transparent lg:opacity-100'
             >
-              <div className='flex w-full justify-items-end gap-2 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
+              <div className='flex w-full justify-items-end gap-1 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
                 <div>
                   <ThemeToggle />
                 </div>
@@ -61,16 +62,15 @@ export default function LandingNavbar() {
                   <div className='p-1'>
                     <UserButton />
                   </div>
-                ) : (
-                  <Link
-                    href='/sign-up'
-                    className='relative flex h-12 w-full items-center justify-center overflow-hidden rounded-full border border-transparent bg-blue-600 px-6 outline-none duration-300 ease-linear after:absolute after:inset-x-0 after:left-0 after:top-0 after:aspect-square after:origin-center after:scale-0 after:rounded-full after:bg-[#172554] after:opacity-70 after:duration-300 after:ease-linear hover:border-[#172554] hover:after:scale-[2.5] hover:after:opacity-100 sm:w-max'
+                ) : null}
+
+                {!isAuthenticated && (
+                  <Button
+                    className='bg-[#2563EB]'
+                    onClick={() => router.push("/signup")}
                   >
-                    <span className='relative z-10 text-white'>
-                      {" "}
-                      Get Started{" "}
-                    </span>
-                  </Link>
+                    Signup
+                  </Button>
                 )}
               </div>
             </div>
