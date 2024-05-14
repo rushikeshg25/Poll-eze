@@ -1,17 +1,19 @@
+import LandingPagePollOptions from "./LandingPagePollOptions";
 import { Votebar } from "./VoteBar";
+import { prisma } from "@/lib/db";
 
 const POLL_ID = "d512919f-867a-4d5e-949e-e2353c98c8a1";
-const OPTIONS = [
-  {
-    id: "9a2b3893-1aa2-4141-ae0d-40dfb8111e73",
-    name: "The chicken",
-    votes: 0,
-    totalVotes: 0,
-  },
-];
 
-const LandingPagePoll = () => {
-  const voteHandler = (option: string) => {};
+const LandingPagePoll = async () => {
+  const poll = await prisma.poll.findUnique({
+    where: {
+      id: POLL_ID,
+    },
+    include: {
+      options: true,
+    },
+  });
+  console.log(poll);
   return (
     <div className='w-full mx-auto my-10'>
       <div className='w-full h-11 rounded-lg dark:bg-gray-900 bg-gray-200 flex justify-start items-center space-x-1.5 px-3'>
@@ -26,6 +28,7 @@ const LandingPagePoll = () => {
       </div>
       <div className='dark:bg-gray-700 bg-gray-100 border-t-0 w-full h-5/6 flex flex-col justify-around  items-center'>
         <div>Which came first: the chicken or the egg?</div>
+        <LandingPagePollOptions poll={poll} />
         <div className='flex items-center flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'></div>
       </div>
     </div>
