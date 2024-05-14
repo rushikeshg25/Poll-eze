@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CardFooter } from "./card";
 
 const PollLoadingSkeleton = ({ NumofPolls }: { NumofPolls: number }) => {
   if (NumofPolls === 0) NumofPolls = 9;
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  ")}>
+    <div
+      className={cn("grid grid-cols-1 md:grid-cols-2 gap-3  lg:grid-cols-3  ")}
+    >
       {[...Array(NumofPolls).keys()].map((i) => (
         <Card key={i}>
           <Skeleton className='mt-8 h-20 w-full' />
