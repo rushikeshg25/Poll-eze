@@ -26,10 +26,11 @@ const LandingPagePoll = async () => {
           </div>
         </div>
       </div>
-      <div className='dark:bg-gray-700 bg-gray-100 border-t-0 w-full h-5/6 flex flex-col justify-around  items-center'>
-        <div>Which came first: the chicken or the egg?</div>
+      <div className='dark:bg-gray-700 bg-gray-100 border-t-0 w-full h-5/6 flex flex-col justify-normal  p-5'>
+        <div className='font-semibold md:text-xl text-md'>
+          Which came first: the chicken or the egg?
+        </div>
         <LandingPagePollOptions poll={poll} />
-        <div className='flex items-center flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'></div>
       </div>
     </div>
   );
