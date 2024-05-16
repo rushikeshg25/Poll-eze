@@ -15,8 +15,8 @@ const LandingPagePoll = async () => {
   });
   console.log(poll);
   return (
-    <div className='w-full mx-auto my-10'>
-      <div className='w-full h-11 rounded-lg dark:bg-gray-900 bg-gray-200 flex justify-start items-center space-x-1.5 px-3'>
+    <div className='w-full mx-auto my-10 rounded-xl'>
+      <div className='w-full h-11 rounded-t-lg dark:bg-gray-900 bg-gray-200 flex justify-start items-center space-x-1.5 px-3'>
         <span className='w-3 h-3 rounded-full dark:border-red-400 bg-red-400 '></span>
         <span className='w-3 h-3 rounded-full dark:border-yellow-400 bg-yellow-400'></span>
         <span className='w-3 h-3 rounded-full dark:border-green-400 bg-green-400'></span>
@@ -26,7 +26,7 @@ const LandingPagePoll = async () => {
           </div>
         </div>
       </div>
-      <div className='dark:bg-gray-700 bg-gray-100 border-t-0 w-full h-5/6 flex flex-col justify-normal  p-5'>
+      <div className='rounded-b-lg dark:bg-gray-700 bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-center  p-5'>
         <div className='font-semibold md:text-xl text-md'>
           Which came first: the chicken or the egg?
         </div>
