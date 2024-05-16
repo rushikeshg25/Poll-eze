@@ -9,7 +9,7 @@ import AvatarStack from "./AvatarStack";
 import OptionBar from "./OptionBar";
 
 const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
-  const [hasVoted, setHasVoted] = useState(false);
+  const [hasVoted, setHasVoted] = useState(true);
   const [selectedValue, setSelectedValue] = useState<string>();
 
   const voteHandler = (option: PollwithOptionT) => {
@@ -17,20 +17,21 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   };
 
   return (
-    <div className='flex flex-col gap-4 min-w-min'>
+    <div className='flex flex-col gap-3 min-w-min'>
       <RadioGroup
         value={selectedValue}
         onValueChange={setSelectedValue}
         className='pl-4'
       >
-        <div className='flex  flex-col gap-4  min-w-min'>
+        <div className='flex  flex-col gap-3  min-w-min'>
           {poll?.options.map((option) => (
             <div key={option.id} className='flex flex-col'>
-              <div className='flex items-center gap-5'>
+              <div className='inline-flex grid-flow-col items-center gap-4'>
                 {hasVoted ? (
-                  <>
-                    {Math.floor((option.votes + 1) / option.totalVotes) * 100}%
-                  </>
+                  <div className='pt-2 w-10'>
+                    {Math.floor((option.votes / option.totalVotes) * 100)}%
+                    {/* 100% */}
+                  </div>
                 ) : (
                   <RadioGroupItem
                     value={option.id}
@@ -44,12 +45,16 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
                   {option.title}
                 </Label>
               </div>
-              <OptionBar />
+              <OptionBar
+                hasVoted={hasVoted}
+                option={option}
+                selected={selectedValue}
+              />
             </div>
           ))}
         </div>
       </RadioGroup>
-      <div className='flex gap-2 mb-2'>
+      <div className='flex gap-2 my-2'>
         <AvatarStack />
         <div className='text-[#5F6061] flex items-center justify-center whitespace-nowrap'>
           {poll?.PolltotalVotes} votes
