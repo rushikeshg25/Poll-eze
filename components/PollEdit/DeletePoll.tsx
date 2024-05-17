@@ -16,16 +16,12 @@ import { useState } from "react";
 import { useToast } from "../ui/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
-// declare module "axios" {
-//   export interface AxiosRequestConfig {
-//     pollId: string;
-//   }
-// }
+import { useMutation } from "@tanstack/react-query";
 
 const DeletePoll = ({ pollId }: { pollId: string }) => {
   const router = useRouter();
   const { toast } = useToast();
+
   const [open, setOpen] = useState<boolean>(false);
   const deletehandler = async () => {
     try {
@@ -52,7 +48,7 @@ const DeletePoll = ({ pollId }: { pollId: string }) => {
     <>
       <Button
         variant={"outline"}
-        className='bg-white text-red-600'
+        className='bg-white text-red-500 dark:bg-black '
         onClick={(event) => {
           event?.stopPropagation();
           setOpen(true);

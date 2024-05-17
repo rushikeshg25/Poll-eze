@@ -2,20 +2,25 @@
 import { Label } from "@/components/ui/label";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import OptionBar from "./OptionBar";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Card, CardContent, CardHeader } from "./card";
+import { RadioGroup } from "@/components/ui/radio-group";
+import { Card } from "./card";
 import DeletePoll from "../PollEdit/DeletePoll";
 import CopyClipboard from "./CopyClipboard";
 import ResetPoll from "./ResetPoll";
+import timeUntil from "@/lib/timeuntil";
 
 type PollPropsT = {
   poll: PollwithOptionT;
 };
 
 const Poll = ({ poll }: PollPropsT) => {
+  const { isOpen, timeLeftString } = timeUntil(
+    new Date(poll.created),
+    poll.Duration as number
+  );
   return (
     <Card key={poll.id}>
-      <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-center  p-5'>
+      <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-center  p-6'>
         <div className='font-semibold md:text-xl text-md'>{poll.title}</div>
 
         <div className='flex flex-col gap-3 min-w-min'>
@@ -26,22 +31,31 @@ const Poll = ({ poll }: PollPropsT) => {
                   <div className='inline-flex grid-flow-col items-center gap-4'>
                     <div className='pt-2 w-10'>
                       {option.totalVotes === 0 ? (
-                        <></>
+                        <div className='font-semibold flex items-center justify-center'>
+                          0%
+                        </div>
                       ) : (
-                        <>
+                        <div className='font-semibold flex items-center justify-center'>
                           {Math.floor((option.votes / option.totalVotes) * 100)}
                           %
-                        </>
+                        </div>
                       )}
                     </div>
-
-                    <Label
-                      htmlFor={`option-${option.id}`}
-                      className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-400'
-                    >
-                      {option.title}
-                    </Label>
-                    <>{option.votes} votes</>
+                    <div className='flex gap-2'>
+                      <Label
+                        htmlFor={`option-${option.id}`}
+                        className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-400'
+                      >
+                        {option.title}
+                      </Label>
+                      <div className='flex items-center'>
+                        (
+                        {option.votes === 1
+                          ? `1 vote`
+                          : `${option.votes} votes`}
+                        )
+                      </div>
+                    </div>
                   </div>
                   <OptionBar
                     hasVoted={true}
@@ -53,7 +67,7 @@ const Poll = ({ poll }: PollPropsT) => {
               ))}
             </div>
           </RadioGroup>
-          <div className='flex gap-2 my-2'>
+          <div className='flex gap-2 my-2 items-center justify-center'>
             <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
               {poll?.PolltotalVotes} votes
             </div>
@@ -61,7 +75,7 @@ const Poll = ({ poll }: PollPropsT) => {
               <div className='size-1 bg-[#5F6061] dark:bg-gray-400 rounded-lg'></div>
             </div>
             <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
-              10 days left
+              {isOpen ? timeLeftString : "Closed"}
             </div>
           </div>
           <div className='flex justify-center gap-1'>

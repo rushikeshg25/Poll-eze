@@ -14,13 +14,12 @@ const Polls = ({ polls }: PollT) => {
   // }, []);
 
   return (
-    <div className='flex items-center justify-center h-full'>
+    <div className='flex  justify-center p-10'>
       {/* <div className='max-w-5xl mx-auto px-8'> */}
       {/* {loading ? (
           <PollLoadingSkeleton NumofPolls={polls.length} /> */}
 
-      {/* <HoverEffect polls={polls} /> */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2  md:gap-4'>
+      <div className='grid grid-cols-1  lg:grid-cols-3 gap-2  md:gap-4'>
         {polls.map((poll) => (
           <Poll poll={poll} key={poll.id} />
         ))}

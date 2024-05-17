@@ -1,3 +1,4 @@
+"use client";
 import { resetPoll } from "@/actions/ResetPoll";
 import { Button } from "./button";
 import { useMutation } from "@tanstack/react-query";
@@ -22,7 +23,7 @@ const ResetPoll = ({ pollId }: { pollId: string }) => {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger>
+        <AlertDialogTrigger asChild>
           <Button>Reset</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>

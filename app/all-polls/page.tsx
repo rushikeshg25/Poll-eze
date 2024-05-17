@@ -50,7 +50,7 @@ const Page = async () => {
         </div>
       ) : (
         <>
-          <div className='flex justify-center text-3xl pt-4 font-semibold'>
+          <div className='flex justify-center text-3xl p-5 font-semibold sm:p-5'>
             Your Polls
           </div>
           <Polls polls={polls} />
