@@ -3,17 +3,26 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from "axios";
 import { useState } from "react";
+import { RotateCcw } from "lucide-react";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { Button } from "./button";
 import AvatarStack from "./AvatarStack";
 import OptionBar from "./OptionBar";
 
 const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
-  const [hasVoted, setHasVoted] = useState(true);
-  const [selectedValue, setSelectedValue] = useState<string>();
+  const [hasVoted, setHasVoted] = useState(false);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>();
 
-  const voteHandler = (option: PollwithOptionT) => {
-    setHasVoted(true);
+  const voteHandler = () => {
+    setHasVoted((cur) => {
+      console.log(cur);
+      if (cur) {
+        setSelectedValue(undefined);
+        console.log(selectedValue);
+        return false;
+      }
+      return true;
+    });
   };
 
   return (
@@ -40,7 +49,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
                 )}
                 <Label
                   htmlFor={`option-${option.id}`}
-                  className='text-lg font-medium text-gray-900'
+                  className='text-md md:text-lg font-medium text-gray-900'
                 >
                   {option.title}
                 </Label>
@@ -68,10 +77,10 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
         <div className='flex-grow'></div>
         <Button
           className='bg-[#2563EB]'
-          // onClick={voteHandler}
-          disabled={hasVoted}
+          onClick={voteHandler}
+          disabled={selectedValue === undefined}
         >
-          Vote
+          {hasVoted ? <RotateCcw /> : "Vote"}
         </Button>
       </div>
     </div>
