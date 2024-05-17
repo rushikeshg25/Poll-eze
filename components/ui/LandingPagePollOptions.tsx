@@ -65,7 +65,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
                 )}
                 <Label
                   htmlFor={`option-${option.id}`}
-                  className='text-md md:text-lg font-medium text-gray-900'
+                  className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-300'
                 >
                   {option.title}
                 </Label>
@@ -81,13 +81,13 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
       </RadioGroup>
       <div className='flex gap-2 my-2'>
         <AvatarStack />
-        <div className='text-[#5F6061] flex items-center justify-center whitespace-nowrap'>
+        <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
           {totalVotes} votes
         </div>
         <div className='flex items-center justify-center'>
-          <div className='size-1 bg-[#5F6061] rounded-lg'></div>
+          <div className='size-1 bg-[#5F6061] dark:bg-gray-400 rounded-lg'></div>
         </div>
-        <div className='text-[#5F6061] flex items-center justify-center whitespace-nowrap'>
+        <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
           10 days left
         </div>
         <div className='flex-grow'></div>
@@ -96,7 +96,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
           onClick={voteHandler}
           disabled={selectedValue === undefined}
         >
-          {hasVoted ? <RotateCcw /> : "Vote"}
+          {hasVoted ? <RotateCcw className='dark:text-gray-200' /> : "Vote"}
         </Button>
       </div>
     </div>
