@@ -51,7 +51,8 @@ const DeletePoll = ({ pollId }: { pollId: string }) => {
   return (
     <>
       <Button
-        variant={"destructive"}
+        variant={"outline"}
+        className='bg-white text-red-600'
         onClick={(event) => {
           event?.stopPropagation();
           setOpen(true);

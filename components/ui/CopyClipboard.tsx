@@ -8,7 +8,7 @@ const CopyClipboard = ({ pollId }: { pollId: string }) => {
   const [copy, setCopy] = useState(false);
   return (
     <Button
-      variant={"ghost"}
+      variant={"outline"}
       onClick={(event) => {
         event?.stopPropagation();
         setCopy(true);

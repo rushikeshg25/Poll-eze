@@ -4,6 +4,9 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import OptionBar from "./OptionBar";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader } from "./card";
+import DeletePoll from "../PollEdit/DeletePoll";
+import CopyClipboard from "./CopyClipboard";
+import ResetPoll from "./ResetPoll";
 
 type PollPropsT = {
   poll: PollwithOptionT;
@@ -60,6 +63,11 @@ const Poll = ({ poll }: PollPropsT) => {
             <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
               10 days left
             </div>
+          </div>
+          <div className='flex justify-center gap-1'>
+            <CopyClipboard pollId={poll.id} />
+            <DeletePoll pollId={poll.id} />
+            <ResetPoll pollId={poll.id} />
           </div>
         </div>
       </div>
