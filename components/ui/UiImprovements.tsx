@@ -7,10 +7,10 @@ const UiImprovements = () => {
       }}
     >
       <a
-        className='inline-flex items-center gap-x-2 space-x-1 rounded-xl border-2 border-gray-400 px-1 py-1 text-sm font-semibold text-gray-600 hover:border-blue-500'
+        className='inline-flex items-center gap-x-1 space-x-1 rounded-xl border-2 border-gray-400 px-1 py-1 text-sm font-semibold text-gray-600 hover:border-blue-500'
         href='#'
       >
-        <span className='flex items-center justify-center gap-2 rounded-lg bg-orange-100 px-2.5 py-0.5 text-sm font-semibold text-orange-800 dark:bg-blue-900 dark:text-blue-300'>
+        <span className='flex items-center justify-center gap-1 rounded-lg bg-orange-100 px-1 py-0.5 text-sm font-semibold text-orange-800 dark:bg-blue-900 dark:text-blue-300'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='24'
