@@ -23,9 +23,8 @@ export default function LandingNavbar() {
   const { userId } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
-  console.log(userId);
+
   useEffect(() => {
-    console.log(userId);
     if (userId) setIsAuthenticated(true);
     console.log(isAuthenticated);
   }, []);

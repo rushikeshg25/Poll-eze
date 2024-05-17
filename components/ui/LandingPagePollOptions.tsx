@@ -9,11 +9,13 @@ import AvatarStack from "./AvatarStack";
 import OptionBar from "./OptionBar";
 import { useMutation } from "@tanstack/react-query";
 import { votePublicPoll } from "@/actions/vote/Publicvote";
+import { useToast } from "@/components/ui/use-toast";
 
 const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   const [hasVoted, setHasVoted] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>();
-
+  const [totalVotes, setTotalVotes] = useState(poll?.PolltotalVotes as number);
+  const { toast } = useToast();
   const { mutate: server_votePublicPoll } = useMutation({
     mutationFn: votePublicPoll,
   });
@@ -23,13 +25,18 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
       optionId: selectedValue as string,
       pollId: poll?.id as string,
     });
-    console.log(result);
+    setTotalVotes(totalVotes + 1);
     setHasVoted((cur) => {
       if (cur) {
         setSelectedValue(undefined);
         console.log(selectedValue);
         return false;
       }
+      toast({
+        title: `Voted for ${
+          poll?.options.find((option) => option.id === selectedValue)?.title
+        }`,
+      });
       return true;
     });
   };
@@ -75,7 +82,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
       <div className='flex gap-2 my-2'>
         <AvatarStack />
         <div className='text-[#5F6061] flex items-center justify-center whitespace-nowrap'>
-          {poll?.PolltotalVotes} votes
+          {totalVotes} votes
         </div>
         <div className='flex items-center justify-center'>
           <div className='size-1 bg-[#5F6061] rounded-lg'></div>
