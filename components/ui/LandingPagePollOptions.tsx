@@ -1,21 +1,30 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import axios from "axios";
 import { useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { Button } from "./button";
 import AvatarStack from "./AvatarStack";
 import OptionBar from "./OptionBar";
+import { useMutation } from "@tanstack/react-query";
+import { votePublicPoll } from "@/actions/vote/Publicvote";
 
 const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   const [hasVoted, setHasVoted] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>();
 
-  const voteHandler = () => {
+  const { mutate: server_votePublicPoll } = useMutation({
+    mutationFn: votePublicPoll,
+  });
+
+  const voteHandler = async () => {
+    const result = await server_votePublicPoll({
+      optionId: selectedValue as string,
+      pollId: poll?.id as string,
+    });
+    console.log(result);
     setHasVoted((cur) => {
-      console.log(cur);
       if (cur) {
         setSelectedValue(undefined);
         console.log(selectedValue);
