@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Option } from "@prisma/client";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -8,9 +9,15 @@ type OptionBarProps = {
   hasVoted: boolean;
   option: Option;
   selected: string | undefined;
+  classname?: string;
 };
 
-const OptionBar = ({ hasVoted, option, selected }: OptionBarProps) => {
+const OptionBar = ({
+  hasVoted,
+  option,
+  selected,
+  classname,
+}: OptionBarProps) => {
   const [width, setWidth] = useState((option.votes / option.totalVotes) * 100);
 
   useEffect(() => {
@@ -19,12 +26,12 @@ const OptionBar = ({ hasVoted, option, selected }: OptionBarProps) => {
       newWidth = ((option.votes + 1) / option.totalVotes) * 100;
     }
     setWidth(newWidth);
-  }, [hasVoted, selected, option]);
+  }, [hasVoted, selected]);
 
   return (
     <div className='w-full flex items-center justify-between'>
       <div
-        className={clsx(`ml-14 bg-[#199669] h-2.5 rounded-full`, {
+        className={clsx("ml-14 bg-[#199669] h-2.5 rounded-full", classname, {
           invisible: !hasVoted,
         })}
         style={{ width: `${width}%` }}

@@ -10,6 +10,7 @@ import OptionBar from "./OptionBar";
 import { useMutation } from "@tanstack/react-query";
 import { votePublicPoll } from "@/actions/vote/Publicvote";
 import { useToast } from "@/components/ui/use-toast";
+import { Check } from "lucide-react";
 
 const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   const [hasVoted, setHasVoted] = useState(false);
@@ -69,6 +70,11 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
                 >
                   {option.title}
                 </Label>
+                {selectedValue === option.id && hasVoted && (
+                  <div className='flex items-center justify-center border-2 border-gray-900 dark:border-gray-300 rounded-full  size-5'>
+                    <Check className='' />
+                  </div>
+                )}
               </div>
               <OptionBar
                 hasVoted={hasVoted}
