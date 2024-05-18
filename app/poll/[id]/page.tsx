@@ -22,8 +22,8 @@ export default async function Page({ params }: { params: { id: string } }) {
         isLanding={false}
         isAuthenticated={`${userId}`}
       />
-      <div className='flex flex-col  items-center flex-1   h-full '>
-        <div className='   '>
+      <div className='flex flex-col  items-center justify-center  flex-1 w-full  h-full '>
+        <div className='min-w-[33.3%] -mt-6'>
           <AuthPoll poll={poll} optionVoted={optionVoted} userId={userId} />
         </div>
       </div>

@@ -13,8 +13,8 @@ export default async function Page({ params }: { params: { id: string } }) {
         isLanding={false}
         isAuthenticated={null}
       />
-      <div className='flex flex-col justify-center items-center flex-1 w-full'>
-        <div className='w-1/3'>
+      <div className='flex flex-col  items-center mt-32 flex-1 w-full  h-full '>
+        <div className='min-w-[33.3%]'>
           <PublicPoll poll={poll} />
         </div>
       </div>
