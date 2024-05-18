@@ -1,13 +1,11 @@
 "use server";
 type PublicvoteT = {
   optionId: string;
-
-  pollId: string;
 };
 
 import { prisma } from "@/lib/db";
 
-export const votePublicPoll = async ({ optionId, pollId }: PublicvoteT) => {
+export const votePublicPoll = async ({ optionId }: PublicvoteT) => {
   const option = await prisma.option.findUnique({
     where: {
       id: optionId,
@@ -51,5 +49,5 @@ export const votePublicPoll = async ({ optionId, pollId }: PublicvoteT) => {
       },
     });
   });
-  return { Voted: true };
+  return { success: "success" };
 };
