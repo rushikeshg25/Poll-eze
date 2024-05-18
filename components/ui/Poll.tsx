@@ -8,6 +8,13 @@ import DeletePoll from "../PollEdit/DeletePoll";
 import CopyClipboard from "./CopyClipboard";
 import ResetPoll from "./ResetPoll";
 import timeUntil from "@/lib/timeuntil";
+import OpenPoll from "./OpenPoll";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type PollPropsT = {
   poll: PollwithOptionT;
@@ -78,10 +85,55 @@ const Poll = ({ poll }: PollPropsT) => {
               {isOpen ? timeLeftString : "Closed"}
             </div>
           </div>
-          <div className='flex justify-center gap-1'>
-            <CopyClipboard pollId={poll.id} />
-            <DeletePoll pollId={poll.id} />
-            <ResetPoll pollId={poll.id} />
+          <div className='flex justify-center gap-2'>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <CopyClipboard pollId={poll.id} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Copy Poll's Link</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <OpenPoll pollId={poll.id} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Open Poll</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <DeletePoll pollId={poll.id} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete Poll</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <ResetPoll pollId={poll.id} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Reset Poll's data</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>

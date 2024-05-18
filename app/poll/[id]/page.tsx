@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         isAuthenticated={`${userId}`}
       />
       <div className='flex flex-col  items-center flex-1   h-full '>
-        <div className='w-1/3 h-full flex mt-36  '>
+        <div className='   '>
           <AuthPoll poll={poll} optionVoted={optionVoted} userId={userId} />
         </div>
       </div>

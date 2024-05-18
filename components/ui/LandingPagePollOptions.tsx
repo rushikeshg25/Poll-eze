@@ -49,7 +49,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
         onValueChange={setSelectedValue}
         className='pl-4'
       >
-        <div className='flex  flex-col gap-3  min-w-min'>
+        <div className='flex  flex-col gap-2  min-w-min'>
           {poll?.options.map((option) => (
             <div key={option.id} className='flex flex-col'>
               <div className='inline-flex grid-flow-col items-center gap-4'>

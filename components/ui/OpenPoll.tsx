@@ -7,7 +7,7 @@ const OpenPoll = ({ pollId }: { pollId: string }) => {
   const router = useRouter();
   return (
     <Button
-      variant={"ghost"}
+      variant={"outline"}
       onClick={(event) => {
         event?.stopPropagation();
         router.push(`http://localhost:3000/poll/${pollId}`);
