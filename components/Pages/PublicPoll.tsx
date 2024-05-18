@@ -25,9 +25,6 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
   });
 
   const voteApiHandler = async (optionId: string) => {
-    // await axios.post("http://localhost:3000/api/poll/vote-poll/publicuser", {
-    //   optionId: optionId,
-    // });
     await server_votePublicPoll({
       optionId: optionId,
     });
