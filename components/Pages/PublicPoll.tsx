@@ -3,10 +3,11 @@ import usePublicHasVoted from "@/hooks/usePublicHasVoted";
 import React, { useEffect, useState } from "react";
 import PollPage from "./PollPage";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import useVotePoll from "@/hooks/useVotePoll";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { votePublicPoll } from "@/actions/vote/Publicvote";
 
 let optionvoted: string | null;
 
@@ -19,8 +20,15 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
     console.log(optionvoted);
   }, []);
 
+  const { mutate: server_votePublicPoll } = useMutation({
+    mutationFn: votePublicPoll,
+  });
+
   const voteApiHandler = async (optionId: string) => {
-    await axios.post("http://localhost:3000/api/poll/vote-poll/publicuser", {
+    // await axios.post("http://localhost:3000/api/poll/vote-poll/publicuser", {
+    //   optionId: optionId,
+    // });
+    await server_votePublicPoll({
       optionId: optionId,
     });
     await useVotePoll(optionId, poll.id);

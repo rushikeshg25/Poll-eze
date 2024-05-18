@@ -1,7 +1,8 @@
 "use client";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import PollPage from "./PollPage";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { AuthVote } from "@/actions/vote/AuthVote";
 
 type AuthPollT = {
   poll: PollwithOptionT;
@@ -10,8 +11,12 @@ type AuthPollT = {
 };
 
 const AuthPoll = ({ poll, optionVoted, userId }: AuthPollT) => {
+  const { mutate: server_AuthVote } = useMutation({
+    mutationFn: AuthVote,
+  });
+
   const voteApiHandler = async (optionId: string) => {
-    await axios.post("http://localhost:3000/api/poll/vote-poll/authorized", {
+    const response = await server_AuthVote({
       optionId: optionId,
       userId: userId,
       pollId: poll.id,

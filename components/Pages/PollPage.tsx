@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import { Option } from "@prisma/client";
+import timeUntil from "@/lib/timeuntil";
 import { useToast } from "@/components/ui/use-toast";
 import { Check } from "lucide-react";
 import OptionBar from "../ui/OptionBar";
@@ -18,12 +18,12 @@ type PollT = {
 const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>();
-  const [totalVotes, setTotalVotes] = useState(poll?.PolltotalVotes as number);
-  // const { mutate: server_votePublicPoll } = useMutation({
-  //   mutationFn: votePublicPoll,
-  // });
-  const { toast } = useToast();
 
+  const { toast } = useToast();
+  const { isOpen, timeLeftString } = timeUntil(
+    new Date(poll.created),
+    poll.Duration as number
+  );
   useEffect(() => {
     if (optionVoted) setHasVoted(true);
     else {
@@ -31,12 +31,14 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
     }
   }, []);
 
-  const voteHandler = async (option: Option) => {
+  const voteHandler = async (optionId: string) => {
     try {
-      // await voteApiHandler(option.id);
+      await voteApiHandler(selectedValue as string);
       setHasVoted(true);
       toast({
-        title: `Voted for ${option.title}`,
+        title: `Voted for ${
+          poll.options.find((option) => option.id === optionId)?.title
+        }`,
       });
     } catch (error) {
       console.log(error);
@@ -48,8 +50,8 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   };
 
   return (
-    <div className='w-full rounded-xl border-gray-400 border-2 p-6'>
-      <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full  flex flex-col gap-3 justify-center  p-6'>
+    <div className=' rounded-xl border-[#E2E8F0] dark:border-[#27272A]  border-2 p-6'>
+      <div className='rounded-xl  light:bg-gray-100 border-t-0  w-full  flex flex-col gap-3 justify-center  p-6'>
         <div className='font-semibold md:text-xl text-md'>{poll.title}</div>
       </div>
       <div className='flex flex-col gap-3 min-w-min'>
@@ -60,12 +62,11 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
         >
           <div className='flex  flex-col gap-3 px-5  min-w-min'>
             {poll?.options.map((option) => (
-              <div key={option.id} className='flex flex-col'>
+              <div key={option.id} className='flex flex-col '>
                 <div className='inline-flex grid-flow-col items-center gap-4'>
                   {hasVoted ? (
-                    <div className='pt-2 w-10'>
+                    <div className='pt-2 w-10 font-semibold'>
                       {Math.floor((option.votes / option.totalVotes) * 100)}%
-                      {/* 100% */}
                     </div>
                   ) : (
                     <RadioGroupItem
@@ -81,7 +82,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                   </Label>
                   {selectedValue === option.id && hasVoted && (
                     <div className='flex items-center justify-center border-2 border-gray-900 dark:border-gray-300 rounded-full  size-5'>
-                      <Check className='' />
+                      <Check />
                     </div>
                   )}
                 </div>
@@ -89,6 +90,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                   hasVoted={hasVoted}
                   option={option}
                   selected={selectedValue}
+                  classname='bg-black'
                 />
               </div>
             ))}
@@ -96,15 +98,18 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
         </RadioGroup>
         <div className='flex gap-2 my-2 px-4'>
           <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
-            10 days left
+            {isOpen ? timeLeftString : "Poll Closed"}
           </div>
           <div className='flex-grow'></div>
           <Button
-            className='bg-[#2563EB]'
-            onClick={voteHandler}
-            disabled={selectedValue === undefined}
+            className='hover:disabled:cursor-not-allowed '
+            variant={"default"}
+            onClick={() => voteHandler(selectedValue as string)}
+            disabled={
+              selectedValue === undefined || hasVoted === true || !isOpen
+            }
           >
-            {hasVoted ? "Voted" : "Vote"}
+            {isOpen ? hasVoted ? <>Voted </> : <>Vote</> : <>Closed</>}
           </Button>
         </div>
       </div>
