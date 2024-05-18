@@ -8,8 +8,13 @@ const LandingPagePoll = async () => {
     where: {
       id: POLL_ID,
     },
+
     include: {
-      options: true,
+      options: {
+        orderBy: {
+          title: "asc",
+        },
+      },
     },
   });
 
