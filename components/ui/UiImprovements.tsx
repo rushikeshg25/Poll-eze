@@ -1,11 +1,6 @@
-import { redirect } from "next/navigation";
 const UiImprovements = () => {
   return (
-    <div
-      onClick={() => {
-        redirect("/announcements");
-      }}
-    >
+    <div>
       <a
         className='inline-flex items-center gap-x-1 space-x-1 rounded-xl border-2 border-gray-400 px-1 py-1 text-sm font-semibold text-gray-600 hover:border-blue-500'
         href='#'

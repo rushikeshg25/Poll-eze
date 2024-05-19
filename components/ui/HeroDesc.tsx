@@ -22,7 +22,7 @@ const HeroDesc = ({ userId }: { userId: string | null | undefined }) => {
       <span className='absolute -top-5 aspect-square w-4/12 rotate-90 skew-x-12 skew-y-12 rounded-full bg-gradient-to-tr from-blue-600 to-green-400 opacity-40 blur-2xl lg:left-0 lg:w-2/12'></span>
       <div className='relative mx-auto flex max-w-3xl flex-col items-center text-center lg:mx-0 lg:w-1/2 lg:max-w-none lg:flex-1 lg:items-start lg:py-7 lg:text-left xl:py-8'>
         <div className='w-full flex justify-center'>
-          <div className='p-2'>
+          <div className='p-2' onClick={() => router.push("/announcements")}>
             <UiImprovements />
           </div>
         </div>
