@@ -19,17 +19,17 @@ const AddTodoForm = () => {
   return (
     <div className='w-full'>
       <form onSubmit={submitHandler} className='w-full'>
-        <div className='relative flex flex-row w-full'>
+        <div className='group flex flex-row w-full group:'>
           <Input
             ref={inputRef}
             placeholder='Enter your Option here'
-            className='absolute inset-0'
+            className=' inset-0 flex-grow group-focus-within:border-2 outline-none group-focus-within:ring-2 group-focus-within:outline-none  group-focus-within:ring-ring group-focus-within:ring-offset-2  rounded-l-lg '
             onChange={(e) => {
               setTodo(e.target.value);
             }}
           />
           <Button
-            className='absolute right-0   rounded-l-none'
+            className=' group-focus-within:ring-2   h-full'
             type='submit'
             disabled={todo.length === 0}
             onClick={() => {

@@ -16,6 +16,8 @@ import { Timer, List, CheckCircle } from "lucide-react";
 import { useStore } from "@/zustand/store";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { createPoll } from "@/actions/CreatePoll";
 type OptionT = {
   title: string;
   votes: number;
@@ -27,6 +29,9 @@ const Page = () => {
   if (!userId) {
     redirect("/sign-in");
   }
+  const { mutate: server_CreatePoll } = useMutation({
+    mutationFn: createPoll,
+  });
 
   const { toast } = useToast();
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
@@ -71,9 +76,9 @@ const Page = () => {
   const createPollHandler = async () => {
     setPoll({ ...poll, UserId: userId });
     try {
-      await axios.post("http://localhost:3000/api/poll/create-poll", {
-        poll: poll,
-      });
+      // await axios.post("http://localhost:3000/api/poll/create-poll", {
+      //   poll: poll,
+      // });
       toast({
         title: "Poll Created",
       });
@@ -98,7 +103,7 @@ const Page = () => {
           addOptions={addOptions}
         />
       ),
-      icon: <List />,
+      icon: <List size={18} />,
     },
 
     {
@@ -140,19 +145,23 @@ const Page = () => {
         isAuthenticated={`${userId}`}
         isLanding={false}
       />
-      <div className='flex-1 w-screen '>
-        <div className=' flex justify-center min-w-min px-16 flex-col gap-3'>
+      <div className='flex-1 w-screen'>
+        <div className=' flex justify-center  px-16 flex-col gap-3'>
           <div className='flex flex-col items-center'>
             <div className='min-w-min flex flex-row gap-2 p-3'>
-              <div>{STEPS[currentStep].icon}</div>
-              <div>{STEPS[currentStep].name}</div>
+              <div className='flex items-center justify-center'>
+                {STEPS[currentStep].icon}
+              </div>
+              <div className='flex items-center justify-center'>
+                {STEPS[currentStep].name}
+              </div>
             </div>
             <Progress
               value={STEPS[currentStep].progress}
-              className='max-w-80'
+              className='max-w-44'
             />
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center '>
             {STEPS[currentStep].component}
           </div>
           {currentStep === 3 ? null : (

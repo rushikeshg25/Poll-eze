@@ -22,11 +22,11 @@ const PollData = ({
   addOptions,
 }: PollDataT) => {
   return (
-    <Card className='w-1/4 py-4 min-w-min max-w-sm'>
+    <Card className=' py-3 lg:w-1/5'>
       <CardHeader>
         <CardTitle>Create your Poll</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className='flex flex-col gap-4'>
         <form>
           <div className='grid w-full items-center gap-4'>
             <div className='flex flex-col space-y-1.5'>
@@ -45,7 +45,10 @@ const PollData = ({
             </div>
           </div>
         </form>
-        <PollOptions addOptions={addOptions} />
+        <div className='flex flex-col space-y-1.5'>
+          <Label>Options</Label>
+          <PollOptions addOptions={addOptions} />
+        </div>
       </CardContent>
     </Card>
   );
