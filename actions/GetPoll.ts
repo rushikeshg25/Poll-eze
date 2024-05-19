@@ -3,6 +3,51 @@ import { prisma } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
+export const getPolls = async ({
+  search,
+  offset = 0,
+  limit = 6,
+  userId,
+}: {
+  search?: string | undefined;
+  offset?: number;
+  limit?: number;
+  userId: string | null;
+}) => {
+  if (!userId) redirect("/sign-in");
+  const user = await prisma.user.findUnique({
+    where: {
+      externalId: userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const polls = await prisma.poll.findMany({
+    where: {
+      UserId: user?.id,
+      title: {
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+    skip: offset,
+    take: limit,
+    include: {
+      options: true,
+    },
+  });
+  const totalCount = await prisma.poll.count({
+    where: {
+      title: {
+        contains: search,
+      },
+    },
+  });
+  const totalPages = Math.ceil(totalCount / limit);
+  return { polls, totalCount, totalPages };
+};
+
 export const getPollbyTitle = async (pollID: string) => {
   const { userId } = auth();
   if (!userId) redirect("/sign-in");
@@ -24,7 +69,7 @@ export const getPollbyTitle = async (pollID: string) => {
   return { success: true, message: "Poll Fetched", poll: poll };
 };
 
-export const getPolls = async (pollId: string) => {
+export const getPoll = async (pollId: string) => {
   const { userId } = auth();
   if (!userId) redirect("/sign-in");
 
