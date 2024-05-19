@@ -14,35 +14,32 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { DeletePollAction } from "@/actions/DeletePoll";
 
 const DeletePoll = ({ pollId }: { pollId: string }) => {
   const router = useRouter();
   const { toast } = useToast();
-
-  const [open, setOpen] = useState<boolean>(false);
-  const deletehandler = async () => {
-    try {
-      console.log("client", {
-        pollId: pollId,
-      });
-      await axios.post("http://localhost:3000/api/poll/delete-poll", {
-        pollId: pollId,
-      });
+  const { mutate: server_DeletePoll } = useMutation({
+    mutationFn: DeletePollAction,
+    onSuccess: () => {
       toast({
         title: "Poll Deleted",
       });
-      router.push("/all-polls");
-    } catch (error) {
-      console.log(error);
+    },
+    onError: (error) => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.Please try again",
         description: "There was a problem with your request.",
       });
-    }
+    },
+  });
+  const [open, setOpen] = useState<boolean>(false);
+  const deletehandler = async () => {
+    await server_DeletePoll({ pollId: pollId });
+    router.push("/all-polls");
   };
   return (
     <>

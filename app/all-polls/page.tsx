@@ -49,12 +49,12 @@ const Page = async () => {
           <NoPolls />
         </div>
       ) : (
-        <>
+        <div className='pb-10'>
           <div className='flex justify-center text-3xl p-5 font-semibold sm:p-5'>
             Your Polls
           </div>
           <Polls polls={polls} />
-        </>
+        </div>
       )}
     </div>
   );

@@ -25,6 +25,12 @@ import { useMutation } from "@tanstack/react-query";
 import { createPoll } from "@/actions/CreatePoll";
 import CopyClipboard from "@/components/ui/CopyClipboard";
 import OpenPoll from "@/components/ui/OpenPoll";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 type OptionT = {
   title: string;
   votes: number;
@@ -214,8 +220,30 @@ const Page = () => {
           )}
           {hasFinished && (
             <div className='flex justify-center items-center gap-2'>
-              <CopyClipboard pollId={data?.id as string} />
-              <OpenPoll pollId={data?.id as string} />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div>
+                      <CopyClipboard pollId={data?.id as string} />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Copy Poll's Link</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div>
+                      <OpenPoll pollId={data?.id as string} />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Open Poll</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           )}
         </div>

@@ -53,7 +53,7 @@ const Poll = ({ poll }: PollPropsT) => {
                     <div className='flex gap-2'>
                       <Label
                         htmlFor={`option-${option.id}`}
-                        className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-400'
+                        className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-400 max-w-fit'
                       >
                         {option.title}
                       </Label>
@@ -66,12 +66,14 @@ const Poll = ({ poll }: PollPropsT) => {
                       </div>
                     </div>
                   </div>
-                  <OptionBar
-                    hasVoted={true}
-                    option={option}
-                    selected={undefined}
-                    classname='dark:bg-white bg-black'
-                  />
+                  <div className='w-11/12'>
+                    <OptionBar
+                      hasVoted={true}
+                      option={option}
+                      selected={undefined}
+                      classname='dark:bg-white bg-black'
+                    />
+                  </div>
                 </div>
               ))}
             </div>
