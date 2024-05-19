@@ -27,7 +27,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
       <AddTodoForm />
       <div className='flex flex-col space-y-1.5 w-full'>
         <Label>Created Options</Label>
-        <div className='border-2 border-[#27272A] rounded-lg  w-full h-40 flex flex-col gap-3 overflow-y-auto'>
+        <div className=' ring-1 dark:ring-[#27272A] ring-[#E2E8F0]  rounded-lg  w-full h-40 flex flex-col gap-3 overflow-y-auto'>
           {options.length === 0 ? (
             <div className='text-center flex items-center justify-center w-full h-full'>
               <p className='dark:text-[#A1A1AA]'>
@@ -35,7 +35,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
               </p>
             </div>
           ) : (
-            <div className='w-full flex flex-col  '>
+            <div className='w-full flex flex-col '>
               {options.map((option) => (
                 <Option key={option.title} title={option.title} />
               ))}

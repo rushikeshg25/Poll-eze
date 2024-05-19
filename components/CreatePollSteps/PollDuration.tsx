@@ -24,7 +24,7 @@ const PollDuration = ({ durationhandler }: PollDurationT) => {
       </CardHeader>
       <CardContent>
         <div className='grid w-full items-center gap-4'>
-          <div className='flex flex-col space-y-1.5'>
+          <div className='flex flex-col space-y-1.5 items-center gap-5'>
             <Select
               onValueChange={(e) => {
                 if (e !== "custom") {
@@ -49,10 +49,12 @@ const PollDuration = ({ durationhandler }: PollDurationT) => {
 
             <div className='grid w-full items-center gap-4'>
               <div className='flex flex-col space-y-1.5'>
-                <Label>Custom Duration</Label>
+                <div className='flex items-center justify-center w-full'>
+                  <Label>Custom Duration</Label>
+                </div>
                 <Input
                   disabled={!custom}
-                  placeholder='Enter your Duration in hrs'
+                  placeholder='Enter Duration in hrs'
                   onChange={(e) => durationhandler(Number(e.target.value))}
                 />
               </div>

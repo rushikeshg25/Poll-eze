@@ -12,9 +12,14 @@ import Finalize from "@/components/CreatePollSteps/Finalize";
 import Finish from "@/components/CreatePollSteps/Finish";
 import { Button } from "@/components/ui/button";
 import type { PollT } from "@/types/PollData";
-import { Timer, List, CheckCircle } from "lucide-react";
+import {
+  Timer,
+  List,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useStore } from "@/zustand/store";
-import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { createPoll } from "@/actions/CreatePoll";
@@ -165,16 +170,29 @@ const Page = () => {
             {STEPS[currentStep].component}
           </div>
           {currentStep === 3 ? null : (
-            <div className='flex justify-center'>
+            <div className='flex justify-center gap-2'>
               {currentStep === 0 || currentStep === 3 ? null : (
-                <Button onClick={onPrevious}>Previous</Button>
+                <Button onClick={onPrevious}>
+                  <div className='flex items-center justify-center '>
+                    <ChevronLeft />
+                    Back
+                  </div>
+                </Button>
               )}
 
               {currentStep === 2 ? (
-                <Button onClick={createPollHandler}>Finish</Button>
+                <Button onClick={createPollHandler}>
+                  <div className='flex items-center justify-center '>
+                    Finish
+                    <ChevronRight />
+                  </div>
+                </Button>
               ) : (
                 <Button onClick={onNext} disabled={isNextDisabled}>
-                  Next
+                  <div className='flex items-center justify-center '>
+                    Next
+                    <ChevronRight />
+                  </div>
                 </Button>
               )}
             </div>
