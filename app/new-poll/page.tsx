@@ -2,16 +2,16 @@
 
 import MainNavbar from "@/components/Navbar/MainNavbar";
 import { useWindowSize } from "@uidotdev/usehooks";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { Progress } from "@/components/ui/progress";
 import PollData from "@/components/CreatePollSteps/PollData";
 import PollDuration from "@/components/CreatePollSteps/PollDuration";
 import Finalize from "@/components/CreatePollSteps/Finalize";
-import Finish from "@/components/CreatePollSteps/Finish";
 import { Button } from "@/components/ui/button";
 import type { PollT } from "@/types/PollData";
+import confetti from "canvas-confetti";
 import {
   Timer,
   List,
@@ -23,6 +23,7 @@ import { useStore } from "@/zustand/store";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { createPoll } from "@/actions/CreatePoll";
+import { finished } from "stream";
 type OptionT = {
   title: string;
   votes: number;
@@ -30,6 +31,8 @@ type OptionT = {
 };
 
 const Page = () => {
+  const buttonRef = useRef<any>();
+
   const { userId } = useAuth();
   if (!userId) {
     redirect("/sign-in");
@@ -84,6 +87,12 @@ const Page = () => {
       // await axios.post("http://localhost:3000/api/poll/create-poll", {
       //   poll: poll,
       // });
+      confetti({
+        particleCount: 150,
+        spread: 180,
+        origin: { y: 0.6 },
+        colors: ["#5F6061", "#5F6061"],
+      });
       toast({
         title: "Poll Created",
       });
@@ -126,10 +135,10 @@ const Page = () => {
       icon: <CheckCircle />,
     },
     {
-      name: "Finish",
+      name: "Poll Created",
       step: 3,
       progress: 100,
-      component: <Finish />,
+      component: <Finalize poll={poll} />,
     },
   ];
 
@@ -182,7 +191,10 @@ const Page = () => {
 
               {currentStep === 2 ? (
                 <Button onClick={createPollHandler}>
-                  <div className='flex items-center justify-center '>
+                  <div
+                    className='flex items-center justify-center '
+                    ref={buttonRef}
+                  >
                     Finish
                     <ChevronRight />
                   </div>
