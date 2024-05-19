@@ -23,7 +23,8 @@ import { useStore } from "@/zustand/store";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { createPoll } from "@/actions/CreatePoll";
-import { finished } from "stream";
+import CopyClipboard from "@/components/ui/CopyClipboard";
+import OpenPoll from "@/components/ui/OpenPoll";
 type OptionT = {
   title: string;
   votes: number;
@@ -37,7 +38,7 @@ const Page = () => {
   if (!userId) {
     redirect("/sign-in");
   }
-  const { mutate: server_CreatePoll } = useMutation({
+  const { data, mutate: server_CreatePoll } = useMutation({
     mutationFn: createPoll,
   });
 
@@ -48,6 +49,7 @@ const Page = () => {
   const width = size.width as number;
   const height = size.height as number;
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [hasFinished, setHasFinished] = useState<boolean>(false);
   const [poll, setPoll] = useState<PollT>({
     UserId: "",
     description: "",
@@ -82,11 +84,12 @@ const Page = () => {
   };
 
   const createPollHandler = async () => {
+    setHasFinished(true);
     setPoll({ ...poll, UserId: userId });
     try {
-      // await axios.post("http://localhost:3000/api/poll/create-poll", {
-      //   poll: poll,
-      // });
+      await server_CreatePoll({
+        poll: poll,
+      });
       confetti({
         particleCount: 150,
         spread: 180,
@@ -207,6 +210,12 @@ const Page = () => {
                   </div>
                 </Button>
               )}
+            </div>
+          )}
+          {hasFinished && (
+            <div className='flex justify-center items-center gap-2'>
+              <CopyClipboard pollId={data?.id as string} />
+              <OpenPoll pollId={data?.id as string} />
             </div>
           )}
         </div>

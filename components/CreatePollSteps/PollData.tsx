@@ -22,7 +22,7 @@ const PollData = ({
   addOptions,
 }: PollDataT) => {
   return (
-    <Card className=' py-3 lg:w-1/5'>
+    <Card className=' py-3 '>
       <CardHeader>
         <CardTitle>Create your Poll</CardTitle>
       </CardHeader>

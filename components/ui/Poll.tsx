@@ -27,8 +27,10 @@ const Poll = ({ poll }: PollPropsT) => {
   );
   return (
     <Card key={poll.id}>
-      <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-center  p-6'>
-        <div className='font-semibold md:text-xl text-md'>{poll.title}</div>
+      <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-between  p-6'>
+        <div className='font-semibold md:text-xl text-md mb-4'>
+          {poll.title}
+        </div>
 
         <div className='flex flex-col gap-3 min-w-min'>
           <RadioGroup className='pl-4'>
@@ -74,6 +76,8 @@ const Poll = ({ poll }: PollPropsT) => {
               ))}
             </div>
           </RadioGroup>
+        </div>
+        <div className='flex flex-col gap-2'>
           <div className='flex gap-2 my-2 items-center justify-center'>
             <div className='text-[#5F6061] dark:text-gray-400 flex items-center justify-center whitespace-nowrap'>
               {poll?.PolltotalVotes} votes
