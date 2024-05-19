@@ -1,6 +1,6 @@
 import React from "react";
 import LandingNavbar from "@/components/Navbar/LandingNavbar";
-import Hero from "@/components/ui/Hero";
+import Hero from "@/components/Pages/Hero";
 import Footer from "@/components/Footer";
 
 const Home = () => {

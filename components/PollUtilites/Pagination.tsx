@@ -3,11 +3,11 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-type PaginationWrapperProps = {
+type PaginationProps = {
   totalPages: number;
 };
 
-const PaginationWrapper = ({ totalPages }: PaginationWrapperProps) => {
+const Pagination = ({ totalPages }: PaginationProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -43,4 +43,4 @@ const PaginationWrapper = ({ totalPages }: PaginationWrapperProps) => {
   );
 };
 
-export default PaginationWrapper;
+export default Pagination;

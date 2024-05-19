@@ -4,11 +4,11 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import OptionBar from "./OptionBar";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Card } from "./card";
-import DeletePoll from "../PollEdit/DeletePoll";
-import CopyClipboard from "./CopyClipboard";
-import ResetPoll from "./ResetPoll";
+import DeletePoll from "../PollUtilites/DeletePoll";
+import CopyClipboard from "../PollUtilites/CopyClipboard";
+import ResetPoll from "../PollUtilites/ResetPoll";
 import timeUntil from "@/lib/timeuntil";
-import OpenPoll from "./OpenPoll";
+import OpenPoll from "../PollUtilites/OpenPoll";
 import {
   Tooltip,
   TooltipContent,

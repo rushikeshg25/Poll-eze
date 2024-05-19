@@ -1,6 +1,6 @@
 "use client";
 import { resetPoll } from "@/actions/ResetPoll";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { useMutation } from "@tanstack/react-query";
 import {
   AlertDialog,

@@ -5,8 +5,8 @@ import Polls from "@/components/Pages/Polls";
 import NoPolls from "@/components/Pages/NoPolls";
 import { revalidatePath } from "next/cache";
 import { getPolls } from "@/actions/GetPoll";
-import PaginationWrapper from "@/components/PaginationWrapper";
-import Search from "@/components/Search";
+import Pagination from "@/components/PollUtilites/Pagination";
+import Search from "@/components/PollUtilites/Search";
 import { Suspense } from "react";
 
 const Page = async ({
@@ -50,7 +50,7 @@ const Page = async ({
             <div>Your Polls</div>{" "}
             <div className='flex gap-3'>
               <Search />
-              <PaginationWrapper totalPages={totalPages} />
+              <Pagination totalPages={totalPages} />
             </div>
           </div>
           <Suspense key={search + currentPage}>

@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import LandingPagePoll from "./LandingPagePoll";
+import LandingPagePoll from "../ui/LandingPagePoll";
 import HeroDesc from "./HeroDesc";
 
 const Hero = () => {

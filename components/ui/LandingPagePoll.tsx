@@ -41,30 +41,3 @@ const LandingPagePoll = async () => {
 };
 
 export default LandingPagePoll;
-
-{
-  /* <CardHeader className='flex items-center text-2xl'>
-  <>Which came first: the chicken or the egg?</>
-</CardHeader>
-<CardContent className='flex items-center flex-col gap-3 lg:grid-cols-2 lg:grid min-w-min'>
-  {options.map((option) => (
-    <button key={option} disabled={hasVoted}>
-      <Votebar
-        className={`dark:border-gray-300 border-gray-800 border-2 cursor-pointer min-w-52 ${
-          hasVoted && option === optionVoted ? "bg-green-500" : ""
-        }`}
-        key={option}
-        option={option}
-        value={
-          hasVoted == true
-            ? ((option.votes + 1) / (option.totalVotes + 1)) * 100
-            : 0
-        }
-        onClick={() => {
-          voteHandler(option);
-        }}
-      />
-    </button>
-  ))}
-</CardContent> */
-}

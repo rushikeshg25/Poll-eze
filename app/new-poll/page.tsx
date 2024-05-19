@@ -23,8 +23,8 @@ import { useStore } from "@/zustand/store";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { createPoll } from "@/actions/CreatePoll";
-import CopyClipboard from "@/components/ui/CopyClipboard";
-import OpenPoll from "@/components/ui/OpenPoll";
+import CopyClipboard from "@/components/PollUtilites/CopyClipboard";
+import OpenPoll from "@/components/PollUtilites/OpenPoll";
 import {
   Tooltip,
   TooltipContent,
