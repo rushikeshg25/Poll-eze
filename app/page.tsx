@@ -1,6 +1,7 @@
 import React from "react";
 import LandingNavbar from "@/components/Navbar/LandingNavbar";
 import Hero from "@/components/ui/Hero";
+import Footer from "@/components/Footer";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <div className='flex-1 items-center justify-center '>
         <Hero />
       </div>
+      <Footer />
     </div>
   );
 };

@@ -5,7 +5,7 @@ type DeletePollT = {
 };
 import { prisma } from "@/lib/db";
 
-export const DeletePoll = async ({ pollId }: DeletePollT) => {
+export const DeletePollAction = async ({ pollId }: DeletePollT) => {
   await prisma.vote.deleteMany({
     where: {
       Pvote: pollId,
@@ -21,5 +21,5 @@ export const DeletePoll = async ({ pollId }: DeletePollT) => {
       id: pollId,
     },
   });
-  return "success";
+  return { success: true, message: "Poll Deleted" };
 };

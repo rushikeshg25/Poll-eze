@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               {children}
+              {/* <Footer /> */}
               <Toaster />
             </ThemeProvider>
           </body>
