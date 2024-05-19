@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import type { PollT } from "@/types/PollData";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
+import { Poll } from "@prisma/client";
 type CreatePollT = {
   poll: PollT;
 };
@@ -10,7 +11,7 @@ type CreatePollT = {
 export const createPoll = async ({ poll }: CreatePollT) => {
   const { userId } = auth();
   if (!userId) redirect("/sign-in");
-
+  let newPoll: Poll;
   try {
     const prismaId = await prisma.user.findUnique({
       where: {
@@ -22,7 +23,7 @@ export const createPoll = async ({ poll }: CreatePollT) => {
     });
     if (!prismaId) redirect("/sign-in");
 
-    const newPoll = await prisma.poll.create({
+    newPoll = await prisma.poll.create({
       data: {
         PolltotalVotes: 0,
         title: poll.title,
@@ -49,5 +50,5 @@ export const createPoll = async ({ poll }: CreatePollT) => {
     console.log("Error while creating poll:", error);
     return { success: false, message: "Something went wrong" };
   }
-  return { success: true, message: "Poll Created" };
+  return { success: true, message: "Poll Created", id: newPoll?.id };
 };
