@@ -9,7 +9,7 @@ export default authMiddleware({
     "/api/poll/vote-poll/publicuser",
   ],
 
-  ignoredRoutes: ["/test", "/api/poll/vote-poll/publicuser"],
+  ignoredRoutes: ["/api/poll/vote-poll/publicuser"],
 });
 
 export const config = {

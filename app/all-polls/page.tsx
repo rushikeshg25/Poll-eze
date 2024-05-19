@@ -1,41 +1,38 @@
 import { auth } from "@clerk/nextjs";
 import MainNavbar from "@/components/Navbar/MainNavbar";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
 import Polls from "@/components/Pages/Polls";
-import { PollwithOptionT } from "@/types/PollwithOptions";
 import NoPolls from "@/components/Pages/NoPolls";
 import { revalidatePath } from "next/cache";
+import { getPolls } from "@/actions/GetPoll";
+import PaginationWrapper from "@/components/PaginationWrapper";
+import Search from "@/components/Search";
+import { Suspense } from "react";
+import { Pagination } from "@/components/ui/pagination";
 
-async function fetchPolls(userId: string) {
-  try {
-    const pollsData = await prisma.user.findUnique({
-      where: {
-        externalId: userId,
-      },
-      select: {
-        polls: {
-          include: {
-            options: true,
-          },
-        },
-      },
-    });
-    const polls = pollsData?.polls;
-    return polls;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    throw error;
-  }
-}
-
-const Page = async () => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+    limit?: string;
+  };
+}) => {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
   }
-
-  const polls = (await fetchPolls(userId)) as PollwithOptionT[];
+  const search = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const limit = Number(searchParams?.limit) || 6;
+  const offset = (currentPage - 1) * limit;
+  const { polls, totalPages } = await getPolls({
+    offset,
+    limit,
+    search,
+    userId,
+  });
 
   return (
     <div className='h-screen flex flex-col'>
@@ -50,10 +47,17 @@ const Page = async () => {
         </div>
       ) : (
         <div className='pb-10'>
-          <div className='flex justify-center text-3xl p-5 font-semibold sm:p-5'>
-            Your Polls
+          <div className='flex justify-evenly items-center text-3xl p-5 font-semibold sm:p-5 '>
+            <div>Your Polls</div>{" "}
+            <div className='flex gap-3'>
+              <Search />
+              <PaginationWrapper totalPages={totalPages} />
+            </div>
           </div>
-          <Polls polls={polls} />
+          <Suspense key={search + currentPage}>
+            <Polls polls={polls} />
+          </Suspense>
+          <Pagination />
         </div>
       )}
     </div>
