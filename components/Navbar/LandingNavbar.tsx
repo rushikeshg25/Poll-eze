@@ -26,7 +26,6 @@ export default function LandingNavbar() {
 
   useEffect(() => {
     if (userId) setIsAuthenticated(true);
-    console.log(isAuthenticated);
   }, []);
 
   return (

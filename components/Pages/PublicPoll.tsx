@@ -17,7 +17,6 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
   if (userId) router.push(`/poll/${poll.id}`);
   useEffect(() => {
     optionvoted = usePublicHasVoted({ pollid: poll.id });
-    console.log(optionvoted);
   }, []);
 
   const { mutate: server_votePublicPoll } = useMutation({

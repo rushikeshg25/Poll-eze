@@ -24,13 +24,11 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   const voteHandler = async () => {
     const result = await server_votePublicPoll({
       optionId: selectedValue as string,
-      pollId: poll?.id as string,
     });
     setTotalVotes(totalVotes + 1);
     setHasVoted((cur) => {
       if (cur) {
         setSelectedValue(undefined);
-        console.log(selectedValue);
         return false;
       }
       toast({

@@ -41,7 +41,6 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
         }`,
       });
     } catch (error) {
-      console.log(error);
       toast({
         variant: "destructive",
         title: "We ran into some Issue",

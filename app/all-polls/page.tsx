@@ -8,7 +8,6 @@ import { getPolls } from "@/actions/GetPoll";
 import PaginationWrapper from "@/components/PaginationWrapper";
 import Search from "@/components/Search";
 import { Suspense } from "react";
-import { Pagination } from "@/components/ui/pagination";
 
 const Page = async ({
   searchParams,
@@ -57,7 +56,6 @@ const Page = async ({
           <Suspense key={search + currentPage}>
             <Polls polls={polls} />
           </Suspense>
-          <Pagination />
         </div>
       )}
     </div>
