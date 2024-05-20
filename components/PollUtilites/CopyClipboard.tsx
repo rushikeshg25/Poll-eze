@@ -2,7 +2,7 @@
 import { Copy } from "lucide-react";
 import { Check } from "lucide-react";
 import { useState } from "react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 const CopyClipboard = ({ pollId }: { pollId: string }) => {
   const [copy, setCopy] = useState(false);

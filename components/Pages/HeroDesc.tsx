@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import UiImprovements from "./UiImprovements";
-import { Button } from "./button";
+import UiImprovements from "../ui/UiImprovements";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
 const HeroDesc = ({ userId }: { userId: string | null | undefined }) => {

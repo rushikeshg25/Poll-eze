@@ -1,6 +1,6 @@
 "use client";
 import { ExternalLink } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
 const OpenPoll = ({ pollId }: { pollId: string }) => {
