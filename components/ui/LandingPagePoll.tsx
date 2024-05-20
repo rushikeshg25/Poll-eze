@@ -6,7 +6,7 @@ const POLL_ID = "d512919f-867a-4d5e-949e-e2353c98c8a1";
 const LandingPagePoll = async () => {
   const poll = await prisma.poll.findUnique({
     where: {
-      id: POLL_ID,
+      title: "Which came first: the chicken or the egg?",
     },
 
     include: {
