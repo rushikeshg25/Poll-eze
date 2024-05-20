@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "studio": "prisma studio",
+    "db:seed": "prisma db seed",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "studio": "prisma studio",
     "prisma:docker": "npm run prisma:migrate && npm run studio",
     "dev:docker": "npm run prisma:docker & next dev"
   },
