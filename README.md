@@ -24,7 +24,7 @@ Copy the .env.example to .env and add your PostgresDB URI using Neon,supabase,do
 
   `npx prisma migrate dev`
 
-  -Seeding Script
+- Seeding Script
 
   `npx prisma db seed`
 
