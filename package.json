@@ -11,7 +11,7 @@
     "db:seed": "prisma db seed",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "prisma:docker": "npm run prisma:migrate && npm run studio",
+    "prisma:docker": "npm run prisma:migrate && npm run db:seed &&  npm run studio",
     "dev:docker": "npm run prisma:docker & next dev"
   },
   "dependencies": {
