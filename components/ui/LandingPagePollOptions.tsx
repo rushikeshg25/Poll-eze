@@ -17,11 +17,41 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>();
   const [totalVotes, setTotalVotes] = useState(poll?.PolltotalVotes as number);
   const { toast } = useToast();
+  const [optionPercentage, setOptionPercentage] = useState<
+    { optionid: string; percentage: Number }[]
+  >([]);
+
+  const calculateOptionPercentages = (optionId: string) => {
+    poll?.options.map((option) => {
+      if (option.id === optionId) {
+        setOptionPercentage((prev) => [
+          ...prev,
+          {
+            optionid: option.id,
+            percentage: Math.floor(
+              ((option.votes + 1) / (option.totalVotes + 1)) * 100
+            ),
+          },
+        ]);
+      } else {
+        setOptionPercentage((prev) => [
+          ...prev,
+          {
+            optionid: option.id,
+            percentage: Math.floor(
+              (option.votes / (option.totalVotes + 1)) * 100
+            ),
+          },
+        ]);
+      }
+    });
+  };
   const { mutate: server_votePublicPoll } = useMutation({
     mutationFn: votePublicPoll,
   });
 
   const voteHandler = async () => {
+    calculateOptionPercentages(selectedValue as string);
     const result = await server_votePublicPoll({
       optionId: selectedValue as string,
     });
@@ -52,9 +82,15 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
             <div key={option.id} className='flex flex-col'>
               <div className='inline-flex grid-flow-col items-center gap-4'>
                 {hasVoted ? (
-                  <div className='pt-2 w-10'>
-                    {Math.floor((option.votes / option.totalVotes) * 100)}%
-                    {/* 100% */}
+                  <div className='pt-2 w-10 font-semibold'>
+                    {optionPercentage.map(
+                      (i) =>
+                        i.optionid === option.id && (
+                          <div key={i.optionid} className='flex items-center '>
+                            {String(i.percentage)}%
+                          </div>
+                        )
+                    )}
                   </div>
                 ) : (
                   <RadioGroupItem

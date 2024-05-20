@@ -31,6 +31,9 @@ export const getPolls = async ({
         mode: "insensitive",
       },
     },
+    orderBy: {
+      created: "desc",
+    },
     skip: offset,
     take: limit,
     include: {

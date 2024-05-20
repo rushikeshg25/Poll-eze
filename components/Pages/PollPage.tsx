@@ -18,6 +18,35 @@ type PollT = {
 const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<string | undefined>();
+  const [optionPercentage, setOptionPercentage] = useState<
+    { optionid: string; percentage: Number }[]
+  >([]);
+
+  const calculateOptionPercentages = (optionId: string) => {
+    poll.options.map((option) => {
+      if (option.id === optionId) {
+        setOptionPercentage((prev) => [
+          ...prev,
+          {
+            optionid: option.id,
+            percentage: Math.floor(
+              ((option.votes + 1) / (option.totalVotes + 1)) * 100
+            ),
+          },
+        ]);
+      } else {
+        setOptionPercentage((prev) => [
+          ...prev,
+          {
+            optionid: option.id,
+            percentage: Math.floor(
+              (option.votes / (option.totalVotes + 1)) * 100
+            ),
+          },
+        ]);
+      }
+    });
+  };
 
   const { toast } = useToast();
   const { isOpen, timeLeftString } = timeUntil(
@@ -33,6 +62,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
 
   const voteHandler = async (optionId: string) => {
     try {
+      calculateOptionPercentages(optionId);
       await voteApiHandler(selectedValue as string);
       setHasVoted(true);
       toast({
@@ -66,7 +96,17 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                 <div className='inline-flex grid-flow-col items-center gap-4'>
                   {hasVoted ? (
                     <div className='pt-2 w-10 font-semibold'>
-                      {Math.floor((option.votes / option.totalVotes) * 100)}%
+                      {optionPercentage.map(
+                        (i) =>
+                          i.optionid === option.id && (
+                            <div
+                              key={i.optionid}
+                              className='flex items-center '
+                            >
+                              {String(i.percentage)}%
+                            </div>
+                          )
+                      )}
                     </div>
                   ) : (
                     <RadioGroupItem
@@ -90,7 +130,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                   hasVoted={hasVoted}
                   option={option}
                   selected={selectedValue}
-                  classname='bg-black'
+                  classname='bg-black dark:bg-white'
                 />
               </div>
             ))}
@@ -118,3 +158,5 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
 };
 
 export default PollPage;
+
+// {Math.floor((option.votes / option.totalVotes) * 100)}%
