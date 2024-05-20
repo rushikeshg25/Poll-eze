@@ -1,4 +1,6 @@
-import { prisma } from "@/lib/db";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const totalVotes = 70;
 const Options = [
@@ -50,3 +52,12 @@ async function main() {
     throw Error;
   }
 }
+
+main()
+  .catch((error) => {
+    console.error("An unexpected error occurred during seeding:", error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
