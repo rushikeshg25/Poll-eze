@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:generate": "prisma generate",
+    "studio": "prisma studio",
+    "prisma:docker": "npm run prisma:migrate && npm run studio",
+    "dev:docker": "npm run prisma:docker & next dev"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
@@ -34,7 +39,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-and-time": "^3.2.0",
-    "framer-motion": "^11.0.14",
     "lucide-react": "^0.350.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.1.3",
