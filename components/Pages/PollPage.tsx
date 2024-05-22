@@ -58,11 +58,11 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
     else {
       setHasVoted(false);
     }
-  }, []);
+  }, [optionVoted]);
 
   const voteHandler = async (optionId: string) => {
     try {
-      calculateOptionPercentages(optionId);
+      calculateOptionPercentages(selectedValue as string);
       await voteApiHandler(selectedValue as string);
       setHasVoted(true);
       toast({

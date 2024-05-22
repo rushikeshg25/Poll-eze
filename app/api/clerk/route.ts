@@ -28,7 +28,9 @@ export async function POST(request: Request) {
   const payload = await validateRequest(request);
 
   const UserId = payload.data.id as string;
+  //@ts-ignore
   const firstName = payload.data.first_name;
+  //@ts-ignore
   const lastName = payload.data.last_name;
   //@ts-ignore
   const email = payload.data.email_addresses[0].email_address as string;

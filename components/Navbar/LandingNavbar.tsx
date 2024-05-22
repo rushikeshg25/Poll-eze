@@ -22,11 +22,8 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 export default function LandingNavbar() {
   const { userId } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  if (userId) setIsAuthenticated(true);
   const router = useRouter();
-
-  useEffect(() => {
-    if (userId) setIsAuthenticated(true);
-  }, []);
 
   return (
     <div>

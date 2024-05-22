@@ -20,7 +20,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
 
   useEffect(() => {
     addOptions(options);
-  }, [options]);
+  }, [options, addOptions]);
 
   return (
     <div className='w-full flex flex-col items-center gap-3'>

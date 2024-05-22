@@ -5,6 +5,9 @@ const hasUserVoted = async (userId: string, pollId: string) => {
     where: {
       id: pollId,
     },
+    include: {
+      Voters: true,
+    },
   });
 
   return poll?.Voters.includes(userId);
