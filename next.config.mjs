@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // images: {
-  //   domains: ["kitwind.io"],
-  // },
+  images: {
+    domains: ["images.unsplash.com"],
+  },
 };
 
 export default nextConfig;
