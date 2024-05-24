@@ -1,7 +1,6 @@
 import type { PollT } from "@/types/PollData";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "../ui/label";
-import { useState } from "react";
 import timeUntil from "@/lib/timeuntil";
 
 const Finalize = ({ poll }: { poll: PollT }) => {
@@ -9,8 +8,6 @@ const Finalize = ({ poll }: { poll: PollT }) => {
     new Date(),
     poll.Duration as number
   );
-  const [hasVoted, setHasVoted] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState<string | undefined>();
   return (
     <div className=' rounded-xl border-[#E2E8F0] dark:border-[#27272A]  border-2 p-7 min-w-80'>
       <div className='rounded-xl  light:bg-gray-100 border-t-0  w-full  flex flex-col gap-3 justify-center  pb-6'>

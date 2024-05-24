@@ -2,8 +2,6 @@
 import { SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "../ui/ThemeToggle";
 import Link from "next/link";
-import LangingPageLogo from "./Logos/LangingPageLogo";
-// import { useState } from "react";
 import MainLogo from "./Logos/MainLogo";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -31,7 +29,6 @@ export default function MainNavbar({
   isAllPollsPage,
 }: NavbarT) {
   const router = useRouter();
-  // const [MenuVisibility, setMenuVisibility] = useState(false);
 
   return (
     <header className=' inset-x-0  py-4  sticky top-0 z-50 w-full  supports-[backdrop-filter]:bg-background/60" border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"'>

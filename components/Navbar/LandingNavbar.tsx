@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
 import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import {
   Sheet,

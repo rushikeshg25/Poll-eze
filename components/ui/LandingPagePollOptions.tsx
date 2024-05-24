@@ -52,9 +52,6 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
 
   const voteHandler = async () => {
     calculateOptionPercentages(selectedValue as string);
-    const result = await server_votePublicPoll({
-      optionId: selectedValue as string,
-    });
     setTotalVotes(totalVotes + 1);
     setHasVoted((cur) => {
       if (cur) {
