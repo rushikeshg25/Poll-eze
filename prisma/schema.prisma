@@ -27,7 +27,7 @@ model User {
 
 model Poll {
   id             String   @id @default(uuid())
-  title          String   @unique
+  title          String   
   description    String?
   user           User     @relation(name: "Polls created by User", fields: [UserId], references: [id])
   UserId         String
