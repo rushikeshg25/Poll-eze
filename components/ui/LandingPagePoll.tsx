@@ -2,7 +2,7 @@ import LandingPagePollOptions from "./LandingPagePollOptions";
 import { prisma } from "@/lib/db";
 
 const LandingPagePoll = async () => {
-  const poll = await prisma.poll.findUnique({
+  const pollArray = await prisma.poll.findMany({
     where: {
       title: "Which came first: the chicken or the egg?",
     },
@@ -15,6 +15,7 @@ const LandingPagePoll = async () => {
       },
     },
   });
+  const poll = pollArray[0];
 
   return (
     <div className='w-full rounded-xl'>

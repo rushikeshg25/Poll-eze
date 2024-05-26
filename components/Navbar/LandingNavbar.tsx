@@ -66,12 +66,12 @@ export default function LandingNavbar() {
                 ) : null}
 
                 {!isAuthenticated && (
-                  <div
+                  <Button
                     className='bg-[#2563EB]'
                     onClick={() => router.push("/signup")}
                   >
                     Signup
-                  </div>
+                  </Button>
                 )}
               </div>
             </div>
