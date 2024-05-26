@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LangingPageLogo from "./Logos/LangingPageLogo";
 import { useAuth } from "@clerk/nextjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SignOutButton } from "@clerk/nextjs";
 import {
   Sheet,
@@ -22,7 +22,11 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 export default function LandingNavbar() {
   const { userId } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  if (userId) setIsAuthenticated(true);
+  useEffect(() => {
+    if (userId) setIsAuthenticated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const router = useRouter();
 
   return (
@@ -54,7 +58,7 @@ export default function LandingNavbar() {
                 <div>
                   <ThemeToggle />
                 </div>
-
+                <>{console.log(isAuthenticated)}</>
                 {isAuthenticated !== null ? (
                   <div className='p-1'>
                     <UserButton />
@@ -62,12 +66,12 @@ export default function LandingNavbar() {
                 ) : null}
 
                 {!isAuthenticated && (
-                  <Button
+                  <div
                     className='bg-[#2563EB]'
                     onClick={() => router.push("/signup")}
                   >
                     Signup
-                  </Button>
+                  </div>
                 )}
               </div>
             </div>
@@ -88,11 +92,21 @@ export default function LandingNavbar() {
 
                   <SheetClose asChild className='pt-10 h-full'>
                     <div className='flex flex-col items-center justify-center gap-y-2'>
-                      {isAuthenticated !== null && (
-                        <Button variant={"ghost"}>Create New Poll</Button>
+                      {isAuthenticated === true && (
+                        <Button
+                          variant={"ghost"}
+                          onClick={() => router.push("/new-poll")}
+                        >
+                          Create New Poll
+                        </Button>
                       )}
-                      {isAuthenticated !== null && (
-                        <Button variant={"ghost"}>My Polls</Button>
+                      {isAuthenticated === true && (
+                        <Button
+                          variant={"ghost"}
+                          onClick={() => router.push("/my-polls")}
+                        >
+                          My Polls
+                        </Button>
                       )}
 
                       {isAuthenticated === true ? (
@@ -106,10 +120,12 @@ export default function LandingNavbar() {
                       )}
                       <div className='flex-grow'></div>
                       <div className='flex items-center gap-2 mb-9'>
-                        <Button variant='outline'>
-                          <GitHubLogoIcon className='mr-2 w-5 h-5' />
-                          Github
-                        </Button>
+                        <Link href={"https://github.com/rushikeshg25/Poll-eze"}>
+                          <Button variant='outline'>
+                            <GitHubLogoIcon className='mr-2 w-5 h-5' />
+                            Github
+                          </Button>
+                        </Link>
                         <ThemeToggle />
                       </div>
                     </div>

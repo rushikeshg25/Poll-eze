@@ -105,13 +105,23 @@ export default function MainNavbar({
                 <SheetClose asChild className='pt-10 h-full'>
                   <div className='flex flex-col items-center justify-center gap-y-2'>
                     {isAuthenticated !== null && (
-                      <Button variant={"ghost"}>Create New Poll</Button>
+                      <Button
+                        variant={"ghost"}
+                        onClick={() => router.push("/new-poll")}
+                      >
+                        Create New Poll
+                      </Button>
                     )}
                     {isAuthenticated !== null && (
-                      <Button variant={"ghost"}>My Polls</Button>
+                      <Button
+                        variant={"ghost"}
+                        onClick={() => router.push("/my-polls")}
+                      >
+                        My Polls
+                      </Button>
                     )}
 
-                    {isAuthenticated !== null ? (
+                    {isAuthenticated === null ? (
                       <Button variant={"ghost"}>
                         <SignOutButton />
                       </Button>
@@ -122,10 +132,12 @@ export default function MainNavbar({
                     )}
                     <div className='flex-grow'></div>
                     <div className='flex items-center gap-2 mb-9'>
-                      <Button variant='outline'>
-                        <GitHubLogoIcon className='mr-2 w-5 h-5' />
-                        Github
-                      </Button>
+                      <Link href={"https://github.com/rushikeshg25/Poll-eze"}>
+                        <Button variant='outline'>
+                          <GitHubLogoIcon className='mr-2 w-5 h-5' />
+                          Github
+                        </Button>
+                      </Link>
                       <ThemeToggle />
                     </div>
                   </div>
