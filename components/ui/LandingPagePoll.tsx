@@ -1,8 +1,9 @@
+import { PollwithOptionT } from "@/types/PollwithOptions";
 import LandingPagePollOptions from "./LandingPagePollOptions";
 import { prisma } from "@/lib/db";
 
 const LandingPagePoll = async () => {
-  const pollArray = await prisma.poll.findMany({
+  const pollArray = (await prisma.poll.findMany({
     where: {
       title: "Which came first: the chicken or the egg?",
     },
@@ -14,7 +15,7 @@ const LandingPagePoll = async () => {
         },
       },
     },
-  });
+  })) as PollwithOptionT[];
   const poll = pollArray[0];
 
   return (
