@@ -17,39 +17,44 @@ import { useToast } from "@/components/ui/use-toast";
 
 const ResetPoll = ({ pollId }: { pollId: string }) => {
   const { toast } = useToast();
-  const { mutate: server_resetPoll } = useMutation({
+
+  const mutation = useMutation({
     mutationFn: resetPoll,
+    onSuccess: () => {
+      toast({
+        title: "Poll has been reset!",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error resetting poll.",
+      });
+    },
   });
+
+  const handleReset = () => {
+    mutation.mutate(pollId);
+  };
+
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Reset</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently Reset your
-              Poll and remove your Poll Voting Data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                server_resetPoll(pollId);
-                toast({
-                  title: "Poll has been reset!",
-                });
-              }}
-            >
-              Continue
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button>Reset</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently reset your poll
+            and remove your poll voting data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleReset}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 
