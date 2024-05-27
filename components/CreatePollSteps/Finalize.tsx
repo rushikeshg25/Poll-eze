@@ -4,6 +4,7 @@ import { Label } from "../ui/label";
 import timeUntil from "@/lib/timeuntil";
 
 const Finalize = ({ poll }: { poll: PollT }) => {
+  // console.log(poll.title);
   const { isOpen, timeLeftString } = timeUntil(
     new Date(),
     poll.Duration as number

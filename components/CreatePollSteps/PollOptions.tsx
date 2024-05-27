@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect } from "react";
 import { Label } from "@/components/ui/label";
@@ -20,7 +21,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
 
   useEffect(() => {
     addOptions(options);
-  }, [options, addOptions]);
+  }, [options]);
 
   return (
     <div className='w-full flex flex-col items-center gap-3'>
@@ -30,7 +31,7 @@ const PollOptions = ({ addOptions }: PollOptionsT) => {
         <div className=' ring-1 dark:ring-[#27272A] ring-[#E2E8F0]  rounded-lg  w-full h-40 flex flex-col gap-3 overflow-y-auto'>
           {options.length === 0 ? (
             <div className='text-center flex items-center justify-center w-full h-full'>
-              <p className='dark:text-[#A1A1AA]'>
+              <p className='dark:text-[#A1A1AA] p-2 text-sm'>
                 Added Options will appear here
               </p>
             </div>
