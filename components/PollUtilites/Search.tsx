@@ -36,34 +36,38 @@ const Search = () => {
   return (
     <div className='min-w-40 relative flex  items-center gap-1.5'>
       {isSearching ? (
-        <Loader2 className='size-5 absolute left-4 animate-spin text-muted-foreground' />
+        <Loader2 className='size-5 z-20 absolute left-4 animate-spin text-muted-foreground' />
       ) : (
-        <SearchIcon className='size-5 absolute left-4 text-muted-foreground' />
+        <SearchIcon className='size-5 z-20 absolute left-4 text-muted-foreground text-white' />
       )}
-      <Input
-        className='w-full p-5 pl-12'
-        placeholder='Search...'
-        onChange={(e) => {
-          handleSearch(e.target.value);
-        }}
-        defaultValue={q}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            inputRef?.current?.blur();
-          }
-        }}
-        ref={inputRef}
-      />
-      {q && (
-        <Button
-          className='ml-1'
-          onClick={handleClearInput}
-          variant={"ghost"}
-          size={"icon"}
-        >
-          <XCircleIcon className='size-5 text-muted-foreground' />
-        </Button>
-      )}
+      <div className='relative w-full'>
+        <div className='flex items-center w-full'>
+          <Input
+            className='w-full p-5 pl-12'
+            placeholder='Search...'
+            onChange={(e) => {
+              handleSearch(e.target.value);
+            }}
+            defaultValue={q}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                inputRef?.current?.blur();
+              }
+            }}
+            ref={inputRef}
+          />
+          {q && (
+            <Button
+              className='absolute right-0 mr-2 z-10 dark:bg-black'
+              onClick={handleClearInput}
+              variant={"ghost"}
+              size={"icon"}
+            >
+              <XCircleIcon className='w-5 h-5 text-muted-foreground' />
+            </Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
