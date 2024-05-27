@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import usePublicHasVoted from "@/hooks/usePublicHasVoted";
 import React, { useEffect, useState } from "react";

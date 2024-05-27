@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <div className='w-full p-2 flex item-center justify-center  text-md text-[#8D8D95]'>
-      Built by Rushikesh . The source code is available on&nbsp;
+    <div className='w-full p-3 flex item-center justify-center  text-md text-[#8D8D95] text-wrap md:text-nowrap'>
+      Built by Rushikesh. Source code on&nbsp;
       <a
         href='https://github.com/rushikeshg25/Poll-eze'
         target='_blank'
