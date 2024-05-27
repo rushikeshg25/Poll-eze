@@ -15,6 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     pollId: params.id,
     userId: userId,
   });
+  console.log(optionVoted);
   return (
     <div className='flex flex-col w-full h-screen'>
       <MainNavbar

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  outline: 1px solid #f00 !important;
+} */
+
 @layer base {
   :root {
     --background: 0 0% 100%;

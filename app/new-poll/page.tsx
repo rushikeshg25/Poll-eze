@@ -1,7 +1,6 @@
 "use client";
 
 import MainNavbar from "@/components/Navbar/MainNavbar";
-import { useWindowSize } from "@uidotdev/usehooks";
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -46,14 +45,29 @@ const Page = () => {
   }
   const { data, mutate: server_CreatePoll } = useMutation({
     mutationFn: createPoll,
+    onSuccess: () => {
+      confetti({
+        particleCount: 150,
+        spread: 180,
+        origin: { y: 0.6 },
+        colors: ["#5F6061", "#5F6061"],
+      });
+      toast({
+        title: "Poll Created",
+      });
+      setCurrentStep((value) => value + 1);
+    },
+    onError: (error) => {
+      toast({
+        title: "We ran into some Issue",
+        description: JSON.stringify(error),
+      });
+    },
   });
 
   const { toast } = useToast();
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
   const { options } = useStore();
-  const size = useWindowSize();
-  const width = size.width as number;
-  const height = size.height as number;
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [hasFinished, setHasFinished] = useState<boolean>(false);
   const [poll, setPoll] = useState<PollT>({
@@ -96,22 +110,7 @@ const Page = () => {
       await server_CreatePoll({
         poll: poll,
       });
-      confetti({
-        particleCount: 150,
-        spread: 180,
-        origin: { y: 0.6 },
-        colors: ["#5F6061", "#5F6061"],
-      });
-      toast({
-        title: "Poll Created",
-      });
-      setCurrentStep((value) => value + 1);
-    } catch (error) {
-      toast({
-        title: "We ran into some Issue",
-        description: JSON.stringify(error),
-      });
-    }
+    } catch (error) {}
   };
 
   const STEPS = [
@@ -162,7 +161,7 @@ const Page = () => {
   };
 
   return (
-    <div className='h-screen flex flex-col gap-2'>
+    <div className='h-screen flex flex-col gap-2 overflow-x-hidden pb-5'>
       <MainNavbar
         isAllPollsPage={false}
         isAuthenticated={`${userId}`}

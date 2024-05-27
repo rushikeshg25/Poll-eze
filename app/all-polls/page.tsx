@@ -8,7 +8,8 @@ import { getPolls } from "@/actions/GetPoll";
 import Pagination from "@/components/PollUtilites/Pagination";
 import Search from "@/components/PollUtilites/Search";
 import { Suspense } from "react";
-
+import LoadingSkeleton from "@/components/Pages/LoadingSkeleton";
+export const dynamic = "force-dynamic";
 const Page = async ({
   searchParams,
 }: {
