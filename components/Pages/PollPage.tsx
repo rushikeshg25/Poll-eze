@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -17,35 +18,32 @@ type PollT = {
 
 const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   const [hasVoted, setHasVoted] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState<string | undefined>();
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    optionVoted ?? undefined
+  );
   const [optionPercentage, setOptionPercentage] = useState<
     { optionid: string; percentage: Number }[]
   >([]);
 
-  const calculateOptionPercentages = (optionId: string) => {
-    poll.options.map((option) => {
+  const calculateOptionPercentages = (optionId: string | undefined) => {
+    const newOptionPercentages = poll.options.map((option) => {
       if (option.id === optionId) {
-        setOptionPercentage((prev) => [
-          ...prev,
-          {
-            optionid: option.id,
-            percentage: Math.floor(
-              ((option.votes + 1) / (option.totalVotes + 1)) * 100
-            ),
-          },
-        ]);
+        return {
+          optionid: option.id,
+          percentage: Math.floor(
+            ((option.votes + 1) / (option.totalVotes + 1)) * 100
+          ),
+        };
       } else {
-        setOptionPercentage((prev) => [
-          ...prev,
-          {
-            optionid: option.id,
-            percentage: Math.floor(
-              (option.votes / (option.totalVotes + 1)) * 100
-            ),
-          },
-        ]);
+        return {
+          optionid: option.id,
+          percentage: Math.floor(
+            (option.votes / (option.totalVotes + 1)) * 100
+          ),
+        };
       }
     });
+    setOptionPercentage(newOptionPercentages);
   };
 
   const { toast } = useToast();
@@ -53,12 +51,13 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
     new Date(poll.created),
     poll.Duration as number
   );
+
   useEffect(() => {
-    if (optionVoted) setHasVoted(true);
-    else {
-      setHasVoted(false);
+    if (optionVoted) {
+      setHasVoted(true);
+      calculateOptionPercentages(optionVoted);
     }
-  }, [optionVoted]);
+  }, []);
 
   const voteHandler = async (optionId: string) => {
     try {
@@ -158,5 +157,3 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
 };
 
 export default PollPage;
-
-// {Math.floor((option.votes / option.totalVotes) * 100)}%
