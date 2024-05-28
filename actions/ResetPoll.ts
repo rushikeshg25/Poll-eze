@@ -12,6 +12,7 @@ export const resetPoll = async (pollId: string) => {
     where: { PollId: pollId },
     data: {
       votes: 0,
+      totalVotes: 0,
     },
   });
   await prisma.vote.deleteMany({
