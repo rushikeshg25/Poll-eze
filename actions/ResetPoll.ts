@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export const resetPoll = async (pollId: string) => {
   await prisma.poll.update({
@@ -18,4 +19,5 @@ export const resetPoll = async (pollId: string) => {
   await prisma.vote.deleteMany({
     where: { Pvote: pollId },
   });
+  revalidatePath("/all-polls");
 };
