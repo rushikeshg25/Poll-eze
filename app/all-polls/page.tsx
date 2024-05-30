@@ -3,13 +3,13 @@ import MainNavbar from "@/components/Navbar/MainNavbar";
 import { redirect } from "next/navigation";
 import Polls from "@/components/Pages/Polls";
 import NoPolls from "@/components/Pages/NoPolls";
-import { revalidatePath } from "next/cache";
+
 import { getPolls } from "@/actions/GetPoll";
 import Pagination from "@/components/PollUtilites/Pagination";
 import Search from "@/components/PollUtilites/Search";
 import { Suspense } from "react";
 import LoadingSkeleton from "@/components/Pages/LoadingSkeleton";
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 const Page = async ({
   searchParams,
 }: {
@@ -65,4 +65,4 @@ const Page = async ({
 
 export default Page;
 
-revalidatePath("/all-polls");
+// revalidatePath("/all-polls");

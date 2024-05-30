@@ -15,7 +15,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/ui/use-toast";
 
-const ResetPoll = ({ pollId }: { pollId: string }) => {
+const ResetPoll = ({
+  pollId,
+  reset = () => {},
+}: {
+  pollId: string;
+  reset?: () => void;
+}) => {
   const { toast } = useToast();
 
   const mutation = useMutation({
@@ -34,6 +40,7 @@ const ResetPoll = ({ pollId }: { pollId: string }) => {
 
   const handleReset = () => {
     mutation.mutate(pollId);
+    reset();
   };
 
   return (

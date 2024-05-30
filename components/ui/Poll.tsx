@@ -15,16 +15,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useState } from "react";
 
 type PollPropsT = {
   poll: PollwithOptionT;
 };
 
 const Poll = ({ poll }: PollPropsT) => {
+  const [hasVoted, setHasVoted] = useState(true);
   const { isOpen, timeLeftString } = timeUntil(
     new Date(poll.created),
     poll.Duration as number
   );
+
+  const reset = () => {
+    setHasVoted(false);
+  };
+
   return (
     <Card key={poll.id}>
       <div className='rounded-xl border-white light:bg-gray-100 border-t-0  w-full h-full flex flex-col gap-3 justify-between  p-6'>
@@ -68,7 +75,7 @@ const Poll = ({ poll }: PollPropsT) => {
                   </div>
                   <div className='w-11/12'>
                     <OptionBar
-                      hasVoted={true}
+                      hasVoted={hasVoted}
                       option={option}
                       selected={undefined}
                       classname='dark:bg-white bg-black'

@@ -26,6 +26,7 @@ const OptionBar = ({
     setWidth(newWidth);
   }, [hasVoted, selected, option]);
 
+  useEffect(() => {}, [hasVoted]);
   return (
     <div className='w-full flex items-center justify-between'>
       <div
