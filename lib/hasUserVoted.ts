@@ -10,7 +10,7 @@ const hasUserVoted = async (userId: string, pollId: string) => {
     },
   });
 
-  return poll?.Voters.includes(userId);
+  return poll?.Voters.includes();
 };
 
 export default hasUserVoted;

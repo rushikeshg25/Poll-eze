@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-// export const dynamic = "force-dynamic";
 
 export const getPolls = async ({
   search,
