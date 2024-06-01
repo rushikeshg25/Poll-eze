@@ -11,6 +11,8 @@ const hasUserVoted = async (userId: string, pollId: string) => {
   });
 
   return poll?.Voters.includes();
+  //Find the Owner
+  //Stop him from voting for himself
 };
 
 export default hasUserVoted;
