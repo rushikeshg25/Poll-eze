@@ -7,6 +7,7 @@ export const resetPoll = async (pollId: string) => {
     where: { id: pollId },
     data: {
       PolltotalVotes: 0,
+      resetTime: new Date(),
     },
   });
   await prisma.option.updateMany({
