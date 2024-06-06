@@ -10,10 +10,29 @@ import { useRouter } from "next/navigation";
 import { votePublicPoll } from "@/actions/vote/Publicvote";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const hasPublicUserVoted = async ({ pollid }: { pollid: string }) => {
-  const optionId = await localStorage.getItem(pollid);
-  if (!optionId) return null;
-  return optionId;
+const hasPublicUserVoted = async ({
+  pollid,
+  resetTime,
+}: {
+  pollid: string;
+  resetTime: Date | undefined | null;
+}) => {
+  const res = await localStorage.getItem(pollid);
+  if (!res) {
+    return null;
+  }
+
+  const data = JSON.parse(res) as { optionId: string; voteTime: Date };
+
+  if (resetTime) {
+    const vote = new Date(data.voteTime);
+    const reset = new Date(resetTime as Date);
+    if (vote < reset) {
+      localStorage.removeItem(pollid);
+      return null;
+    }
+  }
+  return data.optionId;
 };
 
 const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
@@ -24,9 +43,13 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
   const { data: optionVoted, isLoading } = useQuery({
     queryKey: [poll.id],
     queryFn: async () => {
-      const option = await hasPublicUserVoted({ pollid: poll.id });
+      const option = await hasPublicUserVoted({
+        pollid: poll.id,
+        resetTime: poll.resetTime,
+      });
       return option;
     },
+    refetchOnWindowFocus: true,
   });
 
   const { mutate: server_votePublicPoll } = useMutation({
