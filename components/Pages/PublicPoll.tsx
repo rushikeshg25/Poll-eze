@@ -1,24 +1,33 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import usePublicHasVoted from "@/hooks/usePublicHasVoted";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PollPage from "./PollPage";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useVotePoll from "@/hooks/useVotePoll";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { votePublicPoll } from "@/actions/vote/Publicvote";
+import ClipLoader from "react-spinners/ClipLoader";
 
-let optionvoted: string | null;
+const hasPublicUserVoted = async ({ pollid }: { pollid: string }) => {
+  const optionId = await localStorage.getItem(pollid);
+  if (!optionId) return null;
+  return optionId;
+};
 
 const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
   const { userId } = useAuth();
   const router = useRouter();
   if (userId) router.push(`/poll/${poll.id}`);
-  useEffect(() => {
-    optionvoted = usePublicHasVoted({ pollid: poll.id });
-  }, [poll.id]);
+
+  const { data: optionVoted, isLoading } = useQuery({
+    queryKey: [poll.id],
+    queryFn: async () => {
+      const option = await hasPublicUserVoted({ pollid: poll.id });
+      return option;
+    },
+  });
 
   const { mutate: server_votePublicPoll } = useMutation({
     mutationFn: votePublicPoll,
@@ -31,11 +40,17 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
     await useVotePoll(optionId, poll.id);
   };
 
+  if (isLoading)
+    return (
+      <div className='d-flex justify-content-center'>
+        <ClipLoader />
+      </div>
+    );
   return (
     <div>
       <PollPage
         poll={poll}
-        optionVoted={optionvoted}
+        optionVoted={optionVoted as string | null}
         voteApiHandler={voteApiHandler}
       />
     </div>
