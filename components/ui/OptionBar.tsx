@@ -29,12 +29,14 @@ const OptionBar = ({
   useEffect(() => {}, [hasVoted]);
   return (
     <div className='w-full flex items-center justify-between'>
-      <div
-        className={clsx("ml-14 bg-[#199669] h-2.5 rounded-full", classname, {
-          invisible: !hasVoted,
-        })}
-        style={{ width: `${width}%` }}
-      ></div>
+      <div className='ml-14 rounded-full w-full dark:bg-slate-500 bg-gray-100 border-2 dark:border-white border-slate-950'>
+        <div
+          className={clsx(" bg-[#199669] h-2.5 rounded-full ", classname, {
+            invisible: !hasVoted,
+          })}
+          style={{ width: `${width}%` }}
+        ></div>
+      </div>
     </div>
   );
 };
