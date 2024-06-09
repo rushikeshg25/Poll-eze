@@ -58,6 +58,9 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
       calculateOptionPercentages(optionVoted);
     }
   }, []);
+  useEffect(() => {
+    console.log(optionPercentage);
+  }, [optionPercentage]);
 
   const voteHandler = async (optionId: string) => {
     try {
@@ -120,7 +123,7 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                     {option.title}
                   </Label>
                   {selectedValue === option.id && hasVoted && (
-                    <div className='flex items-center justify-center border-2 border-gray-900 dark:border-gray-300 rounded-full  size-5'>
+                    <div className='flex items-center justify-center border border-gray-900 dark:border-gray-300 rounded-full  size-5'>
                       <Check />
                     </div>
                   )}

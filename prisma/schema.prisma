@@ -51,7 +51,7 @@ model Option {
 
 model Vote {
   id     String @id @default(uuid())
-  userId String @unique
+  userId String 
   pollId Poll   @relation(fields: [Pvote], references: [id])
   Pvote  String
   option String

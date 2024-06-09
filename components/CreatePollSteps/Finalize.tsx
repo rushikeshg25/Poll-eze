@@ -10,7 +10,7 @@ const Finalize = ({ poll }: { poll: PollT }) => {
     poll.Duration as number
   );
   return (
-    <div className=' rounded-xl border-[#E2E8F0] dark:border-[#27272A]  border-2 p-7 min-w-80'>
+    <div className=' rounded-xl border-[#E2E8F0] dark:border-[#27272A]  border p-7 min-w-80'>
       <div className='rounded-xl  light:bg-gray-100 border-t-0  w-full  flex flex-col gap-3 justify-center  pb-6'>
         <div className='font-semibold md:text-xl text-md'>{poll.title}</div>
         <div className='md-text-lg text-sm'>{poll.description}</div>
