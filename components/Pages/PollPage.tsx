@@ -26,24 +26,36 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   >([]);
 
   const calculateOptionPercentages = (optionId: string | undefined) => {
-    const newOptionPercentages = poll.options.map((option) => {
-      if (option.id === optionId) {
+    if (optionId === undefined) {
+      const newOptionPercentages = poll.options.map((option) => {
         return {
           optionid: option.id,
-          percentage: Math.floor(
-            ((option.votes + 1) / (option.totalVotes + 1)) * 100
-          ),
+          percentage: Math.floor((option.votes / option.totalVotes) * 100),
         };
-      } else {
-        return {
-          optionid: option.id,
-          percentage: Math.floor(
-            (option.votes / (option.totalVotes + 1)) * 100
-          ),
-        };
-      }
-    });
-    setOptionPercentage(newOptionPercentages);
+      });
+      setOptionPercentage(newOptionPercentages);
+    } else {
+      console.log("hi");
+
+      const newOptionPercentages = poll.options.map((option) => {
+        if (option.id === optionId) {
+          return {
+            optionid: option.id,
+            percentage: Math.floor(
+              ((option.votes + 1) / (option.totalVotes + 1)) * 100
+            ),
+          };
+        } else {
+          return {
+            optionid: option.id,
+            percentage: Math.floor(
+              (option.votes / (option.totalVotes + 1)) * 100
+            ),
+          };
+        }
+      });
+      setOptionPercentage(newOptionPercentages);
+    }
   };
 
   const { toast } = useToast();
@@ -55,10 +67,11 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
   useEffect(() => {
     if (optionVoted) {
       setHasVoted(true);
-      calculateOptionPercentages(optionVoted);
+      calculateOptionPercentages(undefined);
     }
   }, []);
   useEffect(() => {
+    console.log(poll);
     console.log(optionPercentage);
   }, [optionPercentage]);
 
