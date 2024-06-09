@@ -35,8 +35,6 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
       });
       setOptionPercentage(newOptionPercentages);
     } else {
-      console.log("hi");
-
       const newOptionPercentages = poll.options.map((option) => {
         if (option.id === optionId) {
           return {
@@ -70,10 +68,6 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
       calculateOptionPercentages(undefined);
     }
   }, []);
-  useEffect(() => {
-    console.log(poll);
-    console.log(optionPercentage);
-  }, [optionPercentage]);
 
   const voteHandler = async (optionId: string) => {
     try {

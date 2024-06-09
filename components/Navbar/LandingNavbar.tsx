@@ -58,7 +58,7 @@ export default function LandingNavbar() {
                 <div>
                   <ThemeToggle />
                 </div>
-                {/* <>{console.log(isAuthenticated)}</> */}
+
                 {isAuthenticated !== null ? (
                   <div className='p-1'>
                     <UserButton />
