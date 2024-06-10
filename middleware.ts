@@ -7,6 +7,7 @@ export default authMiddleware({
     "/api/clerk",
     "/poll/(.*)",
     "/api/poll/vote-poll/publicuser",
+    "/announcements",
   ],
 
   ignoredRoutes: ["/api/poll/vote-poll/publicuser"],

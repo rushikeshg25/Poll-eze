@@ -6,7 +6,11 @@ export const fetchPoll = async (id: string) => {
       id: id,
     },
     include: {
-      options: true,
+      options: {
+        orderBy: {
+          title: "asc",
+        },
+      },
     },
   });
   return poll;
