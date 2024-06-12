@@ -22,6 +22,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
   >([]);
 
   const calculateOptionPercentages = (optionId: string) => {
+    setOptionPercentage([]);
     poll?.options.map((option) => {
       if (option.id === optionId) {
         setOptionPercentage((prev) => [

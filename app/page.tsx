@@ -12,7 +12,7 @@ const Home = () => {
       <div className='flex-1 items-center justify-center '>
         <Hero />
       </div>
-      <Footer className='fixed bottom-0 w-full' />
+      <Footer />
     </div>
   );
 };
