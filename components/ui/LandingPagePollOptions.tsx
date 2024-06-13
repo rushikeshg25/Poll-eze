@@ -125,7 +125,7 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
         </div>
         <div className='flex-grow'></div>
         <Button
-          className='bg-[#2563EB]'
+          className='bg-[#2563EB] hover:bg-black'
           onClick={voteHandler}
           disabled={selectedValue === undefined}
         >
