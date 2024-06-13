@@ -1,7 +1,6 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import { PollwithOptionT } from "@/types/PollwithOptions";
-import OptionBar from "./OptionBar";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Card } from "./card";
 import DeletePoll from "../PollUtilites/DeletePoll";
@@ -15,23 +14,41 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import PollVoteBar from "../PollUtilites/PollVoteBar";
 
 type PollPropsT = {
   poll: PollwithOptionT;
 };
 
 const Poll = ({ poll }: PollPropsT) => {
-  const [hasVoted, setHasVoted] = useState(true);
   const { isOpen, timeLeftString } = timeUntil(
     new Date(poll.created),
     poll.Duration as number
   );
-  const [resetPoll, setResetPoll] = useState(false);
 
-  const reset = () => {
-    setResetPoll(true);
+  const [optionPercentage, setOptionPercentage] = useState<
+    { optionid: string; percentage: Number }[]
+  >([]);
+  const calculateOptionPercentages = useCallback(() => {
+    const newOptionPercentages = poll.options.map((option) => {
+      return {
+        optionid: option.id,
+        percentage: Math.floor((option.votes / option.totalVotes) * 100),
+      };
+    });
+    setOptionPercentage(newOptionPercentages);
+  }, [poll.options]);
+
+  const resetHandler = () => {
+    setOptionPercentage(
+      poll.options.map((option) => ({ optionid: option.id, percentage: 0 }))
+    );
   };
+  useEffect(() => {
+    calculateOptionPercentages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card key={poll.id}>
@@ -75,10 +92,12 @@ const Poll = ({ poll }: PollPropsT) => {
                     </div>
                   </div>
                   <div className='w-11/12'>
-                    <OptionBar
-                      hasVoted={hasVoted}
-                      option={option}
-                      selected={undefined}
+                    <PollVoteBar
+                      hasVoted={true}
+                      percentage={
+                        optionPercentage.find((i) => i.optionid === option.id)
+                          ?.percentage as number
+                      }
                       classname='dark:bg-white bg-black'
                     />
                   </div>
@@ -140,7 +159,7 @@ const Poll = ({ poll }: PollPropsT) => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div>
-                    <ResetPoll pollId={poll.id} />
+                    <ResetPoll pollId={poll.id} reset={resetHandler} />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>

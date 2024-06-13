@@ -3,7 +3,6 @@ import MainNavbar from "@/components/Navbar/MainNavbar";
 import { redirect } from "next/navigation";
 import Polls from "@/components/Pages/Polls";
 import NoPolls from "@/components/Pages/NoPolls";
-
 import { getPolls } from "@/actions/GetPoll";
 import Pagination from "@/components/PollUtilites/Pagination";
 import Search from "@/components/PollUtilites/Search";

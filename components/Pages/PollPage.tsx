@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { PollwithOptionT } from "@/types/PollwithOptions";
@@ -25,36 +25,39 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
     { optionid: string; percentage: Number }[]
   >([]);
 
-  const calculateOptionPercentages = (optionId: string | undefined) => {
-    if (optionId === undefined) {
-      const newOptionPercentages = poll.options.map((option) => {
-        return {
-          optionid: option.id,
-          percentage: Math.floor((option.votes / option.totalVotes) * 100),
-        };
-      });
-      setOptionPercentage(newOptionPercentages);
-    } else {
-      const newOptionPercentages = poll.options.map((option) => {
-        if (option.id === optionId) {
+  const calculateOptionPercentages = useCallback(
+    (optionId: string | undefined) => {
+      if (optionId === undefined) {
+        const newOptionPercentages = poll.options.map((option) => {
           return {
             optionid: option.id,
-            percentage: Math.floor(
-              ((option.votes + 1) / (option.totalVotes + 1)) * 100
-            ),
+            percentage: Math.floor((option.votes / option.totalVotes) * 100),
           };
-        } else {
-          return {
-            optionid: option.id,
-            percentage: Math.floor(
-              (option.votes / (option.totalVotes + 1)) * 100
-            ),
-          };
-        }
-      });
-      setOptionPercentage(newOptionPercentages);
-    }
-  };
+        });
+        setOptionPercentage(newOptionPercentages);
+      } else {
+        const newOptionPercentages = poll.options.map((option) => {
+          if (option.id === optionId) {
+            return {
+              optionid: option.id,
+              percentage: Math.floor(
+                ((option.votes + 1) / (option.totalVotes + 1)) * 100
+              ),
+            };
+          } else {
+            return {
+              optionid: option.id,
+              percentage: Math.floor(
+                (option.votes / (option.totalVotes + 1)) * 100
+              ),
+            };
+          }
+        });
+        setOptionPercentage(newOptionPercentages);
+      }
+    },
+    [poll.options, optionVoted, voteApiHandler]
+  );
 
   const { toast } = useToast();
   const { isOpen, timeLeftString } = timeUntil(
