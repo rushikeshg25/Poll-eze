@@ -32,8 +32,8 @@ export default function MainNavbar({
 
   return (
     <header className=' inset-x-0  py-4  sticky top-0 z-50 w-full  supports-[backdrop-filter]:bg-background/60" border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"'>
-      <div className='mx-auto w-full px-5 sm:px-10 md:px-12 lg:max-w-7xl lg:px-5'>
-        <nav className='relative flex w-full justify-between gap-6'>
+      <div className='w-full px-5 mx-auto sm:px-10 md:px-12 lg:max-w-7xl lg:px-5'>
+        <nav className='relative flex justify-between w-full gap-6'>
           <div className='relative inline-flex min-w-max'>
             <Link href='/' className='relative flex items-center gap-3'>
               <div>
@@ -54,7 +54,7 @@ export default function MainNavbar({
             data-navbar
             className='invisible absolute top-full flex w-full translate-y-10 flex-col gap-x-4 gap-y-6 overflow-hidden  border-x border-x-gray-100 bg-white opacity-0 duration-300 ease-linear lg:visible lg:relative lg:top-0 lg:-translate-y-0 lg:scale-y-100 lg:flex-row lg:items-center lg:justify-end lg:border-x-0 lg:!bg-transparent lg:opacity-100'
           >
-            <div className='flex w-full justify-items-end gap-2 items-center border-b border-gray-100 px-6 pb-6 sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
+            <div className='flex items-center w-full gap-2 px-6 pb-6 border-b border-gray-100 justify-items-end sm:w-max lg:min-w-max lg:border-0 lg:px-0 lg:pb-0'>
               {isAuthenticated && isAllPollsPage && (
                 <Button onClick={() => router.push("/new-poll")}>
                   New Poll
@@ -93,7 +93,7 @@ export default function MainNavbar({
           <div className='flex lg:hidden'>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant='outline' className=' w-full h-full'>
+                <Button variant='outline' className='w-full h-full '>
                   <Menu />
                 </Button>
               </SheetTrigger>
@@ -102,7 +102,7 @@ export default function MainNavbar({
                   <SheetTitle>Poll-eze</SheetTitle>
                 </SheetHeader>
 
-                <SheetClose asChild className='pt-10 h-full'>
+                <SheetClose asChild className='h-full pt-10'>
                   <div className='flex flex-col items-center justify-center gap-y-2'>
                     {isAuthenticated !== null && (
                       <Button
@@ -115,13 +115,13 @@ export default function MainNavbar({
                     {isAuthenticated !== null && (
                       <Button
                         variant={"ghost"}
-                        onClick={() => router.push("/my-polls")}
+                        onClick={() => router.push("/all-polls")}
                       >
                         My Polls
                       </Button>
                     )}
 
-                    {isAuthenticated === null ? (
+                    {isAuthenticated !== null ? (
                       <Button variant={"ghost"}>
                         <SignOutButton />
                       </Button>
@@ -134,7 +134,7 @@ export default function MainNavbar({
                     <div className='flex items-center gap-2 mb-9'>
                       <Link href={"https://github.com/rushikeshg25/Poll-eze"}>
                         <Button variant='outline'>
-                          <GitHubLogoIcon className='mr-2 w-5 h-5' />
+                          <GitHubLogoIcon className='w-5 h-5 mr-2' />
                           Github
                         </Button>
                       </Link>
