@@ -7,8 +7,8 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import timeUntil from "@/lib/timeuntil";
 import { useToast } from "@/components/ui/use-toast";
 import { Check } from "lucide-react";
-import OptionBar from "../ui/OptionBar";
 import { Button } from "../ui/button";
+import PollVoteBar from "../PollUtilites/PollVoteBar";
 
 type PollT = {
   poll: PollwithOptionT;
@@ -135,10 +135,12 @@ const PollPage = ({ poll, optionVoted, voteApiHandler }: PollT) => {
                     </div>
                   )}
                 </div>
-                <OptionBar
+                <PollVoteBar
                   hasVoted={hasVoted}
-                  option={option}
-                  selected={selectedValue}
+                  percentage={
+                    optionPercentage.find((i) => i.optionid === option.id)
+                      ?.percentage as number
+                  }
                   classname='bg-black dark:bg-white'
                 />
               </div>

@@ -7,8 +7,6 @@ import { PollwithOptionT } from "@/types/PollwithOptions";
 import { Button } from "./button";
 import AvatarStack from "./AvatarStack";
 import OptionBar from "./OptionBar";
-import { useMutation } from "@tanstack/react-query";
-import { votePublicPoll } from "@/actions/vote/Publicvote";
 import { useToast } from "@/components/ui/use-toast";
 import { Check } from "lucide-react";
 
@@ -47,9 +45,6 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
       }
     });
   };
-  const { mutate: server_votePublicPoll } = useMutation({
-    mutationFn: votePublicPoll,
-  });
 
   const voteHandler = async () => {
     calculateOptionPercentages(selectedValue as string);
@@ -75,12 +70,12 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
         onValueChange={setSelectedValue}
         className='pl-4'
       >
-        <div className='flex  flex-col gap-2  min-w-min'>
+        <div className='flex flex-col gap-2 min-w-min'>
           {poll?.options.map((option) => (
             <div key={option.id} className='flex flex-col'>
-              <div className='inline-flex grid-flow-col items-center gap-4'>
+              <div className='inline-flex items-center grid-flow-col gap-4'>
                 {hasVoted ? (
-                  <div className='pt-2 w-10 font-semibold'>
+                  <div className='w-10 pt-2 font-semibold'>
                     {optionPercentage.map(
                       (i) =>
                         i.optionid === option.id && (
@@ -98,12 +93,12 @@ const LandingPagePollOptions = ({ poll }: { poll: PollwithOptionT | null }) => {
                 )}
                 <Label
                   htmlFor={`option-${option.id}`}
-                  className='text-md md:text-lg font-medium text-gray-900 dark:text-gray-300'
+                  className='font-medium text-gray-900 text-md md:text-lg dark:text-gray-300'
                 >
                   {option.title}
                 </Label>
                 {selectedValue === option.id && hasVoted && (
-                  <div className='flex items-center justify-center border border-gray-900 dark:border-gray-300 rounded-full  size-5'>
+                  <div className='flex items-center justify-center border border-gray-900 rounded-full dark:border-gray-300 size-5'>
                     <Check className='' />
                   </div>
                 )}

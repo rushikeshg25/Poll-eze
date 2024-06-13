@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import PollPage from "./PollPage";
 import { PollwithOptionT } from "@/types/PollwithOptions";
 import { useMutation, useQuery } from "@tanstack/react-query";

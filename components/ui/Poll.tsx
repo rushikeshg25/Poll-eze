@@ -27,9 +27,10 @@ const Poll = ({ poll }: PollPropsT) => {
     new Date(poll.created),
     poll.Duration as number
   );
+  const [resetPoll, setResetPoll] = useState(false);
 
   const reset = () => {
-    setHasVoted(false);
+    setResetPoll(true);
   };
 
   return (
