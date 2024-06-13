@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Option } from "@prisma/client";
+import type { Option } from "@prisma/client";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { optionVotes } from "@/actions/OptionVotes";
 
 type OptionBarProps = {
   hasVoted: boolean;
@@ -19,17 +17,6 @@ const OptionBar = ({
   selected,
   classname,
 }: OptionBarProps) => {
-  const { data: Option } = useQuery({
-    queryFn: async () => {
-      const optionData = await optionVotes(option.id);
-      return optionData;
-    },
-    queryKey: [option.id],
-    refetchOnMount: true,
-  });
-  useEffect(() => {
-    console.log(option);
-  }, []);
   const [width, setWidth] = useState<number>(() => {
     if (option.totalVotes === 0) return 0;
     else {
@@ -53,9 +40,6 @@ const OptionBar = ({
       // }
     }
   }, [hasVoted, selected, voted]);
-  useEffect(() => {
-    console.log(width);
-  }, [width]);
 
   if (!Option) return null;
   // console.log(first)

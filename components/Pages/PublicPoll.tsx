@@ -70,13 +70,13 @@ const PublicPoll = ({ poll }: { poll: PollwithOptionT }) => {
       </div>
     );
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <PollPage
         poll={poll}
         optionVoted={optionVoted as string | null}
         voteApiHandler={voteApiHandler}
       />
-    </div>
+    </Suspense>
   );
 };
 
