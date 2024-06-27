@@ -12,7 +12,9 @@ const CopyClipboard = ({ pollId }: { pollId: string }) => {
       onClick={(event) => {
         event?.stopPropagation();
         setCopy(true);
-        navigator.clipboard.writeText(`http://localhost:3000/poll/${pollId}`);
+        navigator.clipboard.writeText(
+          `https://poll-eze.vercel.app/poll/${pollId}`
+        );
         setTimeout(() => {
           setCopy(false);
         }, 4000);
