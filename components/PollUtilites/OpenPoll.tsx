@@ -10,7 +10,7 @@ const OpenPoll = ({ pollId }: { pollId: string }) => {
       variant={"outline"}
       onClick={(event) => {
         event?.stopPropagation();
-        router.push(`http://localhost:3000/poll/${pollId}`);
+        router.push(`https://poll-eze.vercel.app/poll/${pollId}`);
       }}
     >
       <ExternalLink />
